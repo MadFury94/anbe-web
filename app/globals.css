@@ -2,25 +2,43 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #2d2d2d;
+  --primary-blue: #003d7a;
+  --primary-orange: #ff6b35;
+  --secondary-teal: #00a8a8;
+  --dark-navy: #001f3f;
+  --light-grey: #f5f7fa;
+  --accent-gold: #d4af37;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-primary-blue: var(--primary-blue);
+  --color-primary-orange: var(--primary-orange);
+  --color-secondary-teal: var(--secondary-teal);
+  --color-dark-navy: var(--dark-navy);
+  --color-light-grey: var(--light-grey);
+  --color-accent-gold: var(--accent-gold);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-poppins: var(--font-poppins);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-poppins);
+  line-height: 1.65;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+}
+
+h1 {
+  line-height: 1.2;
+  color: var(--primary-orange);
 }
