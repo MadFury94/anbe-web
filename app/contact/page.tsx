@@ -149,8 +149,8 @@ const ContactPage = () => {
                                     </div>
                                 )}
 
-                                <form ref={formRef} onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-6">
-                                    <div className="col-span-1">
+                                <form ref={formRef} onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="md:col-span-1">
                                         <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Full Name</label>
                                         <input
                                             type="text"
@@ -160,7 +160,7 @@ const ContactPage = () => {
                                             className="w-full bg-white border border-gray-100 rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary-orange/20 focus:border-primary-orange transition-all outline-none"
                                         />
                                     </div>
-                                    <div className="col-span-1">
+                                    <div className="md:col-span-1">
                                         <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Email Address</label>
                                         <input
                                             type="email"
@@ -170,7 +170,7 @@ const ContactPage = () => {
                                             className="w-full bg-white border border-gray-100 rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary-orange/20 focus:border-primary-orange transition-all outline-none"
                                         />
                                     </div>
-                                    <div className="col-span-1">
+                                    <div className="md:col-span-1">
                                         <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Phone Number</label>
                                         <input
                                             type="tel"
@@ -179,7 +179,7 @@ const ContactPage = () => {
                                             className="w-full bg-white border border-gray-100 rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary-orange/20 focus:border-primary-orange transition-all outline-none"
                                         />
                                     </div>
-                                    <div className="col-span-1">
+                                    <div className="md:col-span-1">
                                         <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Service Required</label>
                                         <select
                                             name="service"
@@ -193,7 +193,7 @@ const ContactPage = () => {
                                             <option>Other</option>
                                         </select>
                                     </div>
-                                    <div className="col-span-2">
+                                    <div className="col-span-1 md:col-span-2">
                                         <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Project Details</label>
                                         <textarea
                                             rows={5}
@@ -203,7 +203,7 @@ const ContactPage = () => {
                                             className="w-full bg-white border border-gray-100 rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary-orange/20 focus:border-primary-orange transition-all outline-none resize-none"
                                         ></textarea>
                                     </div>
-                                    <div className="col-span-2">
+                                    <div className="col-span-1 md:col-span-2">
                                         <button
                                             type="submit"
                                             disabled={isSubmitting}
