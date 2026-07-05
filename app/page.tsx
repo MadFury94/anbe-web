@@ -97,12 +97,17 @@ const STYLES2 = `
   .on-dark h2,.on-dark h3,.on-dark h4 { color:#fff; }
   .on-dark p { color:rgba(247,245,240,0.68); }
   .container { max-width:1240px;margin:0 auto;padding:0 32px; }
-  .partners-strip { background:#fff;padding:56px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line); }
-  .partners-label { font-family:var(--font-ibm);font-size:11px;color:var(--steel);letter-spacing:0.12em;text-transform:uppercase;text-align:center;margin-bottom:36px; }
-  .partners-logos { display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:16px 48px; }
-  .partners-logos .p-logo-wrap { width:120px;height:56px;display:flex;align-items:center;justify-content:center; }
-  .partners-logos .p-logo-wrap img { width:auto;height:44px;object-fit:contain;display:block;filter:grayscale(1) opacity(0.5);transition:filter .3s ease; }
-  .partners-logos .p-logo-wrap:hover img { filter:grayscale(0) opacity(1); }
+    .partners-strip { background:#fff;padding:48px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden; }
+  .partners-label { font-family:var(--font-ibm);font-size:11px;color:var(--steel);letter-spacing:0.12em;text-transform:uppercase;text-align:center;margin-bottom:32px; }
+  .partners-track-wrap { overflow:hidden;position:relative; }
+  .partners-track-wrap::before,.partners-track-wrap::after { content:"";position:absolute;top:0;bottom:0;width:100px;z-index:2; }
+  .partners-track-wrap::before { left:0;background:linear-gradient(to right,#fff,transparent); }
+  .partners-track-wrap::after { right:0;background:linear-gradient(to left,#fff,transparent); }
+  .partners-track { display:flex;gap:64px;align-items:center;width:max-content;animation:marquee 28s linear infinite; }
+  .partners-track:hover { animation-play-state:paused; }
+  @keyframes marquee { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+  .p-logo-box { width:130px;height:52px;flex-shrink:0;background-size:contain;background-repeat:no-repeat;background-position:center;filter:grayscale(1) opacity(0.45);transition:filter .3s ease; }
+  .p-logo-box:hover { filter:grayscale(0) opacity(1); }
   .about-grid { display:grid;grid-template-columns:0.9fr 1.1fr;gap:70px;align-items:center; }
   .about-visual { aspect-ratio:4/5;background:linear-gradient(155deg,#16283F,#0A1628);position:relative;overflow:hidden;border:1px solid var(--line); }
   .about-visual .grid-overlay { position:absolute;inset:0;background-image:linear-gradient(rgba(232,135,58,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(232,135,58,0.12) 1px,transparent 1px);background-size:40px 40px; }
@@ -364,15 +369,22 @@ const PARTNERS = [
 ];
 
 function PartnersStrip() {
+  const all = [...PARTNERS, ...PARTNERS];
   return (
     <div className="partners-strip">
       <div className="container">
         <p className="partners-label">Trusted by Leading Organizations in the Oil &amp; Gas Industry</p>
-        <div className="partners-logos">
-          {PARTNERS.map((p) => (
-            <div key={p.src} className="p-logo-wrap">
-              <img src={p.src} alt={p.alt} />
-            </div>
+      </div>
+      <div className="partners-track-wrap">
+        <div className="partners-track">
+          {all.map((p, i) => (
+            <div
+              key={`${p.src}-${i}`}
+              className="p-logo-box"
+              style={{ backgroundImage: `url(${p.src})` }}
+              role="img"
+              aria-label={p.alt}
+            />
           ))}
         </div>
       </div>
