@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — ANBE Nigeria Limited</title>
+<meta name="description" content="A record of ANBE Nigeria Limited's pipeline, flare system, and fabrication projects delivered across Nigeria's oil & gas sector.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A1628;
+    --navy-2:#122238;
+    --charcoal:#1B222B;
+    --paper:#F7F5F0;
+    --paper-2:#EEEAE0;
+    --steel:#8B95A1;
+    --steel-dark:#4A5568;
+    --ink:#12181F;
+    --amber:#E8873A;
+    --amber-soft:#F0A669;
+    --ember:#B4502A;
+    --line:rgba(10,22,40,0.12);
+    --line-dark:rgba(247,245,240,0.14);
+    --radius:2px;
+    --disp:'Space Grotesk',sans-serif;
+    --body:'Inter',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  .container{max-width:1240px;margin:0 auto;padding:0 32px;}
+  section{position:relative;}
+  h1,h2,h3,h4{font-family:var(--disp);font-weight:600;letter-spacing:-0.01em;color:var(--navy);}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--amber);}
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){*{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}}
+
+  /* NAV */
+  header.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:14px 0;background:rgba(10,22,40,0.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-dark);}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:var(--disp);font-weight:700;font-size:20px;color:#fff;letter-spacing:0.02em;display:flex;align-items:center;gap:10px;}
+  .logo .mark{width:12px;height:12px;background:var(--amber);clip-path:polygon(50% 0%, 100% 100%, 0% 100%);display:inline-block;}
+  .logo span.sub{font-family:var(--mono);font-size:10px;color:var(--steel);letter-spacing:0.1em;font-weight:400;display:block;}
+  nav.main-links{display:flex;gap:34px;}
+  nav.main-links a{font-size:14px;color:rgba(255,255,255,0.82);font-weight:500;position:relative;padding:4px 0;}
+  nav.main-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--amber);transition:width .3s ease;}
+  nav.main-links a:hover::after,nav.main-links a.active::after{width:100%;}
+  .nav-cta{font-size:13px;font-weight:600;color:var(--navy);background:var(--amber);padding:11px 22px;border-radius:2px;letter-spacing:0.02em;transition:background .25s ease;}
+  .nav-cta:hover{background:var(--amber-soft);}
+  .nav-toggle{display:none;background:none;border:none;color:#fff;font-size:22px;}
+
+  /* PAGE HERO */
+  .page-hero{
+    padding:180px 0 90px;background:
+      linear-gradient(180deg, rgba(10,22,40,0.9) 0%, var(--navy) 100%),
+      linear-gradient(135deg, #0A1628 0%, #10203A 55%, #16283F 100%);
+    position:relative;overflow:hidden;
+  }
+  .page-hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(139,149,161,0.06) 1px, transparent 1px),linear-gradient(90deg, rgba(139,149,161,0.06) 1px, transparent 1px);
+    background-size:64px 64px;mask-image:linear-gradient(180deg, rgba(0,0,0,0.5), transparent 80%);
+  }
+  .page-hero .flare-glow{position:absolute;left:8%;top:10%;width:360px;height:360px;background:radial-gradient(circle, rgba(232,135,58,0.3) 0%, transparent 70%);filter:blur(10px);animation:flarePulse 6s ease-in-out infinite;}
+  @keyframes flarePulse{0%,100%{opacity:0.5;transform:scale(1);}50%{opacity:0.85;transform:scale(1.06);}}
+  .page-hero-inner{position:relative;z-index:2;max-width:760px;}
+  .page-hero h1{font-size:clamp(34px,4.6vw,56px);color:#fff;line-height:1.08;margin-bottom:20px;}
+  .page-hero p{font-size:17px;color:rgba(247,245,240,0.68);max-width:600px;}
+  .breadcrumb{font-family:var(--mono);font-size:12px;color:var(--steel);margin-bottom:22px;letter-spacing:0.04em;}
+  .breadcrumb a{color:var(--amber);}
+
+  /* STATS ROW */
+  .stats-strip{background:var(--charcoal);padding:44px 0;}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .stat{border-left:1px solid var(--line-dark);padding-left:22px;}
+  .stat:first-child{border-left:none;padding-left:0;}
+  .stat .val{font-family:var(--disp);font-size:clamp(24px,2.6vw,34px);color:#fff;font-weight:700;}
+  .stat .lbl{font-family:var(--mono);font-size:11px;color:var(--steel);letter-spacing:0.06em;text-transform:uppercase;margin-top:6px;}
+
+  /* FILTER BAR */
+  .filter-bar{padding:60px 0 0;}
+  .filter-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:44px;}
+  .filter-tabs{display:flex;flex-wrap:wrap;gap:8px;}
+  .filter-tabs button{
+    font-family:var(--mono);font-size:12px;letter-spacing:0.04em;text-transform:uppercase;
+    padding:10px 18px;border:1px solid var(--line);color:var(--steel-dark);transition:all .25s ease;
+  }
+  .filter-tabs button:hover{border-color:var(--navy);color:var(--navy);}
+  .filter-tabs button.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+  .result-count{font-family:var(--mono);font-size:12.5px;color:var(--steel-dark);}
+
+  /* PROJECTS GRID */
+  .projects-section{padding:0 0 110px;}
+  .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .proj-card{border:1px solid var(--line);background:#fff;overflow:hidden;transition:box-shadow .3s ease,transform .3s ease;display:flex;flex-direction:column;}
+  .proj-card:hover{box-shadow:0 24px 48px -20px rgba(10,22,40,0.25);transform:translateY(-4px);}
+  .proj-thumb{aspect-ratio:16/10;background:linear-gradient(155deg,#16283F,#0A1628);position:relative;overflow:hidden;transition:transform .5s ease;}
+  .proj-card:hover .proj-thumb{transform:scale(1.03);}
+  .proj-thumb::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);background-size:30px 30px;}
+  .proj-thumb .zoom-tag{position:absolute;top:16px;left:16px;font-family:var(--mono);font-size:10.5px;color:var(--amber);letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(232,135,58,0.4);padding:4px 10px;z-index:2;}
+  .proj-body{padding:26px 26px 28px;display:flex;flex-direction:column;flex:1;}
+  .proj-body .client{font-family:var(--mono);font-size:11.5px;color:var(--steel);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;}
+  .proj-body h3{font-size:19px;margin-bottom:10px;}
+  .proj-body p{font-size:14px;color:var(--steel-dark);margin-bottom:18px;flex:1;}
+  .proj-body .view{font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:8px;color:var(--navy);align-self:flex-start;}
+  .proj-body .view .arrow{transition:transform .25s ease;}
+  .proj-card:hover .view .arrow{transform:translateX(4px);}
+
+  .load-more-wrap{display:flex;justify-content:center;margin-top:56px;}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;font-size:14px;font-weight:600;letter-spacing:0.02em;border-radius:2px;transition:all .25s ease;}
+  .btn-dark{border:1px solid var(--line);color:var(--navy);}
+  .btn-dark:hover{border-color:var(--navy);background:var(--navy);color:#fff;}
+  .btn-primary{background:var(--amber);color:var(--navy);}
+  .btn-primary:hover{background:var(--amber-soft);}
+
+  /* CTA BAND */
+  .cta-band{background:linear-gradient(120deg,#0A1628,#16283F);padding:80px 0;position:relative;overflow:hidden;}
+  .cta-band::before{content:"";position:absolute;right:-8%;top:-30%;width:340px;height:340px;background:radial-gradient(circle, rgba(232,135,58,0.25), transparent 70%);}
+  .cta-inner{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;}
+  .cta-inner h2{color:#fff;font-size:clamp(24px,3vw,34px);max-width:520px;}
+  .cta-inner p{color:rgba(247,245,240,0.65);margin-top:10px;max-width:480px;}
+
+  /* MODAL */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(10,22,40,0.7);backdrop-filter:blur(4px);z-index:2000;
+    display:none;align-items:center;justify-content:center;padding:24px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-box{
+    background:var(--paper);max-width:720px;width:100%;max-height:86vh;overflow-y:auto;position:relative;
+    border:1px solid var(--line);
+  }
+  .modal-close{position:absolute;top:18px;right:18px;width:36px;height:36px;border:1px solid var(--line);background:#fff;font-size:16px;color:var(--navy);z-index:3;}
+  .modal-hero{aspect-ratio:16/8;background:linear-gradient(155deg,#16283F,#0A1628);position:relative;}
+  .modal-hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);background-size:30px 30px;}
+  .modal-hero .tag{position:absolute;bottom:18px;left:24px;font-family:var(--mono);font-size:11px;color:var(--amber);letter-spacing:0.08em;text-transform:uppercase;z-index:2;}
+  .modal-content{padding:36px;}
+  .modal-content .client{font-family:var(--mono);font-size:12px;color:var(--steel);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;}
+  .modal-content h3{font-size:26px;margin-bottom:16px;}
+  .modal-content p{font-size:15px;color:var(--steel-dark);margin-bottom:22px;}
+  .modal-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;border-top:1px solid var(--line);padding-top:22px;}
+  .modal-meta div .lbl{font-family:var(--mono);font-size:10.5px;color:var(--amber);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;}
+  .modal-meta div .val{font-size:14px;color:var(--navy);font-weight:600;}
+
+  /* FOOTER */
+  footer{background:var(--navy);padding:70px 0 30px;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:40px;padding-bottom:48px;border-bottom:1px solid var(--line-dark);}
+  .footer-brand p{color:var(--steel);font-size:14px;margin:18px 0 22px;max-width:280px;}
+  .footer-col h5{font-family:var(--mono);font-size:11.5px;color:var(--amber);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;}
+  .footer-col a{display:block;color:rgba(247,245,240,0.62);font-size:14px;margin-bottom:12px;transition:color .2s ease;}
+  .footer-col a:hover{color:#fff;}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;flex-wrap:wrap;gap:16px;}
+  .footer-bottom p{font-size:12.5px;color:var(--steel);}
+  .social-row{display:flex;gap:16px;}
+  .social-row a{width:34px;height:34px;border:1px solid var(--line-dark);display:flex;align-items:center;justify-content:center;color:var(--steel);font-size:13px;transition:all .2s ease;}
+  .social-row a:hover{border-color:var(--amber);color:var(--amber);}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  .proj-card{display:flex;}
+  .proj-card > *{width:100%;}
+  .proj-card{flex-direction:column;}
+
+  @media (max-width:1080px){
+    .projects-grid{grid-template-columns:repeat(2,1fr);}
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .stat:nth-child(3){border-left:none;padding-left:0;}
+    .footer-grid{grid-template-columns:repeat(3,1fr);}
+  }
+  @media (max-width:760px){
+    nav.main-links,.nav-cta{display:none;}
+    .nav-toggle{display:block;}
+    .projects-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:repeat(2,1fr);}
+    .page-hero{padding:150px 0 60px;}
+    .container{padding:0 20px;}
+    .modal-meta{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav" id="siteNav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo"><span class="mark"></span>ANBE<span class="sub">NIGERIA LIMITED</span></a>
+    <nav class="main-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#industries">Industries</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="index.html#sustainability">Sustainability</a>
+      <a href="index.html#news">News</a>
+      <a href="index.html#careers">Careers</a>
+    </nav>
+    <a href="index.html#contact" class="nav-cta">Contact Us</a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="flare-glow" aria-hidden="true"></div>
+    <div class="container page-hero-inner">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Projects</div>
+      <h1>A record of pipeline, flare, and fabrication work across the Niger Delta.</h1>
+      <p>Every project below moved through the same three disciplines — engineering, procurement, and construction — delivered by ANBE's own field teams from mobilisation to close-out.</p>
+    </div>
+  </section>
+
+  <div class="stats-strip">
+    <div class="container stats-grid">
+      <div class="stat"><div class="val">140+</div><div class="lbl">Projects Completed</div></div>
+      <div class="stat"><div class="val">36</div><div class="lbl">Years in the Field</div></div>
+      <div class="stat"><div class="val">4</div><div class="lbl">Core Service Lines</div></div>
+      <div class="stat"><div class="val">0</div><div class="lbl">Lost-Time Incidents YTD</div></div>
+    </div>
+  </div>
+
+  <section class="filter-bar">
+    <div class="container">
+      <div class="filter-row">
+        <div class="filter-tabs" id="filterTabs">
+          <button data-filter="all" class="active">All Projects</button>
+          <button data-filter="flare">Flare Systems</button>
+          <button data-filter="pipeline">Pipeline</button>
+          <button data-filter="fabrication">Fabrication</button>
+          <button data-filter="maintenance">Maintenance</button>
+        </div>
+        <div class="result-count"><span id="countLabel">9</span> Projects</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects-section">
+    <div class="container">
+      <div class="projects-grid reveal" id="projectsGrid">
+
+        <div class="proj-card" data-cat="flare">
+          <div class="proj-thumb"><span class="zoom-tag">Flare Systems</span></div>
+          <div class="proj-body">
+            <div class="client">Niger Delta Terminal</div>
+            <h3>Smokeless Flare Stack Retrofit</h3>
+            <p>Design and fabrication of a high turndown flare system to replace an ageing stack at an onshore export terminal.</p>
+            <button class="view" data-project="0">View Project <span class="arrow">→</span></button>
+          </div>
+        </div>
+
+        <div class="proj-card" data-cat="pipeline">
+          <div class="proj-thumb"><span class="zoom-tag">Pipeline</span></div>
+          <div class="proj-body">
+            <div class="client">Delta State Flowline</div>
+            <h3>18km Trunkline Replacement</h3>
+            <p>Full pipeline construction and hydrotesting scope, delivered with zero lost-time incidents across an 11-month programme.</p>
+            <button class="view" data-project="1">View Project <span class="arrow">→</span></button>
+          </div>
+        </div>
+
+        <div class="proj-card" data-cat="fabrication">
+          <div class="proj-thumb"><span class="zoom-tag">Fabrication</span></div>
+          <div class="proj-body">
+            <div class="client">Rivers State Facility</div>
+            <h3>Remote Ignition System Upgrade</h3>
+            <p>Installation of a tropicalised remote ignition system across three flare points to reduce manual intervention.</p>
+            <button class="view" data-project="2">View Project <span class="arrow">→</span></button>
+          </div>
+        </div>
+
+        <div class="proj-card" data-cat="pipeline">
+          <div class="proj-thumb"><span class="zoom-tag">Pipeline</span></div>
+          <div class="proj-body">
+            <div class="client">Bayelsa Flowstation</div>
+            <h3>Tie-In &amp; Right-of-Way Reinstatement</h3>
+            <p>Emergency tie-in works and pipeline right-of-way restoration completed within a compressed shutdown window.</p>
+            <button class="view" data-project="3">View Project <span class="arrow">→</span></button>
+          </div>
+        </div>
+
+        <div class="proj-card" data-cat="flare">
+          <div class="proj-thumb"><span class="zoom-tag">Flare Systems</span></div>
+          <div class="proj-body">
+            <div class="client">Independent E&amp;P Operator</div>
+            <h3>Vertical Smokeless Flare Installation</h3>
+            <p>New-build vertical flare stack designed for a marginal field development, commissioned ahead of first oil.</p>
+            <button class="view" data-project="4">View Project <span class="arrow">→</span></button>
+          </div>
+        </div>
+
+        <div class="proj-card" data-cat="maintenance">
+          <div class="proj-thumb"><span class="zoom-tag">Maintenance</span></div>
+          <div class="proj-body">
+            <div class="client">Onshore Processing Facility</div>
+            <h3>Combustion Equipment Overhaul</h3>
+            <p>Scheduled maintenance of ignition assemblies and generator sets across a producing facility's utility train.</p>
+            <button class="view" data-project="5">View Project <span class="arrow">→</span></button>
+          </div>
+        </div>
+
+        <div class="proj-card" data-cat="fabrication">
+          <div class="proj-thumb"><span class="zoom-tag">Fabrication</span></div>
+          <div class="proj-body">
+            <div class="client">Port Harcourt Workshop Client</div>
+            <h3>Skid-Mounted Separator Package</h3>
+            <p>In-house fabrication and pressure testing of a skid-mounted separator package ahead of site delivery.</p>
+            <button class="view" data-project="6">View Project <span class="arrow">→</span></button>
+          </div>
+        </div>
+
+        <div class="proj-card" data-cat="pipeline">
+          <div class="proj-thumb"><span class="zoom-tag">Pipeline</span></div>
+          <div class="proj-body">
+            <div class="client">Rivers State Trunkline</div>
+            <h3>Pipeline Integrity Repair Programme</h3>
+            <p>Multi-location pipeline repair and recoating programme following a routine integrity assessment.</p>
+            <button class="view" data-project="7">View Project <span class="arrow">→</span></button>
+          </div>
+        </div>
+
+        <div class="proj-card" data-cat="maintenance">
+          <div class="proj-thumb"><span class="zoom-tag">Maintenance</span></div>
+          <div class="proj-body">
+            <div class="client">Regional Field Operator</div>
+            <h3>Earth-Moving Fleet Maintenance Contract</h3>
+            <p>Ongoing maintenance contract covering a fleet of earth-moving equipment supporting field construction works.</p>
+            <button class="view" data-project="8">View Project <span class="arrow">→</span></button>
+          </div>
+        </div>
+
+      </div>
+      <div class="load-more-wrap">
+        <a href="index.html#contact" class="btn btn-dark">Discuss a Project With Us →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <div>
+        <h2>Have a scope that needs an indigenous EPC partner?</h2>
+        <p>Send us the details and a member of our engineering team will respond within one business day.</p>
+      </div>
+      <a href="index.html#contact" class="btn btn-primary">Start a Conversation →</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><span class="mark"></span>ANBE</a>
+        <p>An indigenous engineering company delivering pipeline construction, fabrication, and flare systems to Nigeria's oil &amp; gas sector since 1990.</p>
+      </div>
+      <div class="footer-col"><h5>Company</h5>
+        <a href="index.html#about">About Us</a><a href="index.html#careers">Careers</a><a href="index.html#news">News</a><a href="index.html#contact">Contact</a>
+      </div>
+      <div class="footer-col"><h5>Services</h5>
+        <a href="index.html#services">Pipeline Construction</a><a href="index.html#services">Flare Systems</a><a href="index.html#services">Fabrication</a>
+      </div>
+      <div class="footer-col"><h5>Industries</h5>
+        <a href="index.html#industries">Oil &amp; Gas</a><a href="index.html#industries">Infrastructure</a><a href="index.html#industries">Manufacturing</a>
+      </div>
+      <div class="footer-col"><h5>Resources</h5>
+        <a href="projects.html">Projects</a><a href="index.html#sustainability">Sustainability</a><a href="index.html#news">Insights</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ANBE Nigeria Limited. All rights reserved.</p>
+      <div class="social-row">
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="Twitter / X">x</a>
+        <a href="#" aria-label="Facebook">f</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    <div class="modal-hero"><span class="tag" id="modalTag">Flare Systems</span></div>
+    <div class="modal-content">
+      <div class="client" id="modalClient">Client</div>
+      <h3 id="modalTitle">Project Title</h3>
+      <p id="modalDesc">Description</p>
+      <div class="modal-meta">
+        <div><div class="lbl">Location</div><div class="val" id="modalLocation">—</div></div>
+        <div><div class="lbl">Duration</div><div class="val" id="modalDuration">—</div></div>
+        <div><div class="lbl">Scope</div><div class="val" id="modalScope">—</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => io.observe(el));
+
+  // filters
+  const tabs = document.querySelectorAll('#filterTabs button');
+  const cards = document.querySelectorAll('.proj-card');
+  const countLabel = document.getElementById('countLabel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.dataset.filter;
+      let visible = 0;
+      cards.forEach(card => {
+        const match = filter === 'all' || card.dataset.cat === filter;
+        card.style.display = match ? 'flex' : 'none';
+        if (match) visible++;
+      });
+      countLabel.textContent = visible;
+    });
+  });
+
+  // project detail data
+  const projectData = [
+    { tag:'Flare Systems', client:'Niger Delta Terminal', title:'Smokeless Flare Stack Retrofit', desc:'Design and fabrication of a high turndown flare system to replace an ageing stack at an onshore export terminal, engineered to reduce visible smoke and improve combustion efficiency under variable gas rates.', location:'Rivers State', duration:'7 Months', scope:'Design &amp; Fabrication' },
+    { tag:'Pipeline', client:'Delta State Flowline', title:'18km Trunkline Replacement', desc:'Full pipeline construction and hydrotesting scope covering an 18-kilometre flowline, delivered with zero lost-time incidents across an 11-month construction programme.', location:'Delta State', duration:'11 Months', scope:'Construction' },
+    { tag:'Fabrication', client:'Rivers State Facility', title:'Remote Ignition System Upgrade', desc:'Installation of a tropicalised remote ignition system across three flare points, reducing manual intervention and improving ignition reliability during the wet season.', location:'Rivers State', duration:'4 Months', scope:'Fabrication &amp; Install' },
+    { tag:'Pipeline', client:'Bayelsa Flowstation', title:'Tie-In &amp; Right-of-Way Reinstatement', desc:'Emergency tie-in works and pipeline right-of-way restoration completed within a compressed shutdown window to minimise production downtime.', location:'Bayelsa State', duration:'6 Weeks', scope:'Construction &amp; Repair' },
+    { tag:'Flare Systems', client:'Independent E&amp;P Operator', title:'Vertical Smokeless Flare Installation', desc:'New-build vertical flare stack designed and installed for a marginal field development, commissioned ahead of first oil to meet regulatory gas-flaring standards.', location:'Rivers State', duration:'5 Months', scope:'Design, Procurement &amp; Install' },
+    { tag:'Maintenance', client:'Onshore Processing Facility', title:'Combustion Equipment Overhaul', desc:'Scheduled maintenance of ignition assemblies and generator sets across a producing facility\'s utility train, extending equipment service life.', location:'Rivers State', duration:'Ongoing Contract', scope:'Equipment Maintenance' },
+    { tag:'Fabrication', client:'Port Harcourt Workshop Client', title:'Skid-Mounted Separator Package', desc:'In-house fabrication and pressure testing of a skid-mounted separator package at ANBE\'s Port Harcourt workshop ahead of site delivery.', location:'Port Harcourt', duration:'3 Months', scope:'Fabrication' },
+    { tag:'Pipeline', client:'Rivers State Trunkline', title:'Pipeline Integrity Repair Programme', desc:'Multi-location pipeline repair and recoating programme following a routine integrity assessment across an operator\'s trunkline network.', location:'Rivers State', duration:'8 Months', scope:'Repair &amp; Recoating' },
+    { tag:'Maintenance', client:'Regional Field Operator', title:'Earth-Moving Fleet Maintenance Contract', desc:'Ongoing maintenance contract covering a fleet of earth-moving equipment supporting active field construction works.', location:'Niger Delta', duration:'Ongoing Contract', scope:'Equipment Maintenance' }
+  ];
+
+  const modal = document.getElementById('modalOverlay');
+  document.querySelectorAll('.view').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const data = projectData[parseInt(btn.dataset.project, 10)];
+      document.getElementById('modalTag').textContent = data.tag;
+      document.getElementById('modalClient').textContent = data.client;
+      document.getElementById('modalTitle').textContent = data.title;
+      document.getElementById('modalDesc').innerHTML = data.desc;
+      document.getElementById('modalLocation').textContent = data.location;
+      document.getElementById('modalDuration').textContent = data.duration;
+      document.getElementById('modalScope').innerHTML = data.scope;
+      modal.classList.add('open');
+    });
+  });
+  document.getElementById('modalClose').addEventListener('click', () => modal.classList.remove('open'));
+  modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('open'); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') modal.classList.remove('open'); });
+
+  // mobile nav toggle
+  const toggle = document.querySelector('.nav-toggle');
+  const links = document.querySelector('.main-links');
+  toggle && toggle.addEventListener('click', () => {
+    const open = links.style.display === 'flex';
+    links.style.display = open ? 'none' : 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'fixed';
+    links.style.top = '64px';
+    links.style.left = '0';
+    links.style.right = '0';
+    links.style.background = 'rgba(10,22,40,0.98)';
+    links.style.padding = '24px 32px';
+    links.style.gap = '18px';
+  });
+</script>
+</body>
+</html>

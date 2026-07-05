@@ -1,106 +1,72 @@
-"use client";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { company, contact, footerColumns, socialLinks } from "@/src/data/content";
 
-import React from 'react';
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
-import Link from 'next/link';
+export default function Footer() {
+    const [email, setEmail] = useState("");
 
-const Footer = () => {
     return (
-        <footer className="bg-dark-navy text-white font-poppins">
-            <div className="max-w-[1200px] mx-auto px-6 py-16">
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-                    {/* Company Info */}
+        <footer style={{ background: "var(--navy)", padding: "80px 0 30px" }}>
+            <div style={{ maxWidth: 1240, margin: "0 auto", padding: "0 32px" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1.4fr repeat(3, 1fr) 1fr", gap: 40, paddingBottom: 56, borderBottom: "1px solid rgba(247,245,240,0.14)" }} className="footer-grid">
+                    {/* Brand */}
                     <div>
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="w-12 h-12 bg-primary-orange rounded flex items-center justify-center text-white font-bold text-2xl">
-                                A
-                            </div>
-                            <div className="flex flex-col">
-                                <span className="font-bold text-xl leading-none tracking-tight">ANBE NIGERIA</span>
-                                <span className="text-[10px] text-primary-orange font-bold tracking-[0.2em] uppercase">Limited</span>
-                            </div>
-                        </div>
-                        <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                            Engineering Excellence for the oil and gas sector. Delivering world-class solutions across Nigeria.
-                        </p>
-                        <div className="flex gap-4">
-                            {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => (
-                                <a
-                                    key={i}
-                                    href="#"
-                                    className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:text-primary-orange hover:border-primary-orange transition-all"
-                                >
-                                    <Icon size={18} />
-                                </a>
-                            ))}
+                        <Link to="/" style={{ fontFamily: "var(--font-space, sans-serif)", fontWeight: 700, fontSize: 20, color: "#fff", letterSpacing: "0.02em", display: "flex", alignItems: "center", gap: 10 }}>
+                            <span style={{ width: 12, height: 12, background: "var(--amber)", clipPath: "polygon(50% 0%, 100% 100%, 0% 100%)", display: "inline-block", flexShrink: 0 }} />
+                            {company.shortName}
+                        </Link>
+                        <p style={{ color: "var(--steel)", fontSize: 14, margin: "18px 0 22px", maxWidth: 280, lineHeight: 1.6 }}>{company.description}</p>
+                        <div style={{ display: "flex", border: "1px solid rgba(247,245,240,0.14)", marginTop: 8 }}>
+                            <input type="email" placeholder="Your email address" aria-label="Email for newsletter" value={email} onChange={(e) => setEmail(e.target.value)}
+                                style={{ flex: 1, background: "none", border: "none", padding: "12px 14px", color: "#fff", fontSize: 13, outline: "none", fontFamily: "var(--font-inter, sans-serif)" }} />
+                            <button style={{ padding: "12px 18px", background: "var(--amber)", color: "var(--navy)", fontSize: 13, fontWeight: 600, border: "none", cursor: "pointer" }}>→</button>
                         </div>
                     </div>
 
-                    {/* Quick Links */}
-                    <div>
-                        <h3 className="text-lg font-bold mb-6 uppercase tracking-wider">Quick Links</h3>
-                        <ul className="space-y-3">
-                            {['About Us', 'Services', 'Projects', 'Careers', 'Contact'].map((link) => (
-                                <li key={link}>
-                                    <Link href={`/${link.toLowerCase().replace(' ', '-')}`} className="text-gray-400 hover:text-primary-orange transition-colors text-sm">
-                                        {link}
-                                    </Link>
-                                </li>
+                    {/* Link columns */}
+                    {footerColumns.map((col) => (
+                        <div key={col.title}>
+                            <h5 style={{ fontFamily: "var(--font-ibm, monospace)", fontSize: 11.5, color: "var(--amber)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 20, fontWeight: 400 }}>{col.title}</h5>
+                            {col.links.map((l) => (
+                                <Link key={l.label} to={l.href} style={{ display: "block", color: "rgba(247,245,240,0.62)", fontSize: 14, marginBottom: 12, transition: "color .2s ease" }} className="footer-link">{l.label}</Link>
                             ))}
-                        </ul>
-                    </div>
+                        </div>
+                    ))}
 
-                    {/* Services */}
+                    {/* Contact */}
                     <div>
-                        <h3 className="text-lg font-bold mb-6 uppercase tracking-wider">Our Services</h3>
-                        <ul className="space-y-3">
-                            {['Engineering Design', 'Project Management', 'Technical Consulting', 'Maintenance Services', 'Safety Audits'].map((service) => (
-                                <li key={service}>
-                                    <Link href="/services" className="text-gray-400 hover:text-primary-orange transition-colors text-sm">
-                                        {service}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* Contact Info */}
-                    <div>
-                        <h3 className="text-lg font-bold mb-6 uppercase tracking-wider">Contact Us</h3>
-                        <ul className="space-y-4">
-                            <li className="flex items-start gap-3">
-                                <MapPin size={18} className="text-primary-orange mt-1 shrink-0" />
-                                <span className="text-gray-400 text-sm">Lagos, Nigeria</span>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <Phone size={18} className="text-primary-orange mt-1 shrink-0" />
-                                <span className="text-gray-400 text-sm">+234 XXX XXX XXXX</span>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <Mail size={18} className="text-primary-orange mt-1 shrink-0" />
-                                <span className="text-gray-400 text-sm">info@anbenigeria.com</span>
-                            </li>
-                        </ul>
+                        <h5 style={{ fontFamily: "var(--font-ibm, monospace)", fontSize: 11.5, color: "var(--amber)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 20, fontWeight: 400 }}>Contact</h5>
+                        {[
+                            { label: "Head Office", val: contact.address },
+                            { label: "Phone", val: contact.phones[0] },
+                            { label: "Email", val: contact.email },
+                        ].map((item) => (
+                            <div key={item.label} style={{ marginBottom: 16 }}>
+                                <span style={{ fontFamily: "var(--font-ibm, monospace)", fontSize: 10, color: "var(--steel)", letterSpacing: "0.06em", textTransform: "uppercase", display: "block", marginBottom: 3 }}>{item.label}</span>
+                                <span style={{ color: "rgba(247,245,240,0.62)", fontSize: 14 }}>{item.val}</span>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
-                {/* Bottom Bar */}
-                <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-gray-500 text-sm">
-                        © {new Date().getFullYear()} ANBE Nigeria Limited. All rights reserved.
-                    </p>
-                    <div className="flex gap-6 text-sm">
-                        <Link href="/privacy" className="text-gray-500 hover:text-primary-orange transition-colors">
-                            Privacy Policy
-                        </Link>
-                        <Link href="/terms" className="text-gray-500 hover:text-primary-orange transition-colors">
-                            Terms of Service
-                        </Link>
+                {/* Bottom bar */}
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 26, flexWrap: "wrap", gap: 16 }}>
+                    <p style={{ fontSize: 12.5, color: "var(--steel)" }}>© {new Date().getFullYear()} {company.name}. All rights reserved.</p>
+                    <div style={{ display: "flex", gap: 16 }}>
+                        {socialLinks.map((s) => (
+                            <a key={s.label} href={s.href} style={{ width: 34, height: 34, border: "1px solid rgba(247,245,240,0.14)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--steel)", fontSize: 11, fontFamily: "var(--font-ibm, monospace)", transition: "all .2s ease", textDecoration: "none" }} className="social-icon">
+                                {s.label}
+                            </a>
+                        ))}
                     </div>
                 </div>
             </div>
+            <style>{`
+        .footer-link:hover { color: #fff !important; }
+        .social-icon:hover { border-color: var(--amber) !important; color: var(--amber) !important; }
+        @media (max-width: 1080px) { .footer-grid { grid-template-columns: repeat(3, 1fr) !important; } }
+        @media (max-width: 760px) { .footer-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+      `}</style>
         </footer>
     );
-};
-
-export default Footer;
+}

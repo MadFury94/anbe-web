@@ -1,208 +1,320 @@
 "use client";
+import { useEffect, useState } from "react";
 
-import React from 'react';
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import Image from 'next/image';
-import { Building2, Droplet, Zap, Factory } from 'lucide-react';
-import { motion } from "framer-motion";
+const STYLES = `
+  .site-nav-proj{position:fixed;top:0;left:0;right:0;z-index:1000;padding:14px 0;background:rgba(10,22,40,0.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(247,245,240,0.14);}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:var(--font-space);font-weight:700;font-size:20px;color:#fff;letter-spacing:0.02em;display:flex;align-items:center;gap:10px;}
+  .logo .mark{width:12px;height:12px;background:var(--amber);clip-path:polygon(50% 0%,100% 100%,0% 100%);display:inline-block;}
+  .logo span.sub{font-family:var(--font-ibm);font-size:10px;color:var(--steel);letter-spacing:0.1em;font-weight:400;display:block;}
+  .main-links{display:flex;gap:34px;}
+  .main-links a{font-size:14px;color:rgba(255,255,255,0.82);font-weight:500;position:relative;padding:4px 0;}
+  .main-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--amber);transition:width .3s ease;}
+  .main-links a:hover::after,.main-links a.active::after{width:100%;}
+  .nav-cta{font-size:13px;font-weight:600;color:var(--navy);background:var(--amber);padding:11px 22px;border-radius:2px;letter-spacing:0.02em;transition:background .25s ease;}
+  .nav-cta:hover{background:var(--amber-soft);}
+  .nav-toggle{display:none;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;}
+  .container{max-width:1240px;margin:0 auto;padding:0 32px;}
+  .page-hero{padding:180px 0 90px;background:linear-gradient(180deg,rgba(10,22,40,0.9) 0%,#0A1628 100%),linear-gradient(135deg,#0A1628 0%,#10203A 55%,#16283F 100%);position:relative;overflow:hidden;}
+  .page-hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(139,149,161,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(139,149,161,0.06) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(180deg,rgba(0,0,0,0.5),transparent 80%);}
+  .flare-glow{position:absolute;left:8%;top:10%;width:360px;height:360px;background:radial-gradient(circle,rgba(232,135,58,0.3) 0%,transparent 70%);filter:blur(10px);animation:flarePulse 6s ease-in-out infinite;}
+  @keyframes flarePulse{0%,100%{opacity:0.5;transform:scale(1);}50%{opacity:0.85;transform:scale(1.06);}}
+  .page-hero-inner{position:relative;z-index:2;max-width:760px;}
+  .page-hero h1{font-size:clamp(34px,4.6vw,56px);color:#fff;line-height:1.08;margin-bottom:20px;}
+  .page-hero p{font-size:17px;color:rgba(247,245,240,0.68);max-width:600px;}
+  .breadcrumb{font-family:var(--font-ibm);font-size:12px;color:var(--steel);margin-bottom:22px;letter-spacing:0.04em;}
+  .breadcrumb a{color:var(--amber);}
+  .eyebrow{font-family:var(--font-ibm);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--amber);flex-shrink:0;}
+  .stats-strip{background:#1B222B;padding:44px 0;}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .stat{border-left:1px solid rgba(247,245,240,0.14);padding-left:22px;}
+  .stat:first-child{border-left:none;padding-left:0;}
+  .stat .val{font-family:var(--font-space);font-size:clamp(24px,2.6vw,34px);color:#fff;font-weight:700;}
+  .stat .lbl{font-family:var(--font-ibm);font-size:11px;color:var(--steel);letter-spacing:0.06em;text-transform:uppercase;margin-top:6px;}
+  .filter-bar{padding:60px 0 0;}
+  .filter-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:44px;}
+  .filter-tabs{display:flex;flex-wrap:wrap;gap:8px;}
+  .filter-tabs button{font-family:var(--font-ibm);font-size:12px;letter-spacing:0.04em;text-transform:uppercase;padding:10px 18px;border:1px solid rgba(10,22,40,0.12);color:var(--steel-dark);transition:all .25s ease;background:none;cursor:pointer;}
+  .filter-tabs button:hover{border-color:var(--navy);color:var(--navy);}
+  .filter-tabs button.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+  .result-count{font-family:var(--font-ibm);font-size:12.5px;color:var(--steel-dark);}
+  .projects-section{padding:0 0 110px;}
+  .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .proj-card{border:1px solid rgba(10,22,40,0.12);background:#fff;overflow:hidden;transition:box-shadow .3s ease,transform .3s ease;display:flex;flex-direction:column;}
+  .proj-card:hover{box-shadow:0 24px 48px -20px rgba(10,22,40,0.25);transform:translateY(-4px);}
+  .proj-thumb{aspect-ratio:16/10;background:linear-gradient(155deg,#16283F,#0A1628);position:relative;overflow:hidden;transition:transform .5s ease;}
+  .proj-card:hover .proj-thumb{transform:scale(1.03);}
+  .proj-thumb::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:30px 30px;}
+  .zoom-tag{position:absolute;top:16px;left:16px;font-family:var(--font-ibm);font-size:10.5px;color:var(--amber);letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(232,135,58,0.4);padding:4px 10px;z-index:2;}
+  .proj-body{padding:26px 26px 28px;display:flex;flex-direction:column;flex:1;}
+  .proj-body .client{font-family:var(--font-ibm);font-size:11.5px;color:var(--steel);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;}
+  .proj-body h3{font-size:19px;margin-bottom:10px;color:var(--navy);}
+  .proj-body p{font-size:14px;color:var(--steel-dark);margin-bottom:18px;flex:1;}
+  .proj-body .view-btn{font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:8px;color:var(--navy);background:none;border:none;cursor:pointer;align-self:flex-start;font-family:var(--font-inter);}
+  .proj-body .view-btn .arrow{transition:transform .25s ease;}
+  .proj-card:hover .view-btn .arrow{transform:translateX(4px);}
+  .load-more-wrap{display:flex;justify-content:center;margin-top:56px;}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;font-size:14px;font-weight:600;letter-spacing:0.02em;border-radius:2px;transition:all .25s ease;text-decoration:none;}
+  .btn-dark{border:1px solid rgba(10,22,40,0.12);color:var(--navy);}
+  .btn-dark:hover{border-color:var(--navy);background:var(--navy);color:#fff;}
+  .btn-primary{background:var(--amber);color:var(--navy);}
+  .btn-primary:hover{background:var(--amber-soft);}
+  .cta-band{background:linear-gradient(120deg,#0A1628,#16283F);padding:80px 0;position:relative;overflow:hidden;}
+  .cta-band::before{content:"";position:absolute;right:-8%;top:-30%;width:340px;height:340px;background:radial-gradient(circle,rgba(232,135,58,0.25),transparent 70%);}
+  .cta-inner{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;}
+  .cta-inner h2{color:#fff;font-size:clamp(24px,3vw,34px);max-width:520px;}
+  .cta-inner p{color:rgba(247,245,240,0.65);margin-top:10px;max-width:480px;}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  footer.site-footer{background:var(--navy);padding:70px 0 30px;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(247,245,240,0.14);}
+  .footer-brand p{color:var(--steel);font-size:14px;margin:18px 0 22px;max-width:280px;}
+  .footer-col h5{font-family:var(--font-ibm);font-size:11.5px;color:var(--amber);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;}
+  .footer-col a{display:block;color:rgba(247,245,240,0.62);font-size:14px;margin-bottom:12px;transition:color .2s ease;}
+  .footer-col a:hover{color:#fff;}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;flex-wrap:wrap;gap:16px;}
+  .footer-bottom p{font-size:12.5px;color:var(--steel);}
+  .social-row{display:flex;gap:16px;}
+  .social-row a{width:34px;height:34px;border:1px solid rgba(247,245,240,0.14);display:flex;align-items:center;justify-content:center;color:var(--steel);font-size:13px;transition:all .2s ease;}
+  .social-row a:hover{border-color:var(--amber);color:var(--amber);}
+  .modal-overlay{position:fixed;inset:0;background:rgba(10,22,40,0.7);backdrop-filter:blur(4px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:24px;}
+  .modal-box{background:var(--paper);max-width:720px;width:100%;max-height:86vh;overflow-y:auto;position:relative;border:1px solid rgba(10,22,40,0.12);}
+  .modal-close{position:absolute;top:18px;right:18px;width:36px;height:36px;border:1px solid rgba(10,22,40,0.12);background:#fff;font-size:16px;color:var(--navy);z-index:3;cursor:pointer;}
+  .modal-hero{aspect-ratio:16/8;background:linear-gradient(155deg,#16283F,#0A1628);position:relative;}
+  .modal-hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:30px 30px;}
+  .modal-hero .tag{position:absolute;bottom:18px;left:24px;font-family:var(--font-ibm);font-size:11px;color:var(--amber);letter-spacing:0.08em;text-transform:uppercase;z-index:2;}
+  .modal-content{padding:36px;}
+  .modal-content .client{font-family:var(--font-ibm);font-size:12px;color:var(--steel);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;}
+  .modal-content h3{font-size:26px;margin-bottom:16px;color:var(--navy);}
+  .modal-content p{font-size:15px;color:var(--steel-dark);margin-bottom:22px;}
+  .modal-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;border-top:1px solid rgba(10,22,40,0.12);padding-top:22px;}
+  .modal-meta div .lbl{font-family:var(--font-ibm);font-size:10.5px;color:var(--amber);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;}
+  .modal-meta div .val{font-size:14px;color:var(--navy);font-weight:600;}
+  @media (max-width:1080px){.projects-grid{grid-template-columns:repeat(2,1fr);}.stats-grid{grid-template-columns:repeat(2,1fr);}.stat:nth-child(3){border-left:none;padding-left:0;}.footer-grid{grid-template-columns:repeat(3,1fr);}}
+  @media (max-width:760px){.main-links,.nav-cta{display:none !important;}.nav-toggle{display:block !important;}.projects-grid{grid-template-columns:1fr;}.footer-grid{grid-template-columns:repeat(2,1fr);}.page-hero{padding:150px 0 60px;}.container{padding:0 20px;}.modal-meta{grid-template-columns:1fr;}}
+`;
 
-const ProjectsPage = () => {
-    const projects = [
-        {
-            icon: Droplet,
-            title: "Offshore Platform Installation",
-            category: "Oil & Gas Infrastructure",
-            description: "Complete installation and commissioning of offshore production platform including subsea systems and topside facilities.",
-            year: "2024",
-            status: "Completed"
-        },
-        {
-            icon: Factory,
-            title: "Gas Processing Plant",
-            category: "Process Engineering",
-            description: "Design and construction of natural gas processing facility with capacity of 100 MMSCFD.",
-            year: "2023",
-            status: "Completed"
-        },
-        {
-            icon: Building2,
-            title: "Pipeline Infrastructure",
-            category: "Pipeline Engineering",
-            description: "Engineering and installation of 50km crude oil pipeline with associated pump stations.",
-            year: "2024",
-            status: "Ongoing"
-        },
-        {
-            icon: Zap,
-            title: "Power Generation Facility",
-            category: "Energy Solutions",
-            description: "Installation of gas-fired power generation plant for oil field operations.",
-            year: "2023",
-            status: "Completed"
-        },
-        {
-            icon: Droplet,
-            title: "Water Treatment System",
-            category: "Environmental Engineering",
-            description: "Design and implementation of produced water treatment facility for offshore operations.",
-            year: "2024",
-            status: "Ongoing"
-        },
-        {
-            icon: Factory,
-            title: "Refinery Upgrade",
-            category: "Process Optimization",
-            description: "Modernization and capacity expansion of existing refinery processing units.",
-            year: "2023",
-            status: "Completed"
-        }
-    ];
+const PROJECT_DATA = [
+  { cat: "flare", tag: "Flare Systems", client: "Niger Delta Terminal", title: "Smokeless Flare Stack Retrofit", desc: "Design and fabrication of a high turndown flare system to replace an ageing stack at an onshore export terminal, engineered to reduce visible smoke and improve combustion efficiency under variable gas rates.", location: "Rivers State", duration: "7 Months", scope: "Design & Fabrication" },
+  { cat: "pipeline", tag: "Pipeline", client: "Delta State Flowline", title: "18km Trunkline Replacement", desc: "Full pipeline construction and hydrotesting scope covering an 18-kilometre flowline, delivered with zero lost-time incidents across an 11-month construction programme.", location: "Delta State", duration: "11 Months", scope: "Construction" },
+  { cat: "fabrication", tag: "Fabrication", client: "Rivers State Facility", title: "Remote Ignition System Upgrade", desc: "Installation of a tropicalised remote ignition system across three flare points, reducing manual intervention and improving ignition reliability during the wet season.", location: "Rivers State", duration: "4 Months", scope: "Fabrication & Install" },
+  { cat: "pipeline", tag: "Pipeline", client: "Bayelsa Flowstation", title: "Tie-In & Right-of-Way Reinstatement", desc: "Emergency tie-in works and pipeline right-of-way restoration completed within a compressed shutdown window to minimise production downtime.", location: "Bayelsa State", duration: "6 Weeks", scope: "Construction & Repair" },
+  { cat: "flare", tag: "Flare Systems", client: "Independent E&P Operator", title: "Vertical Smokeless Flare Installation", desc: "New-build vertical flare stack designed and installed for a marginal field development, commissioned ahead of first oil to meet regulatory gas-flaring standards.", location: "Rivers State", duration: "5 Months", scope: "Design, Procurement & Install" },
+  { cat: "maintenance", tag: "Maintenance", client: "Onshore Processing Facility", title: "Combustion Equipment Overhaul", desc: "Scheduled maintenance of ignition assemblies and generator sets across a producing facility's utility train, extending equipment service life.", location: "Rivers State", duration: "Ongoing Contract", scope: "Equipment Maintenance" },
+  { cat: "fabrication", tag: "Fabrication", client: "Port Harcourt Workshop Client", title: "Skid-Mounted Separator Package", desc: "In-house fabrication and pressure testing of a skid-mounted separator package at ANBE's Port Harcourt workshop ahead of site delivery.", location: "Port Harcourt", duration: "3 Months", scope: "Fabrication" },
+  { cat: "pipeline", tag: "Pipeline", client: "Rivers State Trunkline", title: "Pipeline Integrity Repair Programme", desc: "Multi-location pipeline repair and recoating programme following a routine integrity assessment across an operator's trunkline network.", location: "Rivers State", duration: "8 Months", scope: "Repair & Recoating" },
+  { cat: "maintenance", tag: "Maintenance", client: "Regional Field Operator", title: "Earth-Moving Fleet Maintenance Contract", desc: "Ongoing maintenance contract covering a fleet of earth-moving equipment supporting active field construction works.", location: "Niger Delta", duration: "Ongoing Contract", scope: "Equipment Maintenance" },
+];
 
-    return (
-        <main className="min-h-screen font-poppins">
-            <Header />
+type Project = typeof PROJECT_DATA[0];
 
-            {/* Page Header */}
-            <section className="relative py-32 bg-gradient-to-br from-dark-navy via-primary-blue to-dark-navy overflow-hidden">
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute inset-0" style={{
-                        backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px)'
-                    }}></div>
-                </div>
-
-                <div className="max-w-[1200px] mx-auto px-6 relative z-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                    >
-                        <span className="text-primary-orange font-bold tracking-[0.3em] uppercase text-sm mb-4 block">Our Work</span>
-                        <h1 className="text-5xl md:text-6xl font-bold uppercase mb-6 text-white">Featured <span className="text-primary-orange">Projects</span></h1>
-                        <div className="w-24 h-1 bg-primary-orange mb-8"></div>
-                        <p className="max-w-2xl text-gray-200 text-lg">
-                            Delivering excellence across diverse engineering projects in the oil and gas sector.
-                        </p>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* Projects Grid */}
-            <section className="py-24 bg-white">
-                <div className="max-w-[1200px] mx-auto px-6">
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {projects.map((project, index) => (
-                            <motion.div
-                                key={index}
-                                className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-xl transition-all group"
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                            >
-                                <div className="bg-gradient-to-br from-primary-blue to-dark-navy p-8 relative overflow-hidden">
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-primary-orange/20 rounded-full -mr-16 -mt-16"></div>
-                                    <project.icon className="text-white relative z-10" size={48} />
-                                </div>
-                                <div className="p-6">
-                                    <div className="flex items-center justify-between mb-3">
-                                        <span className="text-xs font-bold text-primary-orange uppercase tracking-wider">{project.category}</span>
-                                        <span className={`text-xs font-bold px-3 py-1 rounded-full ${project.status === 'Completed' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
-                                            }`}>
-                                            {project.status}
-                                        </span>
-                                    </div>
-                                    <h3 className="text-xl font-bold mb-3 text-dark-navy">{project.title}</h3>
-                                    <p className="text-gray-600 text-sm leading-relaxed mb-4">{project.description}</p>
-                                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                                        <span className="text-xs text-gray-500 font-semibold">Year: {project.year}</span>
-                                        <button className="text-primary-orange text-xs font-bold uppercase tracking-wider hover:text-dark-navy transition-colors">
-                                            View Details →
-                                        </button>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Stats Section */}
-            <section className="py-24 bg-light-grey">
-                <div className="max-w-[1200px] mx-auto px-6">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                        {[
-                            { number: "50+", label: "Projects Completed" },
-                            { number: "15+", label: "Years Experience" },
-                            { number: "100+", label: "Satisfied Clients" },
-                            { number: "200+", label: "Team Members" }
-                        ].map((stat, index) => (
-                            <motion.div
-                                key={index}
-                                className="text-center"
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                            >
-                                <div className="text-5xl font-bold text-primary-blue mb-2">{stat.number}</div>
-                                <div className="text-sm text-gray-600 uppercase tracking-wider font-semibold">{stat.label}</div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Project Gallery */}
-            <section className="py-24 bg-white">
-                <div className="max-w-[1200px] mx-auto px-6">
-                    <motion.div
-                        className="text-center mb-16"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <h2 className="text-4xl font-bold text-dark-navy uppercase mb-4">Project Gallery</h2>
-                        <p className="text-gray-600 text-lg">Visual showcase of our engineering excellence</p>
-                    </motion.div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                        {[
-                            "/industrial-1.jpg",
-                            "/industrial-2.jpg",
-                            "/industrial-3.jpg",
-                            "/industrial-4.jpg",
-                            "/industrial-5.jpg",
-                            "/industrial-6.jpg",
-                            "/industrial-7.jpg",
-                            "/industrial-8.jpg",
-                            "/industrial-9.jpg",
-                        ].map((img, i) => (
-                            <motion.div
-                                key={i}
-                                className="relative aspect-[4/3] rounded-xl overflow-hidden group cursor-pointer"
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: i * 0.05 }}
-                            >
-                                <Image
-                                    src={img}
-                                    alt={`Project ${i + 1}`}
-                                    fill
-                                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-dark-navy/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            <Footer />
-        </main>
+function useReveal() {
+  useEffect(() => {
+    const els = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }),
+      { threshold: 0.1 }
     );
-};
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+}
 
-export default ProjectsPage;
+function SiteNav() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  return (
+    <header className="site-nav-proj">
+      <div className="container nav-inner">
+        <a href="/" className="logo"><img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" style={{ height: 50, width: "auto", display: "block" }} /></a>
+        <nav className="main-links">
+          <a href="/#about">About</a>
+          <a href="/#services">Services</a>
+          <a href="/#industries">Industries</a>
+          <a href="/projects" className="active">Projects</a>
+          <a href="/#sustainability">Sustainability</a>
+          <a href="/#news">News</a>
+          <a href="/#careers">Careers</a>
+        </nav>
+        <a href="/#contact" className="nav-cta">Contact Us</a>
+        <button className="nav-toggle" aria-label="Toggle menu" onClick={() => setMobileOpen(!mobileOpen)}>☰</button>
+      </div>
+      {mobileOpen && (
+        <div style={{ position: "fixed", top: 64, left: 0, right: 0, background: "rgba(10,22,40,0.98)", padding: "24px 32px", display: "flex", flexDirection: "column", gap: 18, zIndex: 999 }}>
+          {[["/#about", "About"], ["/#services", "Services"], ["/#industries", "Industries"], ["/projects", "Projects"], ["/#sustainability", "Sustainability"], ["/#news", "News"], ["/#careers", "Careers"], ["/#contact", "Contact Us"]].map(([href, label]) => (
+            <a key={href} href={href} onClick={() => setMobileOpen(false)} style={{ color: "rgba(255,255,255,0.9)", fontSize: 16, fontWeight: 500 }}>{label}</a>
+          ))}
+        </div>
+      )}
+    </header>
+  );
+}
+
+function PageHero() {
+  return (
+    <section className="page-hero">
+      <div className="flare-glow" aria-hidden="true" />
+      <div className="container page-hero-inner">
+        <div className="breadcrumb"><a href="/">Home</a> / Projects</div>
+        <h1>A record of pipeline, flare, and fabrication work across the Niger Delta.</h1>
+        <p>Every project below moved through the same three disciplines — engineering, procurement, and construction — delivered by ANBE's own field teams from mobilisation to close-out.</p>
+      </div>
+    </section>
+  );
+}
+
+function StatsStrip() {
+  return (
+    <div className="stats-strip">
+      <div className="container stats-grid">
+        <div className="stat"><div className="val">140+</div><div className="lbl">Projects Completed</div></div>
+        <div className="stat"><div className="val">36</div><div className="lbl">Years in the Field</div></div>
+        <div className="stat"><div className="val">4</div><div className="lbl">Core Service Lines</div></div>
+        <div className="stat"><div className="val">0</div><div className="lbl">Lost-Time Incidents YTD</div></div>
+      </div>
+    </div>
+  );
+}
+
+function ProjectsSection({ onOpen }: { onOpen: (p: Project) => void }) {
+  const [filter, setFilter] = useState("all");
+  const TABS = [
+    { key: "all", label: "All Projects" },
+    { key: "flare", label: "Flare Systems" },
+    { key: "pipeline", label: "Pipeline" },
+    { key: "fabrication", label: "Fabrication" },
+    { key: "maintenance", label: "Maintenance" },
+  ];
+  const visible = PROJECT_DATA.filter((p) => filter === "all" || p.cat === filter);
+  return (
+    <>
+      <section className="filter-bar">
+        <div className="container">
+          <div className="filter-row">
+            <div className="filter-tabs">
+              {TABS.map((t) => (
+                <button key={t.key} className={filter === t.key ? "active" : ""} onClick={() => setFilter(t.key)}>{t.label}</button>
+              ))}
+            </div>
+            <div className="result-count"><span>{visible.length}</span> Projects</div>
+          </div>
+        </div>
+      </section>
+      <section className="projects-section">
+        <div className="container">
+          <div className="projects-grid reveal">
+            {visible.map((p, i) => (
+              <div key={i} className="proj-card">
+                <div className="proj-thumb"><span className="zoom-tag">{p.tag}</span></div>
+                <div className="proj-body">
+                  <div className="client">{p.client}</div>
+                  <h3>{p.title}</h3>
+                  <p>{p.desc.split(",")[0] + "…"}</p>
+                  <button className="view-btn" onClick={() => onOpen(p)}>View Project <span className="arrow">→</span></button>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="load-more-wrap">
+            <a href="/#contact" className="btn btn-dark">Discuss a Project With Us →</a>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function Modal({ project, onClose }: { project: Project | null; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+  if (!project) return null;
+  return (
+    <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="modal-box">
+        <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
+        <div className="modal-hero"><span className="tag">{project.tag}</span></div>
+        <div className="modal-content">
+          <div className="client">{project.client}</div>
+          <h3>{project.title}</h3>
+          <p>{project.desc}</p>
+          <div className="modal-meta">
+            <div><div className="lbl">Location</div><div className="val">{project.location}</div></div>
+            <div><div className="lbl">Duration</div><div className="val">{project.duration}</div></div>
+            <div><div className="lbl">Scope</div><div className="val">{project.scope}</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CtaBand() {
+  return (
+    <section className="cta-band">
+      <div className="container cta-inner">
+        <div>
+          <h2>Have a scope that needs an indigenous EPC partner?</h2>
+          <p>Send us the details and a member of our engineering team will respond within one business day.</p>
+        </div>
+        <a href="/#contact" className="btn btn-primary">Start a Conversation →</a>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="site-footer">
+      <div className="container">
+        <div className="footer-grid">
+          <div className="footer-brand">
+            <a href="/" className="logo"><img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" style={{ height: 45, width: "auto", display: "block" }} /></a>
+            <p>An indigenous engineering company delivering pipeline construction, fabrication, and flare systems to Nigeria's oil &amp; gas sector since 1990.</p>
+          </div>
+          <div className="footer-col"><h5>Company</h5>
+            <a href="/#about">About Us</a><a href="/#careers">Careers</a><a href="/#news">News</a><a href="/#contact">Contact</a>
+          </div>
+          <div className="footer-col"><h5>Services</h5>
+            <a href="/#services">Pipeline Construction</a><a href="/#services">Flare Systems</a><a href="/#services">Fabrication</a>
+          </div>
+          <div className="footer-col"><h5>Industries</h5>
+            <a href="/#industries">Oil &amp; Gas</a><a href="/#industries">Infrastructure</a><a href="/#industries">Manufacturing</a>
+          </div>
+          <div className="footer-col"><h5>Resources</h5>
+            <a href="/projects">Projects</a><a href="/#sustainability">Sustainability</a><a href="/#news">Insights</a>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>© 2026 ANBE Nigeria Limited. All rights reserved.</p>
+          <div className="social-row">
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="Twitter / X">x</a>
+            <a href="#" aria-label="Facebook">f</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default function ProjectsPage() {
+  useReveal();
+  const [modal, setModal] = useState<Project | null>(null);
+  return (
+    <>
+      <style>{STYLES}</style>
+      <SiteNav />
+      <main>
+        <PageHero />
+        <StatsStrip />
+        <ProjectsSection onOpen={setModal} />
+        <CtaBand />
+      </main>
+      <Footer />
+      {modal && <Modal project={modal} onClose={() => setModal(null)} />}
+    </>
+  );
+}

@@ -1,44 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #2d2d2d;
+  --navy: #0A1628;
+  --navy-2: #122238;
+  --charcoal: #1B222B;
+  --paper: #F7F5F0;
+  --paper-2: #EEEAE0;
+  --steel: #8B95A1;
+  --steel-dark: #4A5568;
+  --ink: #12181F;
+  --amber: #E8873A;
+  --amber-soft: #F0A669;
+  --ember: #B4502A;
+  --line: rgba(10, 22, 40, 0.12);
+  --line-dark: rgba(247, 245, 240, 0.14);
+  /* font variables — resolved at runtime, no next/font */
+  --font-space: 'Space Grotesk', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-ibm: 'IBM Plex Mono', monospace;
+  /* legacy compat aliases */
+  --background: var(--paper);
+  --foreground: var(--ink);
   --primary-blue: #003d7a;
-  --primary-orange: #ff6b35;
-  --secondary-teal: #00a8a8;
-  --dark-navy: #001f3f;
-  --light-grey: #f5f7fa;
-  --accent-gold: #d4af37;
+  --primary-orange: var(--amber);
+  --dark-navy: var(--navy);
+  --light-grey: var(--paper);
+  --accent-gold: var(--amber-soft);
 }
 
 @theme inline {
+  --color-navy: var(--navy);
+  --color-navy-2: var(--navy-2);
+  --color-charcoal: var(--charcoal);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-steel: var(--steel);
+  --color-steel-dark: var(--steel-dark);
+  --color-ink: var(--ink);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-ember: var(--ember);
   --color-primary-blue: var(--primary-blue);
   --color-primary-orange: var(--primary-orange);
-  --color-secondary-teal: var(--secondary-teal);
   --color-dark-navy: var(--dark-navy);
   --color-light-grey: var(--light-grey);
   --color-accent-gold: var(--accent-gold);
+}
 
-  --font-poppins: var(--font-poppins);
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-poppins);
-  line-height: 1.65;
+  font-family: var(--font-inter);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,
 h2,
 h3,
-h4,
-h5,
-h6 {
-  font-weight: 700;
+h4 {
+  font-family: var(--font-space);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+  line-height: 1.1;
 }
 
-h1 {
-  line-height: 1.2;
-  color: var(--primary-orange);
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Eyebrow label */
+.eyebrow {
+  font-family: var(--font-ibm);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--amber);
+  flex-shrink: 0;
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

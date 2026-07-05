@@ -1,162 +1,68 @@
-"use client";
+import { Link } from "react-router-dom";
+import { hero } from "@/src/data/content";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Shield, Award, Users } from 'lucide-react';
-import Link from 'next/link';
-import Image from 'next/image';
-
-const Hero = () => {
+export default function Hero() {
     return (
-        <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-            {/* Background Image */}
-            <div className="absolute inset-0">
-                <Image
-                    src="/hero-1.jpg"
-                    alt="ANBE Nigeria Engineering"
-                    fill
-                    className="object-cover"
-                    priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-dark-navy/95 via-primary-blue/90 to-dark-navy/95"></div>
-            </div>
+        <section style={{ minHeight: "100vh", display: "flex", alignItems: "center", background: "linear-gradient(180deg, rgba(10,22,40,0.82) 0%, rgba(10,22,40,0.94) 60%, #0A1628 100%)", position: "relative", overflow: "hidden", paddingTop: 120, paddingBottom: 80 }}>
+            <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(139,149,161,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(139,149,161,0.06) 1px, transparent 1px)", backgroundSize: "64px 64px", maskImage: "linear-gradient(180deg, rgba(0,0,0,0.6), transparent 75%)", WebkitMaskImage: "linear-gradient(180deg, rgba(0,0,0,0.6), transparent 75%)" }} />
+            <div aria-hidden="true" style={{ position: "absolute", right: "6%", top: "18%", width: 420, height: 420, background: "radial-gradient(circle, rgba(232,135,58,0.35) 0%, rgba(180,80,42,0.12) 45%, transparent 70%)", filter: "blur(10px)", animation: "flarePulse 6s ease-in-out infinite" }} />
 
-            <div className="max-w-[1200px] mx-auto px-6 py-20 relative z-10">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
-                    {/* Left Content */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <motion.span
-                            className="text-primary-orange font-bold tracking-[0.3em] uppercase text-sm mb-4 block"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.2 }}
-                        >
-                            Engineering Excellence
-                        </motion.span>
+            <div style={{ maxWidth: 1240, margin: "0 auto", padding: "0 32px", position: "relative", zIndex: 2, display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: 60, alignItems: "center", width: "100%" }} className="hero-grid">
+                <div>
+                    <div className="eyebrow" style={{ color: "var(--amber)" }}>{hero.eyebrow}</div>
+                    <h1 style={{ fontSize: "clamp(38px, 5.2vw, 68px)", color: "#fff", lineHeight: 1.05, letterSpacing: "-0.02em", marginBottom: 24, fontFamily: "var(--font-space, sans-serif)", fontWeight: 600 }}>
+                        {hero.headline}{" "}
+                        <em style={{ fontStyle: "normal", color: "var(--amber)" }}>{hero.headlineEm}</em>
+                    </h1>
+                    <p style={{ fontSize: 18, color: "rgba(255,255,255,0.72)", maxWidth: 520, marginBottom: 36, fontWeight: 400 }}>
+                        {hero.body}
+                    </p>
 
-                        <motion.h1
-                            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white leading-tight"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                        >
-                            POWERING THE
-                            <span className="text-primary-orange block mt-2">OIL & GAS</span>
-                            SECTOR
-                        </motion.h1>
+                    <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 56 }}>
+                        <Link to={hero.ctaPrimary.href} style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "15px 28px", fontSize: 14, fontWeight: 600, letterSpacing: "0.02em", borderRadius: 2, background: "var(--amber)", color: "var(--navy)", transition: "all .25s ease" }}>
+                            {hero.ctaPrimary.label}
+                        </Link>
+                        <Link to={hero.ctaSecondary.href} style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "15px 28px", fontSize: 14, fontWeight: 600, letterSpacing: "0.02em", borderRadius: 2, border: "1px solid rgba(255,255,255,0.3)", color: "#fff", transition: "all .25s ease" }}>
+                            {hero.ctaSecondary.label}
+                        </Link>
+                    </div>
 
-                        <motion.p
-                            className="text-xl text-gray-300 mb-8 leading-relaxed max-w-xl"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.5 }}
-                        >
-                            Delivering world-class engineering solutions and technical expertise to Nigeria's energy industry.
-                        </motion.p>
-
-                        <motion.div
-                            className="flex flex-wrap gap-4"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.6 }}
-                        >
-                            <Link href="/services">
-                                <button className="bg-primary-orange text-white px-8 py-4 rounded-full font-bold uppercase text-sm hover:bg-accent-gold transition-all shadow-lg flex items-center gap-2 group">
-                                    Our Services
-                                    <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                                </button>
-                            </Link>
-                            <Link href="/contact">
-                                <button className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold uppercase text-sm hover:bg-white hover:text-dark-navy transition-all">
-                                    Contact Us
-                                </button>
-                            </Link>
-                        </motion.div>
-
-                        {/* Stats */}
-                        <motion.div
-                            className="grid grid-cols-3 gap-6 mt-12 pt-12 border-t border-white/20"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.8 }}
-                        >
-                            <div>
-                                <div className="text-3xl font-bold text-primary-orange mb-1">15+</div>
-                                <div className="text-xs text-gray-400 uppercase tracking-wider">Years Experience</div>
+                    <div style={{ display: "flex", gap: 44, borderTop: "1px solid rgba(247,245,240,0.14)", paddingTop: 26 }}>
+                        {hero.stats.map((m) => (
+                            <div key={m.lbl} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                                <span style={{ fontFamily: "var(--font-space, sans-serif)", fontSize: 26, color: "#fff", fontWeight: 600 }}>{m.num}</span>
+                                <span style={{ fontFamily: "var(--font-ibm, monospace)", fontSize: 11, color: "var(--steel)", letterSpacing: "0.06em", textTransform: "uppercase" }}>{m.lbl}</span>
                             </div>
-                            <div>
-                                <div className="text-3xl font-bold text-primary-orange mb-1">200+</div>
-                                <div className="text-xs text-gray-400 uppercase tracking-wider">Projects Completed</div>
-                            </div>
-                            <div>
-                                <div className="text-3xl font-bold text-primary-orange mb-1">98%</div>
-                                <div className="text-xs text-gray-400 uppercase tracking-wider">Client Satisfaction</div>
-                            </div>
-                        </motion.div>
-                    </motion.div>
+                        ))}
+                    </div>
+                </div>
 
-                    {/* Right Content - Feature Cards */}
-                    <motion.div
-                        className="hidden lg:grid grid-cols-2 gap-6"
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                    >
-                        <motion.div
-                            className="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 hover:bg-white/20 transition-all"
-                            whileHover={{ y: -5 }}
-                        >
-                            <Shield className="text-primary-orange mb-4" size={40} />
-                            <h3 className="text-xl font-bold text-white mb-2">Safety First</h3>
-                            <p className="text-gray-300 text-sm">Uncompromising commitment to safety standards and protocols.</p>
-                        </motion.div>
-
-                        <motion.div
-                            className="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 hover:bg-white/20 transition-all mt-12"
-                            whileHover={{ y: -5 }}
-                        >
-                            <Award className="text-primary-orange mb-4" size={40} />
-                            <h3 className="text-xl font-bold text-white mb-2">Certified Excellence</h3>
-                            <p className="text-gray-300 text-sm">ISO certified and industry-recognized quality standards.</p>
-                        </motion.div>
-
-                        <motion.div
-                            className="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 hover:bg-white/20 transition-all -mt-6"
-                            whileHover={{ y: -5 }}
-                        >
-                            <Users className="text-primary-orange mb-4" size={40} />
-                            <h3 className="text-xl font-bold text-white mb-2">Expert Team</h3>
-                            <p className="text-gray-300 text-sm">Highly skilled engineers and technical professionals.</p>
-                        </motion.div>
-
-                        <motion.div
-                            className="bg-gradient-to-br from-primary-orange to-accent-gold p-8 rounded-2xl shadow-xl"
-                            whileHover={{ y: -5 }}
-                        >
-                            <div className="text-4xl font-bold text-white mb-2">24/7</div>
-                            <h3 className="text-lg font-bold text-white mb-2">Support</h3>
-                            <p className="text-white/90 text-sm">Round-the-clock technical support and emergency response.</p>
-                        </motion.div>
-                    </motion.div>
+                <div className="hero-schematic" style={{ position: "relative", aspectRatio: "1 / 1.05", border: "1px solid rgba(247,245,240,0.14)", background: "linear-gradient(160deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))" }}>
+                    <span aria-hidden="true" style={{ position: "absolute", top: -1, left: -1, width: 18, height: 18, borderTop: "2px solid var(--amber)", borderLeft: "2px solid var(--amber)" }} />
+                    <span aria-hidden="true" style={{ position: "absolute", bottom: -1, right: -1, width: 18, height: 18, borderBottom: "2px solid var(--amber)", borderRight: "2px solid var(--amber)" }} />
+                    <svg viewBox="0 0 400 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ width: "100%", height: "100%" }}>
+                        <line x1="40" y1="360" x2="360" y2="360" stroke="#4A5568" strokeWidth="1" />
+                        <path d="M40 360 L40 220 L140 220 L140 120" stroke="#8B95A1" strokeWidth="1.5" />
+                        <path d="M140 120 L140 60" stroke="#E8873A" strokeWidth="2" />
+                        <circle cx="140" cy="60" r="6" fill="#E8873A" />
+                        <path d="M140 60 C 150 40, 130 30, 140 10" stroke="#F0A669" strokeWidth="2" fill="none" />
+                        <circle cx="140" cy="220" r="4" fill="#8B95A1" />
+                        <line x1="180" y1="220" x2="320" y2="220" stroke="#8B95A1" strokeWidth="1.5" />
+                        <circle cx="320" cy="220" r="18" stroke="#4A5568" strokeWidth="1.5" fill="none" />
+                        <circle cx="320" cy="220" r="4" fill="#E8873A" />
+                        <line x1="60" y1="300" x2="60" y2="360" stroke="#4A5568" strokeWidth="1" />
+                        <text x="60" y="295" fill="#8B95A1" fontFamily="IBM Plex Mono" fontSize="9">PSV-01</text>
+                        <text x="150" y="80" fill="#E8873A" fontFamily="IBM Plex Mono" fontSize="9">FLARE STACK</text>
+                        <text x="290" y="255" fill="#8B95A1" fontFamily="IBM Plex Mono" fontSize="9">SEP-02</text>
+                        <rect x="40" y="360" width="320" height="1" fill="#4A5568" />
+                    </svg>
                 </div>
             </div>
 
-            {/* Scroll Indicator */}
-            <motion.div
-                className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-                animate={{ y: [0, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
-            >
-                <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2">
-                    <div className="w-1 h-3 bg-white/50 rounded-full"></div>
-                </div>
-            </motion.div>
+            <style>{`
+        @keyframes flarePulse { 0%,100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.08); } }
+        @media (max-width: 1080px) { .hero-grid { grid-template-columns: 1fr !important; } .hero-schematic { display: none !important; } }
+      `}</style>
         </section>
     );
-};
-
-export default Hero;
+}

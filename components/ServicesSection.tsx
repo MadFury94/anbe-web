@@ -1,125 +1,44 @@
-"use client";
+import { Link } from "react-router-dom";
+import { services, servicesPage } from "@/src/data/content";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Wrench, ClipboardCheck, HardHat, Settings, Shield, Zap } from 'lucide-react';
-import Link from 'next/link';
+const icons = [
+    <svg key="1" viewBox="0 0 44 44" fill="none" width={44} height={44}><rect x="6" y="6" width="32" height="32" rx="1" stroke="#E8873A" strokeWidth="1.5" /><path d="M14 30 L20 18 L26 24 L32 12" stroke="#0A1628" strokeWidth="1.5" /></svg>,
+    <svg key="2" viewBox="0 0 44 44" fill="none" width={44} height={44}><path d="M8 34 L8 20 L22 20 L22 8 L36 8 L36 34" stroke="#E8873A" strokeWidth="1.5" fill="none" /><circle cx="22" cy="34" r="2" fill="#0A1628" /></svg>,
+    <svg key="3" viewBox="0 0 44 44" fill="none" width={44} height={44}><rect x="8" y="12" width="28" height="20" rx="1" stroke="#E8873A" strokeWidth="1.5" /><path d="M8 18 H36" stroke="#0A1628" strokeWidth="1.5" /></svg>,
+    <svg key="4" viewBox="0 0 44 44" fill="none" width={44} height={44}><path d="M10 34 L34 34 M14 34 L14 20 L30 20 L30 34" stroke="#E8873A" strokeWidth="1.5" fill="none" /><circle cx="22" cy="14" r="4" stroke="#0A1628" strokeWidth="1.5" /></svg>,
+    <svg key="5" viewBox="0 0 44 44" fill="none" width={44} height={44}><circle cx="22" cy="22" r="14" stroke="#E8873A" strokeWidth="1.5" /><path d="M22 14 V22 L28 26" stroke="#0A1628" strokeWidth="1.5" /></svg>,
+    <svg key="6" viewBox="0 0 44 44" fill="none" width={44} height={44}><path d="M22 8 C 30 8 36 14 36 22 C 36 30 30 36 22 36 C 14 36 8 30 8 22" stroke="#E8873A" strokeWidth="1.5" fill="none" /><path d="M8 22 L14 22 L11 28 Z" fill="#0A1628" /></svg>,
+];
 
-const ServicesSection = () => {
-    const services = [
-        {
-            icon: Wrench,
-            title: "Engineering Design",
-            description: "Comprehensive engineering design services for oil & gas facilities, pipelines, and infrastructure.",
-            color: "primary-blue"
-        },
-        {
-            icon: ClipboardCheck,
-            title: "Project Management",
-            description: "End-to-end project management ensuring timely delivery and quality control.",
-            color: "primary-orange"
-        },
-        {
-            icon: HardHat,
-            title: "Construction Support",
-            description: "On-site construction supervision and technical support for complex projects.",
-            color: "secondary-teal"
-        },
-        {
-            icon: Settings,
-            title: "Maintenance Services",
-            description: "Preventive and corrective maintenance for optimal equipment performance.",
-            color: "accent-gold"
-        },
-        {
-            icon: Shield,
-            title: "Safety & Compliance",
-            description: "HSE audits, risk assessments, and regulatory compliance services.",
-            color: "primary-blue"
-        },
-        {
-            icon: Zap,
-            title: "Technical Consulting",
-            description: "Expert technical consulting and feasibility studies for energy projects.",
-            color: "primary-orange"
-        }
-    ];
-
+export default function ServicesSection() {
     return (
-        <section className="py-24 bg-light-grey">
-            <div className="max-w-[1200px] mx-auto px-6">
-                <div className="text-center mb-16">
-                    <motion.span
-                        className="text-primary-orange font-bold tracking-[0.3em] uppercase text-sm mb-4 block"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                    >
-                        What We Do
-                    </motion.span>
-                    <motion.h2
-                        className="text-4xl md:text-5xl font-bold text-dark-navy mb-6"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        OUR <span className="text-primary-orange">SERVICES</span>
-                    </motion.h2>
-                    <motion.p
-                        className="text-gray-600 max-w-2xl mx-auto"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                    >
-                        Comprehensive engineering solutions tailored to meet the unique challenges of the oil and gas industry.
-                    </motion.p>
+        <section style={{ padding: "110px 0", background: "var(--paper)" }} id="services">
+            <div style={{ maxWidth: 1240, margin: "0 auto", padding: "0 32px" }}>
+                <div style={{ maxWidth: 640, marginBottom: 56 }}>
+                    <div className="eyebrow">EPC Capability</div>
+                    <h2 style={{ fontSize: "clamp(28px,3.4vw,42px)", lineHeight: 1.1 }}>{servicesPage.sectionHeading}</h2>
+                    <p style={{ color: "var(--steel-dark)", fontSize: 16, marginTop: 16, maxWidth: 560 }}>{servicesPage.sectionBody}</p>
                 </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {services.map((service, index) => (
-                        <motion.div
-                            key={index}
-                            className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all group cursor-pointer border-b-4 border-transparent hover:border-primary-orange"
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            whileHover={{ y: -5 }}
-                        >
-                            <div className={`w-16 h-16 bg-${service.color}/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                                <service.icon className={`text-${service.color}`} size={32} />
-                            </div>
-                            <h3 className="text-xl font-bold text-dark-navy mb-3 group-hover:text-primary-orange transition-colors">
-                                {service.title}
-                            </h3>
-                            <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                                {service.description}
-                            </p>
-                            <Link href="/services" className="text-primary-orange font-semibold text-sm flex items-center gap-2 group-hover:gap-3 transition-all">
-                                Learn More →
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "rgba(10,22,40,0.12)", border: "1px solid rgba(10,22,40,0.12)" }} className="services-grid">
+                    {services.map((s, i) => (
+                        <div key={s.idx} style={{ background: "var(--paper)", padding: "40px 34px", position: "relative", transition: "background .3s ease" }} className="service-card">
+                            <div style={{ fontFamily: "var(--font-ibm, monospace)", fontSize: 12, color: "var(--amber)", letterSpacing: "0.08em" }}>{s.idx}</div>
+                            <div style={{ margin: "20px 0 22px" }}>{icons[i]}</div>
+                            <h3 style={{ fontSize: 19, marginBottom: 12, fontFamily: "var(--font-space, sans-serif)" }}>{s.title}</h3>
+                            <p style={{ fontSize: 14.5, color: "var(--steel-dark)", marginBottom: 22 }}>{s.desc}</p>
+                            <Link to="/services" style={{ fontSize: 13, fontWeight: 600, color: "var(--navy)", display: "inline-flex", alignItems: "center", gap: 8 }}>
+                                Discuss a Scope <span>→</span>
                             </Link>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
-
-                <motion.div
-                    className="text-center mt-12"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.6 }}
-                >
-                    <Link href="/services">
-                        <button className="bg-primary-orange text-white px-8 py-4 rounded-full font-bold uppercase text-sm hover:bg-dark-navy transition-all shadow-md">
-                            View All Services
-                        </button>
-                    </Link>
-                </motion.div>
             </div>
+            <style>{`
+        .service-card:hover { background: #fff !important; }
+        @media (max-width: 1080px) { .services-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+        @media (max-width: 760px) { .services-grid { grid-template-columns: 1fr !important; } }
+      `}</style>
         </section>
     );
-};
-
-export default ServicesSection;
+}

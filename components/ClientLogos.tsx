@@ -1,54 +1,21 @@
-"use client";
+import { clients } from "@/src/data/content";
 
-import React from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-
-const clients = [
-    { name: 'Heirs Energies', logo: '/client-heirs.png' },
-    { name: 'Oando', logo: '/client-oando.png' },
-    { name: 'Total', logo: '/client-total.png' },
-];
-
-const ClientLogos = () => {
+export default function ClientLogos() {
     return (
-        <section className="py-20 bg-white">
-            <div className="max-w-[1200px] mx-auto px-6">
-                <motion.div
-                    className="text-center mb-12"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <h2 className="text-4xl font-bold text-dark-navy uppercase mb-4">Trusted by Industry Leaders</h2>
-                    <p className="text-gray-600 text-lg">Partnering with Nigeria's top energy companies</p>
-                </motion.div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
-                    {clients.map((client, i) => (
-                        <motion.div
-                            key={i}
-                            className="flex items-center justify-center p-8 bg-light-grey rounded-xl hover:shadow-lg transition-all group"
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: i * 0.1 }}
-                        >
-                            <div className="relative w-full h-24 grayscale group-hover:grayscale-0 transition-all duration-300">
-                                <Image
-                                    src={client.logo}
-                                    alt={client.name}
-                                    fill
-                                    className="object-contain"
-                                />
-                            </div>
-                        </motion.div>
+        <section style={{ background: "var(--charcoal)", padding: "56px 0", borderTop: "1px solid rgba(247,245,240,0.08)", borderBottom: "1px solid rgba(247,245,240,0.08)" }}>
+            <div style={{ maxWidth: 1240, margin: "0 auto", padding: "0 32px" }}>
+                <p style={{ fontFamily: "var(--font-ibm, monospace)", fontSize: 11, color: "var(--steel)", letterSpacing: "0.12em", textTransform: "uppercase", textAlign: "center", marginBottom: 36 }}>
+                    Trusted by leading operators
+                </p>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 64, flexWrap: "wrap" }}>
+                    {clients.map((c) => (
+                        <div key={c.name} style={{ position: "relative", width: 140, height: 56, filter: "brightness(0) invert(1)", opacity: 0.55, transition: "opacity .25s ease" }} className="client-logo">
+                            <img src={c.logo} alt={c.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain" }} />
+                        </div>
                     ))}
                 </div>
             </div>
+            <style>{`.client-logo:hover { opacity: 1 !important; }`}</style>
         </section>
     );
-};
-
-export default ClientLogos;
+}

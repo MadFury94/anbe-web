@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANBE Nigeria Limited — Engineering. Fabrication. Pipeline Integrity.</title>
+<meta name="description" content="ANBE Nigeria Limited is an indigenous engineering company delivering pipeline construction, smokeless flare systems, and fabrication engineering to Nigeria's oil & gas sector since 1990.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A1628;
+    --navy-2:#122238;
+    --charcoal:#1B222B;
+    --paper:#F7F5F0;
+    --paper-2:#EEEAE0;
+    --steel:#8B95A1;
+    --steel-dark:#4A5568;
+    --ink:#12181F;
+    --amber:#E8873A;
+    --amber-soft:#F0A669;
+    --ember:#B4502A;
+    --line:rgba(10,22,40,0.12);
+    --line-dark:rgba(247,245,240,0.14);
+    --radius:2px;
+    --disp:'Space Grotesk',sans-serif;
+    --body:'Inter',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  .container{max-width:1240px;margin:0 auto;padding:0 32px;}
+  section{position:relative;}
+  h1,h2,h3,h4{font-family:var(--disp);font-weight:600;letter-spacing:-0.01em;color:var(--navy);}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--amber);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--amber);}
+  a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}
+  }
+
+  /* ============ NAV ============ */
+  header.site-nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    padding:22px 0;
+    transition:all .4s cubic-bezier(.4,0,.2,1);
+    border-bottom:1px solid transparent;
+  }
+  header.site-nav.scrolled{
+    background:rgba(10,22,40,0.94);
+    backdrop-filter:blur(10px);
+    padding:14px 0;
+    border-bottom:1px solid var(--line-dark);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;}
+  .logo{
+    font-family:var(--disp);font-weight:700;font-size:20px;color:#fff;letter-spacing:0.02em;
+    display:flex;align-items:center;gap:10px;
+  }
+  .logo .mark{
+    width:12px;height:12px;background:var(--amber);
+    clip-path:polygon(50% 0%, 100% 100%, 0% 100%);
+    display:inline-block;
+  }
+  .logo span.sub{font-family:var(--mono);font-size:10px;color:var(--steel);letter-spacing:0.1em;font-weight:400;display:block;}
+  nav.main-links{display:flex;gap:34px;}
+  nav.main-links a{
+    font-size:14px;color:rgba(255,255,255,0.82);font-weight:500;position:relative;padding:4px 0;
+  }
+  nav.main-links a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--amber);transition:width .3s ease;
+  }
+  nav.main-links a:hover::after,nav.main-links a.active::after{width:100%;}
+  .nav-cta{
+    font-size:13px;font-weight:600;color:var(--navy);background:var(--amber);
+    padding:11px 22px;border-radius:2px;letter-spacing:0.02em;
+    transition:background .25s ease;
+  }
+  .nav-cta:hover{background:var(--amber-soft);}
+  .nav-toggle{display:none;background:none;border:none;color:#fff;font-size:22px;}
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:100vh;
+    display:flex;align-items:center;
+    background:
+      linear-gradient(180deg, rgba(10,22,40,0.82) 0%, rgba(10,22,40,0.94) 60%, var(--navy) 100%),
+      repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(232,135,58,0.05) 80px),
+      linear-gradient(135deg, #0A1628 0%, #10203A 55%, #16283F 100%);
+    position:relative;overflow:hidden;
+    padding-top:120px;padding-bottom:80px;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(139,149,161,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139,149,161,0.06) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image:linear-gradient(180deg, rgba(0,0,0,0.6), transparent 75%);
+  }
+  .flare-glow{
+    position:absolute;right:6%;top:18%;width:420px;height:420px;
+    background:radial-gradient(circle, rgba(232,135,58,0.35) 0%, rgba(180,80,42,0.12) 45%, transparent 70%);
+    filter:blur(10px);
+    animation:flarePulse 6s ease-in-out infinite;
+  }
+  @keyframes flarePulse{
+    0%,100%{opacity:0.55;transform:scale(1);}
+    50%{opacity:0.9;transform:scale(1.08);}
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.15fr 0.85fr;gap:60px;align-items:center;position:relative;z-index:2;
+  }
+  .hero h1{
+    font-size:clamp(38px,5.2vw,68px);color:#fff;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px;
+  }
+  .hero h1 em{font-style:normal;color:var(--amber);}
+  .hero p.lead{
+    font-size:18px;color:rgba(255,255,255,0.72);max-width:520px;margin-bottom:36px;font-weight:400;
+  }
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:56px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:15px 28px;font-size:14px;font-weight:600;letter-spacing:0.02em;border-radius:2px;
+    transition:all .25s ease;
+  }
+  .btn-primary{background:var(--amber);color:var(--navy);}
+  .btn-primary:hover{background:var(--amber-soft);transform:translateY(-1px);}
+  .btn-ghost{border:1px solid rgba(255,255,255,0.3);color:#fff;}
+  .btn-ghost:hover{border-color:var(--amber);color:var(--amber);}
+  .btn-dark{border:1px solid var(--line);color:var(--navy);}
+  .btn-dark:hover{border-color:var(--navy);background:var(--navy);color:#fff;}
+  .hero-meta{display:flex;gap:44px;border-top:1px solid var(--line-dark);padding-top:26px;}
+  .hero-meta div{display:flex;flex-direction:column;gap:4px;}
+  .hero-meta .num{font-family:var(--disp);font-size:26px;color:#fff;font-weight:600;}
+  .hero-meta .lbl{font-family:var(--mono);font-size:11px;color:var(--steel);letter-spacing:0.06em;text-transform:uppercase;}
+
+  .hero-schematic{
+    position:relative;aspect-ratio:1/1.05;border:1px solid var(--line-dark);
+    background:linear-gradient(160deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  }
+  .hero-schematic svg{width:100%;height:100%;}
+  .corner{position:absolute;width:18px;height:18px;border-color:var(--amber);}
+  .corner.tl{top:-1px;left:-1px;border-top:2px solid;border-left:2px solid;}
+  .corner.br{bottom:-1px;right:-1px;border-bottom:2px solid;border-right:2px solid;}
+
+  /* ============ SECTION HEADS ============ */
+  .section-head{max-width:640px;margin-bottom:56px;}
+  .section-head h2{font-size:clamp(28px,3.4vw,42px);line-height:1.1;}
+  .section-head p{color:var(--steel-dark);font-size:16px;margin-top:16px;max-width:560px;}
+  .section-pad{padding:110px 0;}
+  .on-dark{background:var(--navy);color:var(--paper);}
+  .on-dark h2,.on-dark h3,.on-dark h4{color:#fff;}
+  .on-dark p{color:rgba(247,245,240,0.68);}
+
+  /* ============ ABOUT ============ */
+  .about-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:70px;align-items:center;}
+  .about-visual{
+    aspect-ratio:4/5;background:linear-gradient(155deg,#16283F,#0A1628);position:relative;overflow:hidden;border:1px solid var(--line);
+  }
+  .about-visual .grid-overlay{
+    position:absolute;inset:0;
+    background-image:linear-gradient(rgba(232,135,58,0.12) 1px, transparent 1px),linear-gradient(90deg, rgba(232,135,58,0.12) 1px, transparent 1px);
+    background-size:40px 40px;
+  }
+  .about-visual .badge{
+    position:absolute;bottom:24px;left:24px;right:24px;
+    border-top:1px solid var(--line-dark);padding-top:16px;
+    font-family:var(--mono);font-size:11px;color:var(--steel);letter-spacing:0.08em;text-transform:uppercase;
+  }
+  .about-visual .badge strong{display:block;color:#fff;font-family:var(--disp);font-size:22px;font-weight:600;letter-spacing:0;margin-bottom:2px;text-transform:none;}
+  .values-list{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .values-list li{
+    padding-left:20px;border-left:2px solid var(--amber);
+  }
+  .values-list li strong{display:block;font-family:var(--disp);font-size:15px;color:var(--navy);margin-bottom:4px;}
+  .values-list li span{font-size:14px;color:var(--steel-dark);}
+
+  /* ============ STATS ============ */
+  .stats-strip{background:var(--charcoal);padding:64px 0;}
+  .stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;}
+  .stat{border-left:1px solid var(--line-dark);padding-left:22px;}
+  .stat:first-child{border-left:none;padding-left:0;}
+  .stat .val{font-family:var(--disp);font-size:clamp(28px,3vw,40px);color:#fff;font-weight:700;display:flex;align-items:baseline;gap:2px;}
+  .stat .val .plus{color:var(--amber);font-size:0.6em;}
+  .stat .lbl{font-family:var(--mono);font-size:11px;color:var(--steel);letter-spacing:0.06em;text-transform:uppercase;margin-top:8px;}
+
+  /* ============ SERVICES ============ */
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .service-card{
+    background:var(--paper);padding:40px 34px;transition:background .3s ease;position:relative;
+  }
+  .service-card:hover{background:#fff;}
+  .service-card .idx{font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:0.08em;}
+  .service-card .icon{margin:20px 0 22px;width:44px;height:44px;}
+  .service-card h3{font-size:19px;margin-bottom:12px;}
+  .service-card p{font-size:14.5px;color:var(--steel-dark);margin-bottom:22px;}
+  .service-card .learn{
+    font-size:13px;font-weight:600;color:var(--navy);display:inline-flex;align-items:center;gap:8px;
+  }
+  .service-card .learn .arrow{transition:transform .25s ease;}
+  .service-card:hover .learn .arrow{transform:translateX(4px);}
+
+  /* ============ INDUSTRIES ============ */
+  .industries-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .industry-card{
+    aspect-ratio:3/3.6;position:relative;overflow:hidden;
+    background:linear-gradient(200deg,#16283F,#0A1628);
+    display:flex;flex-direction:column;justify-content:flex-end;padding:24px;
+    border:1px solid var(--line-dark);
+  }
+  .industry-card::before{
+    content:"";position:absolute;inset:0;opacity:0.5;
+    background-image:linear-gradient(rgba(232,135,58,0.08) 1px, transparent 1px);
+    background-size:100% 22px;
+  }
+  .industry-card h4{color:#fff;font-size:16px;position:relative;z-index:2;}
+  .industry-card span.tag{
+    font-family:var(--mono);font-size:10.5px;color:var(--amber);letter-spacing:0.08em;text-transform:uppercase;
+    position:relative;z-index:2;margin-bottom:8px;display:block;
+  }
+
+  /* ============ PROJECTS PREVIEW ============ */
+  .projects-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .proj-card{border:1px solid var(--line);background:#fff;overflow:hidden;transition:box-shadow .3s ease,transform .3s ease;}
+  .proj-card:hover{box-shadow:0 24px 48px -20px rgba(10,22,40,0.25);transform:translateY(-4px);}
+  .proj-thumb{
+    aspect-ratio:16/10;background:linear-gradient(155deg,#16283F,#0A1628);position:relative;overflow:hidden;
+  }
+  .proj-thumb::after{
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size:30px 30px;
+  }
+  .proj-thumb .zoom-tag{
+    position:absolute;top:16px;left:16px;font-family:var(--mono);font-size:10.5px;color:var(--amber);
+    letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(232,135,58,0.4);padding:4px 10px;z-index:2;
+  }
+  .proj-body{padding:26px 26px 28px;}
+  .proj-body .client{font-family:var(--mono);font-size:11.5px;color:var(--steel);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;}
+  .proj-body h3{font-size:19px;margin-bottom:10px;}
+  .proj-body p{font-size:14px;color:var(--steel-dark);margin-bottom:18px;}
+  .proj-body .view{font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:8px;color:var(--navy);}
+
+  /* ============ WHY CHOOSE ============ */
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);}
+  .why-item{padding:34px 32px;background:var(--navy);}
+  .why-item h4{color:#fff;font-size:16.5px;margin-bottom:8px;display:flex;align-items:center;gap:12px;}
+  .why-item h4::before{content:"";width:7px;height:7px;background:var(--amber);border-radius:50%;flex-shrink:0;}
+  .why-item p{font-size:13.5px;color:rgba(247,245,240,0.62);padding-left:19px;}
+
+  /* ============ SUSTAINABILITY ============ */
+  .sustain-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+  .sustain-list{display:flex;flex-direction:column;gap:26px;}
+  .sustain-list .row{display:flex;gap:20px;align-items:flex-start;}
+  .sustain-list .row .n{font-family:var(--mono);font-size:12px;color:var(--amber);padding-top:4px;}
+  .sustain-list .row h4{font-size:16px;margin-bottom:6px;}
+  .sustain-list .row p{font-size:14px;color:var(--steel-dark);}
+  .sustain-visual{aspect-ratio:1/1;border:1px solid var(--line);position:relative;background:var(--paper-2);}
+  .sustain-visual svg{position:absolute;inset:0;width:100%;height:100%;}
+
+  /* ============ TESTIMONIALS ============ */
+  .testi-wrap{max-width:820px;margin:0 auto;text-align:center;}
+  .testi-slide{display:none;}
+  .testi-slide.active{display:block;animation:fadeUp .5s ease;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  .testi-quote{font-family:var(--disp);font-size:clamp(20px,2.6vw,28px);color:#fff;line-height:1.4;margin-bottom:28px;font-weight:500;}
+  .testi-person{font-family:var(--mono);font-size:12.5px;color:var(--amber);letter-spacing:0.04em;}
+  .testi-person span{color:var(--steel);display:block;margin-top:4px;}
+  .testi-dots{display:flex;justify-content:center;gap:10px;margin-top:40px;}
+  .testi-dots button{width:8px;height:8px;border-radius:50%;background:var(--line-dark);transition:background .25s;}
+  .testi-dots button.active{background:var(--amber);}
+
+  /* ============ NEWS ============ */
+  .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .news-card{border:1px solid var(--line);background:#fff;}
+  .news-thumb{aspect-ratio:16/10;background:linear-gradient(160deg,var(--paper-2),#e2ddd0);position:relative;}
+  .news-thumb .cat{position:absolute;bottom:14px;left:16px;font-family:var(--mono);font-size:10.5px;color:var(--navy);background:var(--amber-soft);padding:4px 10px;text-transform:uppercase;letter-spacing:0.06em;}
+  .news-body{padding:22px 24px 26px;}
+  .news-body .date{font-family:var(--mono);font-size:11px;color:var(--steel);margin-bottom:10px;}
+  .news-body h3{font-size:17px;margin-bottom:10px;line-height:1.35;}
+  .news-body p{font-size:13.5px;color:var(--steel-dark);margin-bottom:16px;}
+  .news-body .read{font-size:12.5px;font-weight:600;color:var(--navy);}
+
+  /* ============ CAREERS ============ */
+  .careers-panel{
+    background:linear-gradient(120deg,#0A1628,#16283F);border:1px solid var(--line-dark);padding:64px;
+    display:grid;grid-template-columns:1.2fr 0.8fr;gap:50px;align-items:center;position:relative;overflow:hidden;
+  }
+  .careers-panel::before{
+    content:"";position:absolute;right:-10%;top:-30%;width:340px;height:340px;
+    background:radial-gradient(circle, rgba(232,135,58,0.25), transparent 70%);
+  }
+  .careers-panel h2{color:#fff;}
+  .careers-panel p{color:rgba(247,245,240,0.68);margin:18px 0 28px;max-width:460px;}
+  .careers-tags{display:flex;flex-wrap:wrap;gap:10px;}
+  .careers-tags span{font-family:var(--mono);font-size:11.5px;color:var(--amber);border:1px solid rgba(232,135,58,0.35);padding:7px 14px;letter-spacing:0.04em;}
+  .careers-side{border-left:1px solid var(--line-dark);padding-left:40px;display:flex;flex-direction:column;gap:22px;position:relative;z-index:2;}
+  .careers-side .role{display:flex;justify-content:space-between;border-bottom:1px solid var(--line-dark);padding-bottom:16px;}
+  .careers-side .role h5{color:#fff;font-family:var(--disp);font-size:15px;font-weight:500;}
+  .careers-side .role span{font-family:var(--mono);font-size:11px;color:var(--steel);}
+
+  /* ============ CONTACT ============ */
+  .contact-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:64px;}
+  .contact-info .item{border-top:1px solid var(--line);padding:22px 0;}
+  .contact-info .item:first-child{border-top:none;padding-top:0;}
+  .contact-info .item .lbl{font-family:var(--mono);font-size:11px;color:var(--amber);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;}
+  .contact-info .item .val{font-size:16px;color:var(--navy);font-weight:500;}
+  .contact-info .item .val small{display:block;font-size:13px;color:var(--steel-dark);font-weight:400;margin-top:4px;}
+  .map-box{aspect-ratio:16/9;background:var(--paper-2);border:1px solid var(--line);margin-top:26px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+  .map-box .grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(10,22,40,0.06) 1px, transparent 1px),linear-gradient(90deg, rgba(10,22,40,0.06) 1px, transparent 1px);background-size:34px 34px;}
+  .map-box span{font-family:var(--mono);font-size:12px;color:var(--steel-dark);letter-spacing:0.06em;position:relative;z-index:2;}
+  form.contact-form{display:flex;flex-direction:column;gap:20px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .field label{display:block;font-family:var(--mono);font-size:11px;color:var(--steel-dark);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;}
+  .field input,.field textarea,.field select{
+    width:100%;border:1px solid var(--line);background:#fff;padding:13px 14px;font-family:var(--body);font-size:14.5px;color:var(--ink);border-radius:2px;
+    transition:border-color .2s ease;
+  }
+  .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--amber);outline:none;}
+  .field textarea{resize:vertical;min-height:120px;}
+
+  /* ============ FOOTER ============ */
+  footer{background:var(--navy);padding:80px 0 30px;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:40px;padding-bottom:56px;border-bottom:1px solid var(--line-dark);}
+  .footer-brand p{color:var(--steel);font-size:14px;margin:18px 0 22px;max-width:280px;}
+  .footer-col h5{font-family:var(--mono);font-size:11.5px;color:var(--amber);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;}
+  .footer-col a{display:block;color:rgba(247,245,240,0.62);font-size:14px;margin-bottom:12px;transition:color .2s ease;}
+  .footer-col a:hover{color:#fff;}
+  .newsletter{display:flex;margin-top:8px;border:1px solid var(--line-dark);}
+  .newsletter input{flex:1;background:none;border:none;padding:12px 14px;color:#fff;font-size:13px;}
+  .newsletter input::placeholder{color:var(--steel);}
+  .newsletter button{padding:12px 18px;background:var(--amber);color:var(--navy);font-size:13px;font-weight:600;}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;flex-wrap:wrap;gap:16px;}
+  .footer-bottom p{font-size:12.5px;color:var(--steel);}
+  .social-row{display:flex;gap:16px;}
+  .social-row a{width:34px;height:34px;border:1px solid var(--line-dark);display:flex;align-items:center;justify-content:center;color:var(--steel);font-size:13px;transition:all .2s ease;}
+  .social-row a:hover{border-color:var(--amber);color:var(--amber);}
+
+  /* fade-in on scroll */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:1080px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-schematic{display:none;}
+    .about-grid,.sustain-grid,.contact-grid{grid-template-columns:1fr;}
+    .stats-grid{grid-template-columns:repeat(3,1fr);}
+    .stat:nth-child(4){border-left:none;padding-left:0;}
+    .services-grid,.news-grid,.projects-preview{grid-template-columns:repeat(2,1fr);}
+    .industries-grid{grid-template-columns:repeat(2,1fr);}
+    .why-grid{grid-template-columns:1fr;}
+    .careers-panel{grid-template-columns:1fr;padding:44px 32px;}
+    .careers-side{border-left:none;padding-left:0;border-top:1px solid var(--line-dark);padding-top:28px;}
+    .footer-grid{grid-template-columns:repeat(3,1fr);}
+  }
+  @media (max-width:760px){
+    nav.main-links,.nav-cta{display:none;}
+    .nav-toggle{display:block;}
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .stat:nth-child(3){border-left:none;padding-left:0;}
+    .services-grid,.news-grid,.projects-preview,.industries-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:repeat(2,1fr);}
+    .form-row{grid-template-columns:1fr;}
+    .section-pad{padding:72px 0;}
+    .container{padding:0 20px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav" id="siteNav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo"><span class="mark"></span>ANBE<span class="sub">NIGERIA LIMITED</span></a>
+    <nav class="main-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#industries">Industries</a>
+      <a href="projects.html">Projects</a>
+      <a href="#sustainability">Sustainability</a>
+      <a href="#news">News</a>
+      <a href="#careers">Careers</a>
+    </nav>
+    <a href="#contact" class="nav-cta">Contact Us</a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="flare-glow" aria-hidden="true"></div>
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Est. 1990 — Port Harcourt, Nigeria</div>
+        <h1>Engineering integrity, <em>from wellhead to flare tip.</em></h1>
+        <p class="lead">ANBE Nigeria Limited designs, fabricates, and installs the pipeline and flare systems that keep Nigeria's oil & gas facilities running safely — built by an indigenous team with 36 years in the field.</p>
+        <div class="hero-actions">
+          <a href="projects.html" class="btn btn-primary">View Our Projects →</a>
+          <a href="#services" class="btn btn-ghost">Explore Capabilities</a>
+        </div>
+        <div class="hero-meta">
+          <div><span class="num">36</span><span class="lbl">Years in Operation</span></div>
+          <div><span class="num">24/7</span><span class="lbl">Field Response</span></div>
+          <div><span class="num">100%</span><span class="lbl">Indigenous Owned</span></div>
+        </div>
+      </div>
+      <div class="hero-schematic">
+        <span class="corner tl" aria-hidden="true"></span>
+        <span class="corner br" aria-hidden="true"></span>
+        <svg viewBox="0 0 400 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="40" y1="360" x2="360" y2="360" stroke="#4A5568" stroke-width="1"/>
+          <path d="M40 360 L40 220 L140 220 L140 120" stroke="#8B95A1" stroke-width="1.5"/>
+          <path d="M140 120 L140 60" stroke="#E8873A" stroke-width="2"/>
+          <circle cx="140" cy="60" r="6" fill="#E8873A"/>
+          <path d="M140 60 C 150 40, 130 30, 140 10" stroke="#F0A669" stroke-width="2" fill="none"/>
+          <circle cx="140" cy="220" r="4" fill="#8B95A1"/>
+          <line x1="180" y1="220" x2="320" y2="220" stroke="#8B95A1" stroke-width="1.5"/>
+          <circle cx="320" cy="220" r="18" stroke="#4A5568" stroke-width="1.5" fill="none"/>
+          <circle cx="320" cy="220" r="4" fill="#E8873A"/>
+          <line x1="60" y1="300" x2="60" y2="360" stroke="#4A5568" stroke-width="1"/>
+          <text x="60" y="295" fill="#8B95A1" font-family="IBM Plex Mono" font-size="9">PSV-01</text>
+          <text x="150" y="80" fill="#E8873A" font-family="IBM Plex Mono" font-size="9">FLARE STACK</text>
+          <text x="290" y="255" fill="#8B95A1" font-family="IBM Plex Mono" font-size="9">SEP-02</text>
+          <rect x="40" y="360" width="320" height="1" fill="#4A5568"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section-pad" id="about">
+    <div class="container about-grid">
+      <div class="reveal about-visual">
+        <div class="grid-overlay" aria-hidden="true"></div>
+        <div class="badge"><strong>Ernest Azukaeme</strong>Chief Executive Officer</div>
+      </div>
+      <div class="reveal">
+        <div class="eyebrow">About ANBE</div>
+        <h2>An indigenous engineering house built for the Niger Delta's toughest work.</h2>
+        <p style="color:var(--steel-dark);font-size:16px;margin-top:18px;">Incorporated in 1990, ANBE Nigeria Limited provides pipeline construction, fabrication engineering, and flare system design to operators across Nigeria's oil & gas sector. Our fabrication and maintenance facility, combined with a technical team drawn from combustion engineering and equipment maintenance disciplines, lets us take a project from design through procurement to commissioning without handing it off.</p>
+        <ul class="values-list">
+          <li><strong>Mission</strong><span>Deliver engineering solutions of international standard, executed by Nigerian talent.</span></li>
+          <li><strong>Vision</strong><span>Become a leading Pipeline, Engineering & Construction company across West Africa.</span></li>
+          <li><strong>Safety</strong><span>Every scope is planned, permitted, and closed out against a documented HSE standard.</span></li>
+          <li><strong>Reliability</strong><span>Budgets and schedules are backed by real project data, not estimates alone.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="container stats-grid">
+      <div class="stat"><div class="val" data-count="36">0</div><div class="lbl">Years in Business</div></div>
+      <div class="stat"><div class="val"><span data-count="140">0</span><span class="plus">+</span></div><div class="lbl">Projects Completed</div></div>
+      <div class="stat"><div class="val"><span data-count="60">0</span><span class="plus">+</span></div><div class="lbl">Engineers &amp; Technicians</div></div>
+      <div class="stat"><div class="val" data-count="24">0</div><div class="lbl">Hour Field Response</div></div>
+      <div class="stat"><div class="val"><span data-count="0">0</span></div><div class="lbl">Lost-Time Incidents YTD</div></div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section-pad" id="services">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">EPC Capability</div>
+        <h2>Engineering, procurement, and construction under one roof.</h2>
+        <p>From flare stack design to trunkline installation, our scopes move through the same three disciplines — sequenced by our own field teams, not subcontracted out.</p>
+      </div>
+      <div class="services-grid reveal">
+        <div class="service-card">
+          <div class="idx">01 — DESIGN &amp; ENGINEERING</div>
+          <svg class="icon" viewBox="0 0 44 44" fill="none"><rect x="6" y="6" width="32" height="32" rx="1" stroke="#E8873A" stroke-width="1.5"/><path d="M14 30 L20 18 L26 24 L32 12" stroke="#0A1628" stroke-width="1.5"/></svg>
+          <h3>Smokeless Flare &amp; Ignition Systems</h3>
+          <p>Design and fabrication of vertical and horizontal smokeless flares, high turndown flares, and tropicalised remote ignition systems.</p>
+          <a href="#contact" class="learn">Discuss a Scope <span class="arrow">→</span></a>
+        </div>
+        <div class="service-card">
+          <div class="idx">02 — CONSTRUCTION</div>
+          <svg class="icon" viewBox="0 0 44 44" fill="none"><path d="M8 34 L8 20 L22 20 L22 8 L36 8 L36 34" stroke="#E8873A" stroke-width="1.5" fill="none"/><circle cx="22" cy="34" r="2" fill="#0A1628"/></svg>
+          <h3>Pipeline Construction &amp; Repair</h3>
+          <p>Full-scope pipeline construction, installation, and repair, including tie-ins, hydrotesting, and right-of-way reinstatement.</p>
+          <a href="#contact" class="learn">Discuss a Scope <span class="arrow">→</span></a>
+        </div>
+        <div class="service-card">
+          <div class="idx">03 — PROCUREMENT</div>
+          <svg class="icon" viewBox="0 0 44 44" fill="none"><rect x="8" y="12" width="28" height="20" rx="1" stroke="#E8873A" stroke-width="1.5"/><path d="M8 18 H36" stroke="#0A1628" stroke-width="1.5"/></svg>
+          <h3>Procurement &amp; Stockpiling</h3>
+          <p>Sourcing, quality verification, and stockpiling of materials and equipment for oil &amp; gas facility construction.</p>
+          <a href="#contact" class="learn">Discuss a Scope <span class="arrow">→</span></a>
+        </div>
+        <div class="service-card">
+          <div class="idx">04 — FABRICATION</div>
+          <svg class="icon" viewBox="0 0 44 44" fill="none"><path d="M10 34 L34 34 M14 34 L14 20 L30 20 L30 34" stroke="#E8873A" stroke-width="1.5" fill="none"/><circle cx="22" cy="14" r="4" stroke="#0A1628" stroke-width="1.5"/></svg>
+          <h3>Fabrication &amp; Workshop Services</h3>
+          <p>In-house fabrication of flare components, structural steel, and skid-mounted equipment at our Port Harcourt facility.</p>
+          <a href="#contact" class="learn">Discuss a Scope <span class="arrow">→</span></a>
+        </div>
+        <div class="service-card">
+          <div class="idx">05 — MAINTENANCE</div>
+          <svg class="icon" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="14" stroke="#E8873A" stroke-width="1.5"/><path d="M22 14 V22 L28 26" stroke="#0A1628" stroke-width="1.5"/></svg>
+          <h3>Equipment Maintenance</h3>
+          <p>Combustion equipment maintenance covering generators, earth-moving equipment, and flare ignition assemblies.</p>
+          <a href="#contact" class="learn">Discuss a Scope <span class="arrow">→</span></a>
+        </div>
+        <div class="service-card">
+          <div class="idx">06 — SUPPORT</div>
+          <svg class="icon" viewBox="0 0 44 44" fill="none"><path d="M22 8 C 30 8 36 14 36 22 C 36 30 30 36 22 36 C 14 36 8 30 8 22" stroke="#E8873A" stroke-width="1.5" fill="none"/><path d="M8 22 L14 22 L11 28 Z" fill="#0A1628"/></svg>
+          <h3>24/7 Technical Partner Support</h3>
+          <p>Direct access to ANBE Technical Partners for specialist expertise across the life of a facility.</p>
+          <a href="#contact" class="learn">Discuss a Scope <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section class="section-pad on-dark" id="industries">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Where We Work</div>
+        <h2>Industries served across the Niger Delta and beyond.</h2>
+        <p>Our core is oil &amp; gas, but the same fabrication and construction disciplines carry across adjacent industrial sectors.</p>
+      </div>
+      <div class="industries-grid reveal">
+        <div class="industry-card"><span class="tag">Core</span><h4>Oil &amp; Gas</h4></div>
+        <div class="industry-card"><span class="tag">Core</span><h4>Energy &amp; Flare Systems</h4></div>
+        <div class="industry-card"><span class="tag">Adjacent</span><h4>Industrial Fabrication</h4></div>
+        <div class="industry-card"><span class="tag">Adjacent</span><h4>Infrastructure &amp; Utilities</h4></div>
+        <div class="industry-card"><span class="tag">Adjacent</span><h4>Construction</h4></div>
+        <div class="industry-card"><span class="tag">Adjacent</span><h4>Government &amp; Public Works</h4></div>
+        <div class="industry-card"><span class="tag">Adjacent</span><h4>Manufacturing</h4></div>
+        <div class="industry-card"><span class="tag">Adjacent</span><h4>Industrial Automation</h4></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS PREVIEW -->
+  <section class="section-pad" id="projects-preview">
+    <div class="container">
+      <div class="section-head reveal" style="display:flex;justify-content:space-between;align-items:flex-end;max-width:none;flex-wrap:wrap;gap:20px;">
+        <div>
+          <div class="eyebrow">Field Work</div>
+          <h2>Featured Projects</h2>
+        </div>
+        <a href="projects.html" class="btn btn-dark">View All Projects →</a>
+      </div>
+      <div class="projects-preview reveal">
+        <div class="proj-card">
+          <div class="proj-thumb"><span class="zoom-tag">Flare Systems</span></div>
+          <div class="proj-body">
+            <div class="client">Niger Delta Terminal</div>
+            <h3>Smokeless Flare Stack Retrofit</h3>
+            <p>Design and fabrication of a high turndown flare system to replace an ageing stack at an onshore export terminal.</p>
+            <a href="projects.html" class="view">View Project →</a>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-thumb"><span class="zoom-tag">Pipeline</span></div>
+          <div class="proj-body">
+            <div class="client">Delta State Flowline</div>
+            <h3>18km Trunkline Replacement</h3>
+            <p>Full pipeline construction and hydrotesting scope, delivered with zero lost-time incidents across an 11-month programme.</p>
+            <a href="projects.html" class="view">View Project →</a>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-thumb"><span class="zoom-tag">Fabrication</span></div>
+          <div class="proj-body">
+            <div class="client">Rivers State Facility</div>
+            <h3>Remote Ignition System Upgrade</h3>
+            <p>Installation of a tropicalised remote ignition system across three flare points to reduce manual intervention.</p>
+            <a href="projects.html" class="view">View Project →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE -->
+  <section class="section-pad on-dark" style="padding-top:0;">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Why ANBE</div>
+        <h2>Six reasons operators keep us on their bid list.</h2>
+      </div>
+      <div class="why-grid reveal">
+        <div class="why-item"><h4>Experienced Field Teams</h4><p>Personnel with backgrounds spanning combustion engineering, risk asset management, and major-project delivery.</p></div>
+        <div class="why-item"><h4>Proven Delivery Record</h4><p>36 years executing scopes to budget and schedule, backed by real project data.</p></div>
+        <div class="why-item"><h4>Safety-First Culture</h4><p>Every site operates under a documented HSE standard from mobilisation to demobilisation.</p></div>
+        <div class="why-item"><h4>In-House Fabrication</h4><p>An ultra-modern workshop means less dependency on third-party vendors and tighter schedule control.</p></div>
+        <div class="why-item"><h4>Indigenous Content</h4><p>A Nigerian-owned company prioritising local goods, materials, and manpower wherever available.</p></div>
+        <div class="why-item"><h4>24/7 Availability</h4><p>Round-the-clock response for operational facilities that cannot afford downtime.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUSTAINABILITY -->
+  <section class="section-pad" id="sustainability">
+    <div class="container sustain-grid">
+      <div class="reveal">
+        <div class="eyebrow">Sustainability</div>
+        <h2>Reducing flare footprint, protecting the field crew.</h2>
+        <div class="sustain-list" style="margin-top:30px;">
+          <div class="row"><span class="n">01</span><div><h4>Smokeless Combustion</h4><p>Our flare designs are engineered specifically to reduce visible smoke and improve combustion efficiency at site.</p></div></div>
+          <div class="row"><span class="n">02</span><div><h4>Health &amp; Safety</h4><p>Every crew operates under a documented permit-to-work system with daily toolbox talks.</p></div></div>
+          <div class="row"><span class="n">03</span><div><h4>Community Impact</h4><p>Local sourcing and manpower policies keep economic value inside host communities.</p></div></div>
+          <div class="row"><span class="n">04</span><div><h4>Continuous Improvement</h4><p>Field data from every project feeds back into how the next flare or pipeline scope is engineered.</p></div></div>
+        </div>
+      </div>
+      <div class="reveal sustain-visual">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="200" cy="200" r="150" stroke="#0A1628" stroke-width="1" fill="none" opacity="0.15"/>
+          <circle cx="200" cy="200" r="110" stroke="#0A1628" stroke-width="1" fill="none" opacity="0.15"/>
+          <circle cx="200" cy="200" r="70" stroke="#E8873A" stroke-width="1.5" fill="none"/>
+          <path d="M200 130 C 215 150, 185 165, 200 190" stroke="#E8873A" stroke-width="2" fill="none"/>
+          <circle cx="200" cy="200" r="4" fill="#0A1628"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section-pad on-dark">
+    <div class="container testi-wrap">
+      <div class="eyebrow" style="justify-content:center;">Client Feedback</div>
+      <div id="testiSlides">
+        <div class="testi-slide active">
+          <p class="testi-quote">"ANBE mobilised within days and closed out the flare retrofit ahead of our turnaround window. Documentation was clean and the crew ran a tight site."</p>
+          <div class="testi-person">Facility Manager<span>Onshore Export Terminal, Rivers State</span></div>
+        </div>
+        <div class="testi-slide">
+          <p class="testi-quote">"What stood out was the fabrication quality — every skid arrived to spec and passed inspection first time."</p>
+          <div class="testi-person">Project Engineer<span>Independent E&amp;P Operator</span></div>
+        </div>
+        <div class="testi-slide">
+          <p class="testi-quote">"A dependable indigenous partner for pipeline work. Budgets held and the safety record was spotless across the programme."</p>
+          <div class="testi-person">Procurement Lead<span>EPC Contractor, Niger Delta</span></div>
+        </div>
+      </div>
+      <div class="testi-dots" id="testiDots"></div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section class="section-pad" id="news">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">News &amp; Insights</div>
+        <h2>From the field and the workshop.</h2>
+      </div>
+      <div class="news-grid reveal">
+        <div class="news-card">
+          <div class="news-thumb"><span class="cat">Fabrication</span></div>
+          <div class="news-body">
+            <div class="date">June 2026</div>
+            <h3>ANBE completes workshop expansion for skid fabrication</h3>
+            <p>New bay capacity shortens lead times on flare component fabrication for upcoming terminal projects.</p>
+            <a href="#" class="read">Read More →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="news-thumb"><span class="cat">Safety</span></div>
+          <div class="news-body">
+            <div class="date">April 2026</div>
+            <h3>Marking another year without a lost-time incident</h3>
+            <p>A look at the permit-to-work practices behind ANBE's ongoing safety record across active sites.</p>
+            <a href="#" class="read">Read More →</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="news-thumb"><span class="cat">Company</span></div>
+          <div class="news-body">
+            <div class="date">February 2026</div>
+            <h3>Building indigenous capacity in flare engineering</h3>
+            <p>How ANBE's technical partnerships are training the next generation of Nigerian combustion engineers.</p>
+            <a href="#" class="read">Read More →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAREERS -->
+  <section class="section-pad" id="careers">
+    <div class="container">
+      <div class="careers-panel reveal">
+        <div>
+          <div class="eyebrow">Careers</div>
+          <h2>Build the systems that keep the field running.</h2>
+          <p>We hire engineers, fabricators, and field technicians who take safety and precision seriously — and back them with steady, well-run projects.</p>
+          <div class="careers-tags">
+            <span>Health Cover</span><span>Field Allowances</span><span>Training Sponsorship</span><span>Local Hire Priority</span>
+          </div>
+        </div>
+        <div class="careers-side">
+          <div class="role"><h5>Pipeline Construction Supervisor</h5><span>Port Harcourt</span></div>
+          <div class="role"><h5>Flare &amp; Ignition Fabricator</h5><span>Port Harcourt</span></div>
+          <div class="role"><h5>HSE Officer — Field Sites</h5><span>Niger Delta</span></div>
+          <a href="#contact" class="btn btn-primary" style="align-self:flex-start;margin-top:6px;">View Open Roles →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section-pad" id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Contact</div>
+        <h2>Talk to us about your next scope.</h2>
+      </div>
+      <div class="contact-grid reveal">
+        <div class="contact-info">
+          <div class="item"><div class="lbl">Head Office</div><div class="val">Port Harcourt, Rivers State<small>Nigeria</small></div></div>
+          <div class="item"><div class="lbl">Phone</div><div class="val">+234 803 310 0539<small>+234 803 775 3444</small></div></div>
+          <div class="item"><div class="lbl">Email</div><div class="val">info@anbenig.com</div></div>
+          <div class="item"><div class="lbl">Business Hours</div><div class="val">24/7 Field Response<small>Office: Mon–Fri, 8am–5pm WAT</small></div></div>
+          <div class="map-box"><div class="grid-overlay"></div><span>MAP — PORT HARCOURT, RIVERS STATE</span></div>
+        </div>
+        <form class="contact-form" onsubmit="event.preventDefault();this.querySelector('.form-status').textContent='Thank you — we\'ll respond within one business day.';">
+          <div class="form-row">
+            <div class="field"><label for="fname">Full Name</label><input id="fname" type="text" required></div>
+            <div class="field"><label for="fcompany">Company</label><input id="fcompany" type="text"></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="femail">Email</label><input id="femail" type="email" required></div>
+            <div class="field"><label for="fphone">Phone</label><input id="fphone" type="tel"></div>
+          </div>
+          <div class="field"><label for="fscope">Scope of Interest</label>
+            <select id="fscope">
+              <option>Pipeline Construction</option>
+              <option>Flare &amp; Ignition Systems</option>
+              <option>Fabrication</option>
+              <option>Procurement</option>
+              <option>Equipment Maintenance</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field"><label for="fmessage">Message</label><textarea id="fmessage" required></textarea></div>
+          <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send Message →</button>
+          <p class="form-status" style="font-size:13px;color:var(--amber);"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><span class="mark"></span>ANBE</a>
+        <p>An indigenous engineering company delivering pipeline construction, fabrication, and flare systems to Nigeria's oil &amp; gas sector since 1990.</p>
+        <div class="newsletter">
+          <input type="email" placeholder="Your email address" aria-label="Email for newsletter">
+          <button>Subscribe</button>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Company</h5>
+        <a href="#about">About Us</a><a href="#careers">Careers</a><a href="#news">News</a><a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col"><h5>Services</h5>
+        <a href="#services">Pipeline Construction</a><a href="#services">Flare Systems</a><a href="#services">Fabrication</a><a href="#services">Procurement</a>
+      </div>
+      <div class="footer-col"><h5>Industries</h5>
+        <a href="#industries">Oil &amp; Gas</a><a href="#industries">Infrastructure</a><a href="#industries">Manufacturing</a><a href="#industries">Government</a>
+      </div>
+      <div class="footer-col"><h5>Resources</h5>
+        <a href="projects.html">Projects</a><a href="#sustainability">Sustainability</a><a href="#news">Insights</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ANBE Nigeria Limited. All rights reserved.</p>
+      <div class="social-row">
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="Twitter / X">x</a>
+        <a href="#" aria-label="Facebook">f</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // sticky nav on scroll
+  const nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // animated counters
+  const counters = document.querySelectorAll('[data-count]');
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.count, 10);
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now){
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      counterIO.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => counterIO.observe(el));
+
+  // testimonials carousel
+  const slides = document.querySelectorAll('.testi-slide');
+  const dotsWrap = document.getElementById('testiDots');
+  let activeSlide = 0;
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    if (i === 0) dot.classList.add('active');
+    dot.setAttribute('aria-label', 'Show testimonial ' + (i + 1));
+    dot.addEventListener('click', () => showSlide(i));
+    dotsWrap.appendChild(dot);
+  });
+  function showSlide(i){
+    slides[activeSlide].classList.remove('active');
+    dotsWrap.children[activeSlide].classList.remove('active');
+    activeSlide = i;
+    slides[activeSlide].classList.add('active');
+    dotsWrap.children[activeSlide].classList.add('active');
+  }
+  setInterval(() => { showSlide((activeSlide + 1) % slides.length); }, 6000);
+
+  // mobile nav toggle (simple show/hide of links as a stacked panel)
+  const toggle = document.querySelector('.nav-toggle');
+  const links = document.querySelector('.main-links');
+  toggle && toggle.addEventListener('click', () => {
+    const open = links.style.display === 'flex';
+    links.style.display = open ? 'none' : 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'fixed';
+    links.style.top = '64px';
+    links.style.left = '0';
+    links.style.right = '0';
+    links.style.background = 'rgba(10,22,40,0.98)';
+    links.style.padding = '24px 32px';
+    links.style.gap = '18px';
+  });
+</script>
+</body>
+</html>

@@ -1,128 +1,65 @@
-"use client";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { navLinks, company } from "@/src/data/content";
 
-import React from 'react';
-import { Phone, Mail, MapPin } from 'lucide-react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+export default function Header() {
+    const { pathname } = useLocation();
+    const [scrolled, setScrolled] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
 
-const Header = () => {
-    const pathname = usePathname();
-    const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-
-    const navLinks = [
-        { name: 'Home', href: '/' },
-        { name: 'About Us', href: '/about' },
-        { name: 'Services', href: '/services' },
-        { name: 'Projects', href: '/projects' },
-        { name: 'Contact', href: '/contact' },
-    ];
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 40);
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
 
     return (
-        <header className="w-full font-poppins sticky top-0 z-50 shadow-sm">
-            {/* Top Bar */}
-            <div className="bg-dark-navy text-white py-2">
-                <div className="max-w-[1200px] mx-auto px-6 flex justify-between items-center text-xs md:text-sm">
-                    <div className="flex gap-4">
-                        <div className="flex items-center gap-1">
-                            <Mail size={14} className="text-primary-orange" />
-                            <span>info@anbenigeria.com</span>
-                        </div>
-                        <div className="hidden md:flex items-center gap-1">
-                            <Phone size={14} className="text-primary-orange" />
-                            <span>+234 XXX XXX XXXX</span>
-                        </div>
-                    </div>
-                    <div className="hidden md:flex items-center gap-1">
-                        <MapPin size={14} className="text-primary-orange" />
-                        <span>Lagos, Nigeria</span>
-                    </div>
-                </div>
+        <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000, padding: scrolled ? "14px 0" : "22px 0", background: scrolled ? "rgba(10,22,40,0.94)" : "transparent", backdropFilter: scrolled ? "blur(10px)" : "none", borderBottom: scrolled ? "1px solid rgba(247,245,240,0.14)" : "1px solid transparent", transition: "all 0.4s cubic-bezier(0.4,0,0.2,1)" }}>
+            <div style={{ maxWidth: 1240, margin: "0 auto", padding: "0 32px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <Link to="/" style={{ fontFamily: "var(--font-space, sans-serif)", fontWeight: 700, fontSize: 20, color: "#fff", letterSpacing: "0.02em", display: "flex", alignItems: "center", gap: 10 }}>
+                    <span style={{ width: 12, height: 12, background: "var(--amber)", clipPath: "polygon(50% 0%, 100% 100%, 0% 100%)", display: "inline-block", flexShrink: 0 }} />
+                    <span>
+                        {company.shortName}
+                        <span style={{ fontFamily: "var(--font-ibm, monospace)", fontSize: 10, color: "var(--steel)", letterSpacing: "0.1em", fontWeight: 400, display: "block", lineHeight: 1.2 }}>
+                            NIGERIA LIMITED
+                        </span>
+                    </span>
+                </Link>
+
+                <nav style={{ display: "flex", gap: 34 }} className="hidden-mobile">
+                    {navLinks.map((link) => (
+                        <Link key={link.href} to={link.href} style={{ fontSize: 14, color: pathname === link.href ? "var(--amber)" : "rgba(255,255,255,0.82)", fontWeight: 500, padding: "4px 0", transition: "color 0.2s" }}>
+                            {link.name}
+                        </Link>
+                    ))}
+                </nav>
+
+                <Link to="/contact" style={{ fontSize: 13, fontWeight: 600, color: "var(--navy)", background: "var(--amber)", padding: "11px 22px", borderRadius: 2, letterSpacing: "0.02em", transition: "background 0.25s ease" }} className="hidden-mobile">
+                    Contact Us
+                </Link>
+
+                <button onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu" style={{ background: "none", border: "none", color: "#fff", fontSize: 22, cursor: "pointer", display: "none" }} className="show-mobile">
+                    {mobileOpen ? "✕" : "☰"}
+                </button>
             </div>
 
-            {/* Main Navigation */}
-            <nav className="bg-white/95 backdrop-blur-md border-b border-gray-100">
-                <div className="max-w-[1200px] mx-auto px-6 py-4 flex justify-between items-center">
-                    <Link href="/" className="flex items-center gap-3">
-                        <Image
-                            src="/anbe-logo.png"
-                            alt="ANBE Nigeria Limited"
-                            width={180}
-                            height={60}
-                            className="h-12 w-auto"
-                        />
+            {mobileOpen && (
+                <div style={{ background: "rgba(10,22,40,0.97)", borderTop: "1px solid rgba(247,245,240,0.14)", padding: "20px 32px 28px" }}>
+                    {navLinks.map((link) => (
+                        <Link key={link.href} to={link.href} onClick={() => setMobileOpen(false)} style={{ display: "block", color: pathname === link.href ? "var(--amber)" : "rgba(255,255,255,0.82)", fontSize: 14, fontWeight: 500, padding: "12px 0", borderBottom: "1px solid rgba(247,245,240,0.08)" }}>
+                            {link.name}
+                        </Link>
+                    ))}
+                    <Link to="/contact" onClick={() => setMobileOpen(false)} style={{ display: "inline-block", marginTop: 18, background: "var(--amber)", color: "var(--navy)", padding: "11px 22px", borderRadius: 2, fontSize: 13, fontWeight: 600 }}>
+                        Contact Us
                     </Link>
-
-                    <div className="hidden lg:flex items-center gap-8 font-semibold text-sm text-dark-navy uppercase h-full">
-                        {navLinks.map((link) => {
-                            const isActive = pathname === link.href;
-                            return (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    className={`transition-all duration-300 py-4 h-full flex items-center border-b-2 ${isActive
-                                        ? 'text-primary-orange border-primary-orange'
-                                        : 'text-dark-navy border-transparent hover:text-primary-orange'
-                                        }`}
-                                >
-                                    {link.name}
-                                </Link>
-                            );
-                        })}
-                        <div className="flex items-center gap-2 ml-4">
-                            <Link href="/contact">
-                                <button className="bg-primary-orange text-white px-6 py-3 rounded-full text-xs font-bold hover:bg-dark-navy transition-all shadow-md">
-                                    GET A QUOTE
-                                </button>
-                            </Link>
-                        </div>
-                    </div>
-
-                    {/* Mobile Menu Icon */}
-                    <button
-                        className="lg:hidden p-2 hover:bg-gray-100 rounded transition-colors"
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        aria-label="Toggle menu"
-                    >
-                        <div className={`w-6 h-0.5 bg-dark-navy mb-1 transition-all ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
-                        <div className={`w-6 h-0.5 bg-dark-navy mb-1 transition-all ${mobileMenuOpen ? 'opacity-0' : ''}`}></div>
-                        <div className={`w-6 h-0.5 bg-dark-navy transition-all ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
-                    </button>
                 </div>
+            )}
 
-                {/* Mobile Navigation */}
-                {mobileMenuOpen && (
-                    <div className="lg:hidden border-t border-gray-200 bg-white">
-                        <div className="max-w-[1200px] mx-auto px-6 py-4 space-y-2">
-                            {navLinks.map((link) => {
-                                const isActive = pathname === link.href;
-                                return (
-                                    <Link
-                                        key={link.href}
-                                        href={link.href}
-                                        className={`block py-3 text-xs uppercase font-semibold tracking-widest transition-colors ${isActive
-                                            ? 'text-primary-orange'
-                                            : 'text-dark-navy hover:text-primary-orange'
-                                            }`}
-                                        onClick={() => setMobileMenuOpen(false)}
-                                    >
-                                        {link.name}
-                                    </Link>
-                                );
-                            })}
-                            <div className="pt-3 border-t border-gray-200">
-                                <Link href="/contact">
-                                    <button className="w-full bg-primary-orange text-white py-3 rounded text-xs font-bold uppercase tracking-widest hover:bg-dark-navy transition-all">
-                                        Get a Quote
-                                    </button>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </nav>
+            <style>{`
+        @media (max-width: 760px) { .hidden-mobile { display: none !important; } .show-mobile { display: block !important; } }
+        @media (min-width: 761px) { .show-mobile { display: none !important; } }
+      `}</style>
         </header>
     );
-};
-
-export default Header;
+}
