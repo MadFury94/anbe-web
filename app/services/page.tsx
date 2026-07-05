@@ -142,6 +142,7 @@ function SiteNav() {
                     <a href="/about">About</a>
                     <a href="/services" className="active">Services</a>
                     <a href="/projects">Projects</a>
+                    <a href="/blog">Blog</a>
                     <a href="/contact">Contact</a>
                 </nav>
                 <a href="/contact" className="nav-cta">Contact Us</a>
@@ -149,7 +150,7 @@ function SiteNav() {
             </div>
             {mob && (
                 <div style={{ position: "fixed", top: 64, left: 0, right: 0, background: "rgba(10,22,40,0.98)", padding: "24px 32px", display: "flex", flexDirection: "column", gap: 18, zIndex: 999 }}>
-                    {[["/about","About"],["/services","Services"],["/#industries","Industries"],["/projects","Projects"],["/#sustainability","Sustainability"],["/#news","News"],["/#careers","Careers"],["/contact","Contact Us"]].map(([h, l]) => (
+                    {[["/about", "About"], ["/services", "Services"], ["/#industries", "Industries"], ["/projects", "Projects"], ["/#sustainability", "Sustainability"], ["/#news", "News"], ["/#careers", "Careers"], ["/blog", "Blog"], ["/contact", "Contact Us"]].map(([h, l]) => (
                         <a key={h} href={h} onClick={() => setMob(false)} style={{ color: "rgba(255,255,255,0.9)", fontSize: 16, fontWeight: 500, fontFamily: "'Inter',sans-serif", textDecoration: "none" }}>{l}</a>
                     ))}
                 </div>

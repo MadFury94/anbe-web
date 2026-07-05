@@ -4,6 +4,8 @@ import About from "../app/about/page";
 import Services from "../app/services/page";
 import Projects from "../app/projects/page";
 import Contact from "../app/contact/page";
+import Blog from "../app/blog/page";
+import BlogArticle from "../app/blog/article/page";
 
 export default function App() {
     return (
@@ -13,6 +15,8 @@ export default function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogArticle />} />
         </Routes>
     );
 }

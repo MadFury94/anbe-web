@@ -272,13 +272,14 @@ function SiteNav() {
           <a href="#sustainability">Sustainability</a>
           <a href="#news">News</a>
           <a href="#careers">Careers</a>
+          <a href="/blog">Blog</a>
         </nav>
         <a href="#contact" className="nav-cta">Contact Us</a>
         <button className="nav-toggle" aria-label="Toggle menu" onClick={() => setMobileOpen(!mobileOpen)}>☰</button>
       </div>
       {mobileOpen && (
         <div style={{ position: "fixed", top: 64, left: 0, right: 0, background: "rgba(10,22,40,0.98)", padding: "24px 32px", display: "flex", flexDirection: "column", gap: 18, zIndex: 999 }}>
-          {[["#about", "About"], ["#services", "Services"], ["#industries", "Industries"], ["/projects", "Projects"], ["#sustainability", "Sustainability"], ["#news", "News"], ["#careers", "Careers"], ["#contact", "Contact Us"]].map(([href, label]) => (
+          {[["#about", "About"], ["#services", "Services"], ["#industries", "Industries"], ["/projects", "Projects"], ["#sustainability", "Sustainability"], ["#news", "News"], ["#careers", "Careers"], ["/blog", "Blog"], ["#contact", "Contact Us"]].map(([href, label]) => (
             <a key={href} href={href} onClick={() => setMobileOpen(false)} style={{ color: "rgba(255,255,255,0.9)", fontSize: 16, fontWeight: 500 }}>{label}</a>
           ))}
         </div>
