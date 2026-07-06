@@ -1,20 +1,9 @@
 "use client";
+import SiteNav from "@/components/SiteNav";
 import { useEffect, useState } from "react";
 
 const S = `
   *{box-sizing:border-box;}
-  .site-nav-sub{position:fixed;top:0;left:0;right:0;z-index:1000;padding:14px 0;background:rgba(10,22,40,0.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(247,245,240,0.14);}
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;}
-  .logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;color:#fff;letter-spacing:0.02em;display:flex;align-items:center;gap:10px;text-decoration:none;}
-  .logo .mark{width:12px;height:12px;background:#E8873A;clip-path:polygon(50% 0%,100% 100%,0% 100%);display:inline-block;flex-shrink:0;}
-  .logo span.sub{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8B95A1;letter-spacing:0.1em;font-weight:400;display:block;}
-  .main-links{display:flex;gap:34px;}
-  .main-links a{font-family:'Inter',sans-serif;font-size:14px;color:rgba(255,255,255,0.82);font-weight:500;position:relative;padding:4px 0;text-decoration:none;}
-  .main-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:#E8873A;transition:width .3s ease;}
-  .main-links a:hover::after,.main-links a.active::after{width:100%;}
-  .nav-cta{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#0A1628;background:#E8873A;padding:11px 22px;border-radius:2px;letter-spacing:0.02em;transition:background .25s ease;text-decoration:none;}
-  .nav-cta:hover{background:#F0A669;}
-  .nav-toggle{display:none;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;}
   .container{max-width:1240px;margin:0 auto;padding:0 32px;}
   h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.01em;}
   p,li,label,input,textarea,select,a{font-family:'Inter',sans-serif;}
@@ -119,8 +108,6 @@ const S = `
     .gallery-strip{grid-template-columns:repeat(2,1fr);}
   }
   @media (max-width:760px){
-    .main-links,.nav-cta{display:none!important;}
-    .nav-toggle{display:block!important;}
     .values-grid,.team-grid{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:repeat(2,1fr);}
     .milestone-row{grid-template-columns:80px 1fr;gap:20px;}
@@ -142,31 +129,7 @@ function useReveal() {
     }, []);
 }
 
-function SiteNav() {
-    const [mob, setMob] = useState(false);
-    return (
-        <header className="site-nav-sub">
-            <div className="container nav-inner">
-                <a href="/" className="logo"><img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" style={{ height: 50, width: "auto", display: "block" }} /></a>
-                <nav className="main-links">
-            <a href="/about" className="active">About</a>
-            <a href="/services">Services</a>
-            <a href="/projects">Projects</a>
-            <a href="/blog">Blog</a>
-          </nav>
-                <a href="/contact" className="nav-cta">Contact Us</a>
-                <button className="nav-toggle" onClick={() => setMob(!mob)} aria-label="Toggle menu">☰</button>
-            </div>
-            {mob && (
-                <div style={{ position: "fixed", top: 64, left: 0, right: 0, background: "rgba(10,22,40,0.98)", padding: "24px 32px", display: "flex", flexDirection: "column", gap: 18, zIndex: 999 }}>
-                    {[["/about","About"],["/services","Services"],["/projects","Projects"],["/blog","Blog"],["/contact","Contact Us"]].map(([h, l]) => (
-                        <a key={h} href={h} onClick={() => setMob(false)} style={{ color: "rgba(255,255,255,0.9)", fontSize: 16, fontWeight: 500, fontFamily: "'Inter',sans-serif", textDecoration: "none" }}>{l}</a>
-                    ))}
-                </div>
-            )}
-        </header>
-    );
-}
+
 
 function PageHero() {
     return (
@@ -366,7 +329,7 @@ function Footer() {
             <div className="container">
                 <div className="footer-grid">
                     <div className="footer-brand">
-                        <a href="/" className="logo"><img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" style={{ height: 45, width: "auto", display: "block" }} /></a>
+                        <a href="/" className="logo"><img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" style={{ height: 34, width: "auto", display: "block" }} /></a>
                         <p>An indigenous engineering company delivering pipeline construction, fabrication, and flare systems to Nigeria's oil &amp; gas sector since 1990.</p>
                     </div>
                     <div className="footer-col"><h5>Company</h5>
@@ -402,7 +365,7 @@ export default function AboutPage() {
     return (
         <>
             <style>{S}</style>
-            <SiteNav />
+            <SiteNav activePath="/about" />
             <main>
                 <PageHero />
                 <Overview />

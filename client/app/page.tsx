@@ -1,4 +1,5 @@
 "use client";
+import SiteNav from "@/components/SiteNav";
 import { useEffect, useState } from "react";
 
 /* ── Helpers ── */
@@ -48,19 +49,6 @@ function useTestimonials(total: number) {
 
 /* ── Shared CSS injected once ── */
 const STYLES = `
-  .site-nav { position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 0;transition:all .4s cubic-bezier(.4,0,.2,1);border-bottom:1px solid transparent; }
-  .site-nav.scrolled { background:rgba(10,22,40,0.94);backdrop-filter:blur(10px);padding:14px 0;border-bottom:1px solid rgba(247,245,240,0.14); }
-  .nav-inner { display:flex;align-items:center;justify-content:space-between; }
-  .logo { font-family:var(--font-space);font-weight:700;font-size:20px;color:#fff;letter-spacing:0.02em;display:flex;align-items:center;gap:10px; }
-  .logo .mark { width:12px;height:12px;background:var(--amber);clip-path:polygon(50% 0%,100% 100%,0% 100%);display:inline-block; }
-  .logo span.sub { font-family:var(--font-ibm);font-size:10px;color:var(--steel);letter-spacing:0.1em;font-weight:400;display:block; }
-  .main-links { display:flex;gap:34px; }
-  .main-links a { font-size:14px;color:rgba(255,255,255,0.82);font-weight:500;position:relative;padding:4px 0; }
-  .main-links a::after { content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--amber);transition:width .3s ease; }
-  .main-links a:hover::after,.main-links a.active::after { width:100%; }
-  .nav-cta { font-size:13px;font-weight:600;color:var(--navy);background:var(--amber);padding:11px 22px;border-radius:2px;letter-spacing:0.02em;transition:background .25s ease; }
-  .nav-cta:hover { background:var(--amber-soft); }
-  .nav-toggle { display:none;background:none;border:none;color:#fff;font-size:22px;cursor:pointer; }
   .hero { min-height:100vh;display:flex;align-items:center;background:linear-gradient(180deg,rgba(10,22,40,0.82) 0%,rgba(10,22,40,0.94) 60%,#0A1628 100%),repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(232,135,58,0.05) 80px),linear-gradient(135deg,#0A1628 0%,#10203A 55%,#16283F 100%);position:relative;overflow:hidden;padding-top:120px;padding-bottom:80px; }
   .hero::before { content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(139,149,161,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(139,149,161,0.06) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(180deg,rgba(0,0,0,0.6),transparent 75%); }
   .flare-glow { position:absolute;right:6%;top:18%;width:420px;height:420px;background:radial-gradient(circle,rgba(232,135,58,0.35) 0%,rgba(180,80,42,0.12) 45%,transparent 70%);filter:blur(10px);animation:flarePulse 6s ease-in-out infinite; }
@@ -239,8 +227,6 @@ const STYLES3 = `
     .footer-grid { grid-template-columns:repeat(3,1fr); }
   }
   @media (max-width:760px) {
-    .main-links,.nav-cta { display:none !important; }
-    .nav-toggle { display:block !important; }
     .stats-grid { grid-template-columns:repeat(2,1fr); }
     .stat:nth-child(3) { border-left:none;padding-left:0; }
     .services-grid,.news-grid,.projects-preview,.industries-grid { grid-template-columns:1fr; }
@@ -250,39 +236,6 @@ const STYLES3 = `
     .container { padding:0 20px; }
   }
 `;
-
-/* ── Nav Component ── */
-function SiteNav() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", h);
-    return () => window.removeEventListener("scroll", h);
-  }, []);
-  return (
-    <header className={`site-nav${scrolled ? " scrolled" : ""}`} id="siteNav">
-      <div className="container nav-inner">
-        <a href="/" className="logo"><img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" style={{ height: 50, width: "auto", display: "block" }} /></a>
-        <nav className="main-links">
-            <a href="/about">About</a>
-            <a href="/services">Services</a>
-            <a href="/projects">Projects</a>
-            <a href="/blog">Blog</a>
-          </nav>
-        <a href="#contact" className="nav-cta">Contact Us</a>
-        <button className="nav-toggle" aria-label="Toggle menu" onClick={() => setMobileOpen(!mobileOpen)}>☰</button>
-      </div>
-      {mobileOpen && (
-        <div style={{ position: "fixed", top: 64, left: 0, right: 0, background: "rgba(10,22,40,0.98)", padding: "24px 32px", display: "flex", flexDirection: "column", gap: 18, zIndex: 999 }}>
-          {[["/about","About"],["/services","Services"],["/projects","Projects"],["/blog","Blog"],["/contact","Contact Us"]].map(([href, label]) => (
-            <a key={href} href={href} onClick={() => setMobileOpen(false)} style={{ color: "rgba(255,255,255,0.9)", fontSize: 16, fontWeight: 500 }}>{label}</a>
-          ))}
-        </div>
-      )}
-    </header>
-  );
-}
 
 /* ── Hero ── */
 function Hero() {
@@ -726,7 +679,7 @@ function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <a href="/" className="logo"><img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" style={{ height: 45, width: "auto", display: "block" }} /></a>
+            <a href="/" className="logo"><img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" style={{ height: 34, width: "auto", display: "block" }} /></a>
             <p>An indigenous engineering company delivering pipeline construction, fabrication, and flare systems to Nigeria's oil &amp; gas sector since 1990.</p>
             <div className="newsletter">
               <input type="email" placeholder="Your email address" aria-label="Email for newsletter" />
