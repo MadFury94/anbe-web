@@ -1,5 +1,6 @@
 "use client";
 import SiteNav from "@/components/SiteNav";
+import SiteFooter from "@/components/SiteFooter";
 import { useEffect, useState } from "react";
 
 const S = `
@@ -57,28 +58,13 @@ const S = `
   .team-card .tc-info strong{display:block;font-family:'Space Grotesk',sans-serif;font-size:15px;color:#0A1628;margin-bottom:3px;}
   .team-card .tc-info span{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8B95A1;letter-spacing:0.05em;text-transform:uppercase;}
 
-  /* FOOTER */
-  footer.site-footer{background:#0A1628;padding:70px 0 30px;}
-  .footer-grid{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(247,245,240,0.14);}
-  .footer-brand p{color:#8B95A1;font-size:14px;margin:18px 0 22px;max-width:280px;}
-  .footer-col h5{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#E8873A;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;}
-  .footer-col a{display:block;color:rgba(247,245,240,0.62);font-size:14px;margin-bottom:12px;transition:color .2s ease;text-decoration:none;}
-  .footer-col a:hover{color:#fff;}
-  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;flex-wrap:wrap;gap:16px;}
-  .footer-bottom p{font-size:12.5px;color:#8B95A1;font-family:'IBM Plex Mono',monospace;}
-  .social-row{display:flex;gap:16px;}
-  .social-row a{width:34px;height:34px;border:1px solid rgba(247,245,240,0.14);display:flex;align-items:center;justify-content:center;color:#8B95A1;font-size:13px;transition:all .2s ease;text-decoration:none;font-family:'IBM Plex Mono',monospace;}
-  .social-row a:hover{border-color:#E8873A;color:#E8873A;}
-
   @media (max-width:1080px){
     .contact-grid{grid-template-columns:1fr;}
     .team-strip{grid-template-columns:repeat(2,1fr);}
-    .footer-grid{grid-template-columns:repeat(3,1fr);}
   }
   @media (max-width:760px){
     .form-row{grid-template-columns:1fr;}
     .team-strip{grid-template-columns:1fr;}
-    .footer-grid{grid-template-columns:repeat(2,1fr);}
     .container{padding:0 20px;}
     .section-pad{padding:72px 0;}
   }
@@ -203,43 +189,6 @@ function ContactBody() {
     );
 }
 
-function Footer() {
-    return (
-        <footer className="site-footer">
-            <div className="container">
-                <div className="footer-grid">
-                    <div className="footer-brand">
-                        <a href="/" className="logo"><img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" style={{ height: 34, width: "auto", display: "block" }} /></a>
-                        <p>An indigenous engineering company delivering pipeline construction, fabrication, and flare systems to Nigeria's oil &amp; gas sector since 1990.</p>
-                    </div>
-                    <div className="footer-col"><h5>Company</h5>
-                        <a href="/about">About Us</a><a href="/contact">Careers</a><a href="/contact">Contact</a>
-                    </div>
-                    <div className="footer-col"><h5>Services</h5>
-                        <a href="/services">Pipeline Construction</a><a href="/services">Flare Systems</a>
-                        <a href="/services">Fabrication</a><a href="/services">Procurement</a>
-                    </div>
-                    <div className="footer-col"><h5>Industries</h5>
-                        <a href="/services">Oil &amp; Gas</a><a href="/services">Infrastructure</a>
-                        <a href="/services">Manufacturing</a>
-                    </div>
-                    <div className="footer-col"><h5>Resources</h5>
-                        <a href="/projects">Projects</a><a href="/about">Sustainability</a>
-                    </div>
-                </div>
-                <div className="footer-bottom">
-                    <p>© 2026 ANBE Nigeria Limited. All rights reserved.</p>
-                    <div className="social-row">
-                        <a href="#" aria-label="LinkedIn">in</a>
-                        <a href="#" aria-label="Twitter">x</a>
-                        <a href="#" aria-label="Facebook">f</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    );
-}
-
 export default function ContactPage() {
     useReveal();
     return (
@@ -250,7 +199,7 @@ export default function ContactPage() {
                 <PageHero />
                 <ContactBody />
             </main>
-            <Footer />
+            <SiteFooter />
         </>
     );
 }

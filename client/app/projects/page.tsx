@@ -1,5 +1,6 @@
 "use client";
 import SiteNav from "@/components/SiteNav";
+import SiteFooter from "@/components/SiteFooter";
 import { useEffect, useState } from "react";
 
 const STYLES = `
@@ -84,21 +85,8 @@ const STYLES = `
   .modal-meta div .lbl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#E8873A;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;}
   .modal-meta div .val{font-size:14px;color:#0A1628;font-weight:600;font-family:'Space Grotesk',sans-serif;}
 
-  /* FOOTER */
-  footer.site-footer{background:#0A1628;padding:70px 0 30px;}
-  .footer-grid{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(247,245,240,0.14);}
-  .footer-brand p{color:#8B95A1;font-size:14px;margin:18px 0 22px;max-width:280px;font-family:'Inter',sans-serif;}
-  .footer-col h5{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#E8873A;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;}
-  .footer-col a{display:block;color:rgba(247,245,240,0.62);font-size:14px;margin-bottom:12px;transition:color .2s ease;text-decoration:none;font-family:'Inter',sans-serif;}
-  .footer-col a:hover{color:#fff;}
-  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;flex-wrap:wrap;gap:16px;}
-  .footer-bottom p{font-size:12.5px;color:#8B95A1;font-family:'IBM Plex Mono',monospace;}
-  .social-row{display:flex;gap:16px;}
-  .social-row a{width:34px;height:34px;border:1px solid rgba(247,245,240,0.14);display:flex;align-items:center;justify-content:center;color:#8B95A1;font-size:13px;transition:all .2s ease;text-decoration:none;font-family:'IBM Plex Mono',monospace;}
-  .social-row a:hover{border-color:#E8873A;color:#E8873A;}
-
-  @media (max-width:1080px){.projects-grid{grid-template-columns:repeat(2,1fr);}.stats-grid{grid-template-columns:repeat(2,1fr);}.stat:nth-child(3){border-left:none;padding-left:0;}.footer-grid{grid-template-columns:repeat(3,1fr);}}
-  @media (max-width:760px){.projects-grid{grid-template-columns:1fr;}.footer-grid{grid-template-columns:repeat(2,1fr);}.page-hero{padding:100px 0 50px;}.container{padding:0 20px;}.modal-meta{grid-template-columns:1fr;}}
+  @media (max-width:1080px){.projects-grid{grid-template-columns:repeat(2,1fr);}.stats-grid{grid-template-columns:repeat(2,1fr);}.stat:nth-child(3){border-left:none;padding-left:0;}}
+  @media (max-width:760px){.projects-grid{grid-template-columns:1fr;}.stats-grid{grid-template-columns:1fr 1fr;}.stat:nth-child(3){border-left:none;padding-left:0;}.page-hero{padding:100px 0 50px;}.container{padding:0 20px;}.modal-meta{grid-template-columns:1fr;}}
 `;
 
 const PROJECT_DATA = [
@@ -244,41 +232,6 @@ function CtaBand() {
   );
 }
 
-function Footer() {
-  return (
-    <footer className="site-footer">
-      <div className="container">
-        <div className="footer-grid">
-          <div className="footer-brand">
-            <a href="/" className="logo"><img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" style={{ height: 34, width: "auto", display: "block" }} /></a>
-            <p>An indigenous engineering company delivering pipeline construction, fabrication, and flare systems to Nigeria's oil &amp; gas sector since 1990.</p>
-          </div>
-          <div className="footer-col"><h5>Company</h5>
-            <a href="/#about">About Us</a><a href="/#careers">Careers</a><a href="/#news">News</a><a href="/#contact">Contact</a>
-          </div>
-          <div className="footer-col"><h5>Services</h5>
-            <a href="/#services">Pipeline Construction</a><a href="/#services">Flare Systems</a><a href="/#services">Fabrication</a>
-          </div>
-          <div className="footer-col"><h5>Industries</h5>
-            <a href="/#industries">Oil &amp; Gas</a><a href="/#industries">Infrastructure</a><a href="/#industries">Manufacturing</a>
-          </div>
-          <div className="footer-col"><h5>Resources</h5>
-            <a href="/projects" className="active">Projects</a><a href="/#sustainability">Sustainability</a><a href="/#news">Insights</a>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>© 2026 ANBE Nigeria Limited. All rights reserved.</p>
-          <div className="social-row">
-            <a href="#" aria-label="LinkedIn">in</a>
-            <a href="#" aria-label="Twitter / X">x</a>
-            <a href="#" aria-label="Facebook">f</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
 export default function ProjectsPage() {
   useReveal();
   const [modal, setModal] = useState<Project | null>(null);
@@ -292,7 +245,7 @@ export default function ProjectsPage() {
         <ProjectsSection onOpen={setModal} />
         <CtaBand />
       </main>
-      <Footer />
+      <SiteFooter />
       {modal && <Modal project={modal} onClose={() => setModal(null)} />}
     </>
   );

@@ -1,5 +1,6 @@
 "use client";
 import SiteNav from "@/components/SiteNav";
+import SiteFooter from "@/components/SiteFooter";
 import { useEffect, useState } from "react";
 
 const S = `
@@ -68,11 +69,21 @@ const S = `
 
   /* MILESTONES */
   .milestones{display:flex;flex-direction:column;gap:0;}
-  .milestone-row{display:grid;grid-template-columns:140px 1fr;gap:40px;padding:32px 0;border-bottom:1px solid rgba(10,22,40,0.1);align-items:start;}
+  .milestone-row{display:grid;grid-template-columns:100px 1fr;gap:24px;padding:28px 0;border-bottom:1px solid rgba(10,22,40,0.1);align-items:start;}
   .milestone-row:first-child{border-top:1px solid rgba(10,22,40,0.1);}
-  .milestone-year{font-family:'IBM Plex Mono',monospace;font-size:28px;color:#E8873A;font-weight:500;}
-  .milestone-body h4{font-family:'Space Grotesk',sans-serif;font-size:18px;color:#0A1628;margin-bottom:6px;}
+  .milestone-year{font-family:'IBM Plex Mono',monospace;font-size:26px;color:#E8873A;font-weight:500;padding-top:2px;}
+  .milestone-body h4{font-family:'Space Grotesk',sans-serif;font-size:17px;color:#0A1628;margin-bottom:6px;}
   .milestone-body p{font-family:'Inter',sans-serif;font-size:14px;color:#4A5568;line-height:1.6;}
+  .milestones-outer{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+  .milestones-intro img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;border-top:2px solid #E8873A;margin-top:32px;}
+
+  @media(max-width:760px){
+    .milestones-outer{grid-template-columns:1fr;gap:40px;}
+    .milestone-row{grid-template-columns:70px 1fr;gap:16px;padding:20px 0;}
+    .milestone-year{font-size:18px;}
+    .milestone-body h4{font-size:15px;}
+    .milestone-body p{font-size:13px;}
+  }
 
   /* GALLERY STRIP */
   .gallery-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;}
@@ -87,33 +98,18 @@ const S = `
   .cta-inner h2{color:#fff;font-size:clamp(24px,3vw,34px);max-width:520px;font-family:'Space Grotesk',sans-serif;}
   .cta-inner p{color:rgba(247,245,240,0.65);margin-top:10px;max-width:480px;font-family:'Inter',sans-serif;}
 
-  /* FOOTER */
-  footer.site-footer{background:#0A1628;padding:70px 0 30px;}
-  .footer-grid{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(247,245,240,0.14);}
-  .footer-brand p{color:#8B95A1;font-size:14px;margin:18px 0 22px;max-width:280px;font-family:'Inter',sans-serif;}
-  .footer-col h5{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#E8873A;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;}
-  .footer-col a{display:block;color:rgba(247,245,240,0.62);font-size:14px;margin-bottom:12px;transition:color .2s ease;text-decoration:none;font-family:'Inter',sans-serif;}
-  .footer-col a:hover{color:#fff;}
-  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;flex-wrap:wrap;gap:16px;}
-  .footer-bottom p{font-size:12.5px;color:#8B95A1;font-family:'IBM Plex Mono',monospace;}
-  .social-row{display:flex;gap:16px;}
-  .social-row a{width:34px;height:34px;border:1px solid rgba(247,245,240,0.14);display:flex;align-items:center;justify-content:center;color:#8B95A1;font-size:13px;transition:all .2s ease;text-decoration:none;font-family:'IBM Plex Mono',monospace;}
-  .social-row a:hover{border-color:#E8873A;color:#E8873A;}
-
   @media (max-width:1080px){
-    .overview-grid,.ceo-grid{grid-template-columns:1fr;}
+    .overview-grid,.ceo-grid,.milestones-outer{grid-template-columns:1fr;}
     .values-grid{grid-template-columns:repeat(2,1fr);}
     .team-grid{grid-template-columns:repeat(2,1fr);}
-    .footer-grid{grid-template-columns:repeat(3,1fr);}
     .gallery-strip{grid-template-columns:repeat(2,1fr);}
   }
-  @media (max-width:760px){
-    .values-grid,.team-grid{grid-template-columns:1fr;}
-    .footer-grid{grid-template-columns:repeat(2,1fr);}
-    .milestone-row{grid-template-columns:80px 1fr;gap:20px;}
+  @media(max-width:760px){
+    .overview-grid,.ceo-grid,.values-grid,.team-grid{grid-template-columns:1fr;}
+    .team-grid{grid-template-columns:1fr 1fr;}
+    .gallery-strip{grid-template-columns:1fr 1fr;}
     .container{padding:0 20px;}
-    .section-pad{padding:72px 0;}
-    .gallery-strip{grid-template-columns:repeat(2,1fr);}
+    .section-pad{padding:64px 0;}
   }
 `;
 
@@ -278,12 +274,12 @@ function MilestonesSection() {
     return (
         <section className="section-pad" style={{ background: "#F7F5F0" }}>
             <div className="container">
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
-                    <div className="reveal">
+                <div className="milestones-outer">
+                    <div className="reveal milestones-intro">
                         <div className="eyebrow">Our History</div>
                         <h2 style={{ fontSize: "clamp(28px,3.4vw,42px)", lineHeight: 1.1, color: "#0A1628", marginBottom: 16 }}>36 years of delivery in the Niger Delta.</h2>
-                        <p style={{ fontSize: 16, color: "#4A5568", lineHeight: 1.7, marginBottom: 36 }}>From a small start in 1990 to over 140 completed scopes across Nigeria, every milestone reflects the same commitment — well-planned, safely executed, and properly closed out.</p>
-                        <img src="/group.jpg" alt="ANBE team" style={{ width: "100%", aspectRatio: "16/9", objectFit: "cover", display: "block", borderTop: "2px solid #E8873A" }} />
+                        <p style={{ fontSize: 16, color: "#4A5568", lineHeight: 1.7, marginBottom: 0 }}>From a small start in 1990 to over 140 completed scopes across Nigeria, every milestone reflects the same commitment — well-planned, safely executed, and properly closed out.</p>
+                        <img src="/group.jpg" alt="ANBE team" />
                     </div>
                     <div className="reveal milestones">
                         {items.map((m) => (
@@ -323,43 +319,6 @@ function CtaBand() {
     );
 }
 
-function Footer() {
-    return (
-        <footer className="site-footer">
-            <div className="container">
-                <div className="footer-grid">
-                    <div className="footer-brand">
-                        <a href="/" className="logo"><img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" style={{ height: 34, width: "auto", display: "block" }} /></a>
-                        <p>An indigenous engineering company delivering pipeline construction, fabrication, and flare systems to Nigeria's oil &amp; gas sector since 1990.</p>
-                    </div>
-                    <div className="footer-col"><h5>Company</h5>
-                        <a href="/about" className="active">About Us</a><a href="/contact">Careers</a><a href="/contact">Contact</a>
-                    </div>
-                    <div className="footer-col"><h5>Services</h5>
-                        <a href="/services">Pipeline Construction</a><a href="/services">Flare Systems</a>
-                        <a href="/services">Fabrication</a><a href="/services">Procurement</a>
-                    </div>
-                    <div className="footer-col"><h5>Industries</h5>
-                        <a href="/services">Oil &amp; Gas</a><a href="/services">Infrastructure</a>
-                        <a href="/services">Manufacturing</a><a href="/services">Government</a>
-                    </div>
-                    <div className="footer-col"><h5>Resources</h5>
-                        <a href="/projects">Projects</a><a href="/about" className="active">Sustainability</a><a href="/contact">Insights</a>
-                    </div>
-                </div>
-                <div className="footer-bottom">
-                    <p>© 2026 ANBE Nigeria Limited. All rights reserved.</p>
-                    <div className="social-row">
-                        <a href="#" aria-label="LinkedIn">in</a>
-                        <a href="#" aria-label="Twitter">x</a>
-                        <a href="#" aria-label="Facebook">f</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    );
-}
-
 export default function AboutPage() {
     useReveal();
     return (
@@ -376,7 +335,7 @@ export default function AboutPage() {
                 <GalleryStrip />
                 <CtaBand />
             </main>
-            <Footer />
+            <SiteFooter />
         </>
     );
 }

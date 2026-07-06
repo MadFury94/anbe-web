@@ -1,5 +1,6 @@
 "use client";
 import SiteNav from "@/components/SiteNav";
+import SiteFooter from "@/components/SiteFooter";
 import { useEffect, useState } from "react";
 
 /* ── Helpers ── */
@@ -198,21 +199,6 @@ const STYLES3 = `
   .field input,.field textarea,.field select { width:100%;border:1px solid var(--line);background:#fff;padding:13px 14px;font-family:var(--font-inter);font-size:14.5px;color:var(--ink);border-radius:2px;transition:border-color .2s ease; }
   .field input:focus,.field textarea:focus,.field select:focus { border-color:var(--amber);outline:none; }
   .field textarea { resize:vertical;min-height:120px; }
-  footer.site-footer { background:var(--navy);padding:80px 0 30px; }
-  .footer-grid { display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:40px;padding-bottom:56px;border-bottom:1px solid rgba(247,245,240,0.14); }
-  .footer-brand p { color:var(--steel);font-size:14px;margin:18px 0 22px;max-width:280px; }
-  .footer-col h5 { font-family:var(--font-ibm);font-size:11.5px;color:var(--amber);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px; }
-  .footer-col a { display:block;color:rgba(247,245,240,0.62);font-size:14px;margin-bottom:12px;transition:color .2s ease; }
-  .footer-col a:hover { color:#fff; }
-  .newsletter { display:flex;margin-top:8px;border:1px solid rgba(247,245,240,0.14); }
-  .newsletter input { flex:1;background:none;border:none;padding:12px 14px;color:#fff;font-size:13px; }
-  .newsletter input::placeholder { color:var(--steel); }
-  .newsletter button { padding:12px 18px;background:var(--amber);color:var(--navy);font-size:13px;font-weight:600;border:none;cursor:pointer; }
-  .footer-bottom { display:flex;justify-content:space-between;align-items:center;padding-top:26px;flex-wrap:wrap;gap:16px; }
-  .footer-bottom p { font-size:12.5px;color:var(--steel); }
-  .social-row { display:flex;gap:16px; }
-  .social-row a { width:34px;height:34px;border:1px solid rgba(247,245,240,0.14);display:flex;align-items:center;justify-content:center;color:var(--steel);font-size:13px;transition:all .2s ease; }
-  .social-row a:hover { border-color:var(--amber);color:var(--amber); }
   @media (max-width:1080px) {
     .hero-grid { grid-template-columns:1fr; }
     .hero-schematic { display:none; }
@@ -224,13 +210,11 @@ const STYLES3 = `
     .why-grid { grid-template-columns:1fr; }
     .careers-panel { grid-template-columns:1fr;padding:44px 32px; }
     .careers-side { border-left:none;padding-left:0;border-top:1px solid rgba(247,245,240,0.14);padding-top:28px; }
-    .footer-grid { grid-template-columns:repeat(3,1fr); }
   }
   @media (max-width:760px) {
     .stats-grid { grid-template-columns:repeat(2,1fr); }
     .stat:nth-child(3) { border-left:none;padding-left:0; }
     .services-grid,.news-grid,.projects-preview,.industries-grid { grid-template-columns:1fr; }
-    .footer-grid { grid-template-columns:repeat(2,1fr); }
     .form-row { grid-template-columns:1fr; }
     .section-pad { padding:72px 0; }
     .container { padding:0 20px; }
@@ -672,48 +656,6 @@ function Contact() {
   );
 }
 
-/* ── Footer ── */
-function Footer() {
-  return (
-    <footer className="site-footer">
-      <div className="container">
-        <div className="footer-grid">
-          <div className="footer-brand">
-            <a href="/" className="logo"><img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" style={{ height: 34, width: "auto", display: "block" }} /></a>
-            <p>An indigenous engineering company delivering pipeline construction, fabrication, and flare systems to Nigeria's oil &amp; gas sector since 1990.</p>
-            <div className="newsletter">
-              <input type="email" placeholder="Your email address" aria-label="Email for newsletter" />
-              <button>Subscribe</button>
-            </div>
-          </div>
-          <div className="footer-col"><h5>Company</h5>
-            <a href="#about">About Us</a><a href="#careers">Careers</a><a href="#news">News</a><a href="#contact">Contact</a>
-          </div>
-          <div className="footer-col"><h5>Services</h5>
-            <a href="#services">Pipeline Construction</a><a href="#services">Flare Systems</a>
-            <a href="#services">Fabrication</a><a href="#services">Procurement</a>
-          </div>
-          <div className="footer-col"><h5>Industries</h5>
-            <a href="#industries">Oil &amp; Gas</a><a href="#industries">Infrastructure</a>
-            <a href="#industries">Manufacturing</a><a href="#industries">Government</a>
-          </div>
-          <div className="footer-col"><h5>Resources</h5>
-            <a href="/projects">Projects</a><a href="#sustainability">Sustainability</a><a href="#news">Insights</a>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>© 2026 ANBE Nigeria Limited. All rights reserved.</p>
-          <div className="social-row">
-            <a href="#" aria-label="LinkedIn">in</a>
-            <a href="#" aria-label="Twitter / X">x</a>
-            <a href="#" aria-label="Facebook">f</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
 /* ── Page ── */
 export default function Home() {
   useReveal();
@@ -737,7 +679,7 @@ export default function Home() {
         <Careers />
         <Contact />
       </main>
-      <Footer />
+      <SiteFooter />
     </>
   );
 }
