@@ -127,18 +127,17 @@ function SiteNav() {
             <div className="container nav-inner">
                 <a href="/" className="logo"><img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" style={{ height: 50, width: "auto", display: "block" }} /></a>
                 <nav className="main-links">
-                    <a href="/about">About</a>
-                    <a href="/services">Services</a>
-                    <a href="/projects">Projects</a>
-                    <a href="/blog">Blog</a>
-                    <a href="/contact">Contact</a>
-                </nav>
+            <a href="/about">About</a>
+            <a href="/services">Services</a>
+            <a href="/projects">Projects</a>
+            <a href="/blog" className="active">Blog</a>
+          </nav>
                 <a href="/contact" className="nav-cta">Contact Us</a>
                 <button className="nav-toggle" onClick={() => setMob(!mob)} aria-label="Toggle menu">☰</button>
             </div>
             {mob && (
                 <div style={{ position: "fixed", top: 64, left: 0, right: 0, background: "rgba(10,22,40,0.98)", padding: "24px 32px", display: "flex", flexDirection: "column", gap: 18, zIndex: 999 }}>
-                    {[["/about", "About"], ["/services", "Services"], ["/#industries", "Industries"], ["/projects", "Projects"], ["/#sustainability", "Sustainability"], ["/#news", "News"], ["/#careers", "Careers"], ["/blog", "Blog"], ["/contact", "Contact Us"]].map(([h, l]) => (
+                    {[["/about","About"],["/services","Services"],["/projects","Projects"],["/blog","Blog"],["/contact","Contact Us"]].map(([h, l]) => (
                         <a key={h} href={h} onClick={() => setMob(false)} style={{ color: "rgba(255,255,255,0.9)", fontSize: 16, fontWeight: 500, fontFamily: "'Inter',sans-serif", textDecoration: "none" }}>{l}</a>
                     ))}
                 </div>
@@ -157,7 +156,7 @@ function Footer() {
                         <p>An indigenous engineering company delivering pipeline construction, fabrication, and flare systems to Nigeria's oil &amp; gas sector since 1990.</p>
                     </div>
                     <div className="footer-col"><h5>Company</h5>
-                        <a href="/about">About Us</a><a href="/contact">Careers</a><a href="/blog">Blog</a><a href="/contact">Contact</a>
+                        <a href="/about">About Us</a><a href="/contact">Careers</a><a href="/blog" className="active">Blog</a><a href="/contact">Contact</a>
                     </div>
                     <div className="footer-col"><h5>Services</h5>
                         <a href="/services">Pipeline Construction</a><a href="/services">Flare Systems</a>
@@ -168,7 +167,7 @@ function Footer() {
                         <a href="/services">Manufacturing</a><a href="/services">Government</a>
                     </div>
                     <div className="footer-col"><h5>Resources</h5>
-                        <a href="/projects">Projects</a><a href="/about">Sustainability</a><a href="/blog">Insights</a>
+                        <a href="/projects">Projects</a><a href="/about">Sustainability</a><a href="/blog" className="active">Insights</a>
                     </div>
                 </div>
                 <div className="footer-bottom">
@@ -224,7 +223,7 @@ export default function BlogArticlePage() {
                     <div className="article-hero-inner">
                         <div className="container">
                             <div className="breadcrumb">
-                                <a href="/">Home</a> / <a href="/blog">Blog</a> / {post.category}
+                                <a href="/">Home</a> / <a href="/blog" className="active">Blog</a> / {post.category}
                             </div>
                             <div className="article-meta">
                                 <span className="article-category">{post.category}</span>
