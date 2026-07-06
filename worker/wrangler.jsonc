@@ -1,0 +1,31 @@
+{
+    "name": "anbe-api",
+    "main": "src/index.ts",
+    "compatibility_date": "2025-07-06",
+    "compatibility_flags": [
+        "nodejs_compat"
+    ],
+    "observability": {
+        "enabled": true,
+        "head_sampling_rate": 1
+    },
+    // D1 database — run: wrangler d1 create anbe-db
+    "d1_databases": [
+        {
+            "binding": "DB",
+            "database_name": "anbe-db",
+            "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+        }
+    ],
+    // KV namespace for sessions — run: wrangler kv namespace create SESSIONS
+    "kv_namespaces": [
+        {
+            "binding": "SESSIONS",
+            "id": "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+        }
+    ]
+    // Secrets (set via: wrangler secret put ADMIN_PASSWORD_HASH)
+    // Required secrets:
+    //   ADMIN_PASSWORD_HASH  — bcrypt hash of admin password
+    //   JWT_SECRET           — random 32+ char string for signing tokens
+}
