@@ -22,9 +22,9 @@ export const company = {
             "We continue to invest in cutting-edge technology, professional development, and safety protocols to ensure we remain at the forefront of the industry.",
     },
     mission:
-        "Deliver engineering solutions of international standard, executed by Nigerian talent, from wellhead to flare tip.",
+        "We create value through innovative, cost-effective pipeline procurement and construction solutions, driven by technical expertise, quality service, and strong client partnerships.",
     vision:
-        "Become a leading Pipeline, Engineering & Construction company across West Africa, setting the benchmark for indigenous technical excellence.",
+        "To become an international pipeline, engineering and construction service company that provides services of international standard.",
     emailjs: {
         serviceId: "YOUR_SERVICE_ID",
         templateId: "YOUR_TEMPLATE_ID",
@@ -34,9 +34,11 @@ export const company = {
 
 // ── Contact ──────────────────────────────────────────────────
 export const contact = {
-    address: "Port Harcourt, Rivers State",
+    address: "No. 245, Aba Road, Rumuogba Layout",
+    city: "Port Harcourt, Rivers State",
     country: "Nigeria",
     phones: ["+234 803 310 0539", "+234 803 775 3444"],
+    emails: ["info@anbenig.com", "anbenig@yahoo.com"],
     email: "info@anbenig.com",
     officeHours: "Mon–Fri, 8am–5pm WAT",
     fieldResponse: "24/7 Field Response",
@@ -164,40 +166,58 @@ export const aboutPage = {
 // ── Services ─────────────────────────────────────────────────
 export const services = [
     {
-        idx: "01 — DESIGN & ENGINEERING",
-        title: "Smokeless Flare & Ignition Systems",
-        desc: "Design and fabrication of vertical and horizontal smokeless flares, high turndown flares, and tropicalised remote ignition systems.",
-        features: ["Vertical & Horizontal Flares", "High Turndown Design", "Remote Ignition", "Tropicalised Systems"],
+        idx: "01 — ENGINEERING",
+        title: "Engineering Works",
+        desc: "Comprehensive engineering services including design, fabrication, and installation of smokeless flare systems, remote ignition systems, and oil & gas facility infrastructure.",
+        features: ["Smokeless Flare Design", "Remote Ignition Systems", "Facility Engineering", "Technical Design"],
     },
     {
         idx: "02 — CONSTRUCTION",
         title: "Pipeline Construction & Repair",
-        desc: "Full-scope pipeline construction, installation, and repair, including tie-ins, hydrotesting, and right-of-way reinstatement.",
-        features: ["New Construction", "Tie-ins & Repair", "Hydrotesting", "ROW Reinstatement"],
+        desc: "Full-scope pipeline construction, installation, and repair including tie-ins, hydrotesting, corrosion repair, and right-of-way reinstatement.",
+        features: ["New Construction", "Tie-ins & Repair", "Corrosion & Leak Repair", "ROW Reinstatement"],
     },
     {
         idx: "03 — PROCUREMENT",
         title: "Procurement & Stockpiling",
-        desc: "Sourcing, quality verification, and stockpiling of materials and equipment for oil & gas facility construction.",
+        desc: "Sourcing, quality verification, and stockpiling of materials and equipment for oil & gas facility construction, ensuring on-time delivery within budget.",
         features: ["Material Sourcing", "Quality Verification", "Stockpile Management", "Vendor Management"],
     },
     {
         idx: "04 — FABRICATION",
         title: "Fabrication & Workshop Services",
-        desc: "In-house fabrication of flare components, structural steel, and skid-mounted equipment at our Port Harcourt facility.",
+        desc: "Custom fabrication of oil and gas equipment — flare components, structural steel, and skid-mounted packages — at our Port Harcourt facility with full QA/QC.",
         features: ["Flare Components", "Structural Steel", "Skid Fabrication", "QA/QC Inspection"],
     },
     {
-        idx: "05 — MAINTENANCE",
-        title: "Equipment Maintenance",
-        desc: "Combustion equipment maintenance covering generators, earth-moving equipment, and flare ignition assemblies.",
-        features: ["Preventive Maintenance", "Emergency Response", "Generator Maintenance", "Ignition Assemblies"],
+        idx: "05 — MANPOWER & LOGISTICS",
+        title: "Manpower & Logistics Services",
+        desc: "Skilled manpower supply and efficient logistics solutions to ensure seamless field operations, minimise downtime, and optimise cost-effectiveness across project sites.",
+        features: ["Skilled Manpower Supply", "Field Logistics", "Project Mobilisation", "Cost Optimisation"],
     },
     {
-        idx: "06 — SUPPORT",
-        title: "24/7 Technical Partner Support",
-        desc: "Direct access to ANBE Technical Partners for specialist expertise across the life of a facility.",
-        features: ["Round-the-Clock Support", "Specialist Expertise", "Field Response", "Technical Advisory"],
+        idx: "06 — PIPELINE INTEGRITY",
+        title: "Pipeline Integrity Testing",
+        desc: "Advanced pipeline integrity testing to detect leaks, corrosion, and structural weaknesses — ensuring safe, reliable, and long-lasting pipeline performance.",
+        features: ["Leak Detection", "Corrosion Assessment", "Hydrotest", "Integrity Reporting"],
+    },
+    {
+        idx: "07 — INSTRUMENTATION",
+        title: "Instrumentation Services",
+        desc: "Accurate and reliable data acquisition through comprehensive instrumentation design, installation, calibration, and maintenance services for oil & gas facilities.",
+        features: ["Instrument Design", "Installation", "Calibration", "Ongoing Maintenance"],
+    },
+    {
+        idx: "08 — FLOW STATIONS",
+        title: "Flow Station Upgrades",
+        desc: "Expert flow station upgrade services to optimise production, improve safety systems, and meet evolving regulatory and operational requirements.",
+        features: ["Production Optimisation", "Safety Upgrades", "Regulatory Compliance", "System Integration"],
+    },
+    {
+        idx: "09 — MAINTENANCE",
+        title: "Equipment Maintenance",
+        desc: "Combustion equipment maintenance covering generators, earth-moving equipment, and flare ignition assemblies with 24/7 emergency response capability.",
+        features: ["Preventive Maintenance", "Emergency Response", "Generator Overhaul", "Ignition Assemblies"],
     },
 ];
 
