@@ -1,10 +1,10 @@
 {
     "name": "anbe-admin",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "vite",
+        "dev": "vite --port 5175",
         "build": "vite build",
         "preview": "vite preview"
     },
@@ -14,9 +14,9 @@
         "react-router-dom": "^7.18.1"
     },
     "devDependencies": {
-        "@vitejs/plugin-react": "^4.7.0",
         "@types/react": "^19",
         "@types/react-dom": "^19",
+        "@vitejs/plugin-react": "^4.7.0",
         "typescript": "^5",
         "vite": "^6.4.3"
     }

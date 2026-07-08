@@ -1,7 +1,7 @@
--- Admin users
+-- Admin user
 CREATE TABLE IF NOT EXISTS admin_users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  username TEXT NOT NULL UNIQUE,
+  username TEXT UNIQUE NOT NULL,
   password_hash TEXT NOT NULL,
   created_at TEXT DEFAULT (datetime('now'))
 );
@@ -9,14 +9,14 @@ CREATE TABLE IF NOT EXISTS admin_users (
 -- Blog posts
 CREATE TABLE IF NOT EXISTS blog_posts (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  slug TEXT NOT NULL UNIQUE,
+  slug TEXT UNIQUE NOT NULL,
   title TEXT NOT NULL,
-  excerpt TEXT NOT NULL,
-  content TEXT NOT NULL,
-  category TEXT NOT NULL,
-  image TEXT NOT NULL,
-  read_time TEXT NOT NULL DEFAULT '5 min read',
-  published INTEGER NOT NULL DEFAULT 1,
+  excerpt TEXT,
+  content TEXT,
+  category TEXT,
+  image TEXT,
+  read_time TEXT,
+  published INTEGER DEFAULT 1,
   created_at TEXT DEFAULT (datetime('now')),
   updated_at TEXT DEFAULT (datetime('now'))
 );
@@ -25,14 +25,15 @@ CREATE TABLE IF NOT EXISTS blog_posts (
 CREATE TABLE IF NOT EXISTS projects (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT NOT NULL,
-  client TEXT NOT NULL,
-  category TEXT NOT NULL,
-  description TEXT NOT NULL,
-  image TEXT NOT NULL,
-  location TEXT NOT NULL DEFAULT '',
-  duration TEXT NOT NULL DEFAULT '',
-  scope TEXT NOT NULL DEFAULT '',
-  published INTEGER NOT NULL DEFAULT 1,
+  client TEXT,
+  category TEXT,
+  tag TEXT,
+  description TEXT,
+  image TEXT,
+  location TEXT,
+  duration TEXT,
+  scope TEXT,
+  published INTEGER DEFAULT 1,
   created_at TEXT DEFAULT (datetime('now')),
   updated_at TEXT DEFAULT (datetime('now'))
 );
@@ -40,13 +41,13 @@ CREATE TABLE IF NOT EXISTS projects (
 -- Services
 CREATE TABLE IF NOT EXISTS services (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  idx TEXT NOT NULL,
+  idx TEXT,
   title TEXT NOT NULL,
-  description TEXT NOT NULL,
-  image TEXT NOT NULL,
-  features TEXT NOT NULL DEFAULT '[]',
-  sort_order INTEGER NOT NULL DEFAULT 0,
-  published INTEGER NOT NULL DEFAULT 1,
+  description TEXT,
+  image TEXT,
+  features TEXT,
+  sort_order INTEGER DEFAULT 0,
+  published INTEGER DEFAULT 1,
   updated_at TEXT DEFAULT (datetime('now'))
 );
 
@@ -54,10 +55,35 @@ CREATE TABLE IF NOT EXISTS services (
 CREATE TABLE IF NOT EXISTS team_members (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
-  role TEXT NOT NULL,
-  image TEXT NOT NULL,
-  bio TEXT NOT NULL DEFAULT '',
-  sort_order INTEGER NOT NULL DEFAULT 0,
-  published INTEGER NOT NULL DEFAULT 1,
+  role TEXT,
+  image TEXT,
+  bio TEXT,
+  sort_order INTEGER DEFAULT 0,
+  published INTEGER DEFAULT 1,
   updated_at TEXT DEFAULT (datetime('now'))
 );
+
+-- Client Project Reports (shareable via unique token, not shown on public site)
+CREATE TABLE IF NOT EXISTS project_reports (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  token TEXT UNIQUE NOT NULL,          -- random 24-char URL-safe token
+  title TEXT NOT NULL,                  -- project title shown to client
+  client_name TEXT NOT NULL,            -- who this report is for
+  client_company TEXT,
+  category TEXT,                        -- flare | pipeline | fabrication | maintenance
+  location TEXT,
+  start_date TEXT,
+  end_date TEXT,
+  scope TEXT,                           -- what was done (rich text / paragraphs as JSON)
+  outcomes TEXT,                        -- key outcomes / achievements (JSON array)
+  images TEXT,                          -- JSON array of image paths/URLs
+  milestones TEXT,                      -- JSON array of {label, date, done}
+  hse_note TEXT,                        -- safety/HSE summary
+  prepared_by TEXT,                     -- e.g. "Ernest Azukaeme, CEO"
+  expires_at TEXT,                      -- optional expiry date (ISO)
+  views INTEGER DEFAULT 0,
+  created_at TEXT DEFAULT (datetime('now')),
+  updated_at TEXT DEFAULT (datetime('now'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_reports_token ON project_reports(token);

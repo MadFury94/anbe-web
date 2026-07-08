@@ -2,7 +2,9 @@ import { handleAuth } from "./routes/auth";
 import { handleBlog } from "./routes/blog";
 import { handleProjects } from "./routes/projects";
 import { handleServices } from "./routes/services";
+import { handleTeam } from "./routes/team";
 import { handleContact } from "./routes/contact";
+import { handleReports } from "./routes/reports";
 import { cors, json, notFound, requireAuth } from "./lib/utils";
 
 export interface Env {
@@ -34,6 +36,9 @@ export default {
                 if (path.startsWith("/api/blog")) return cors(await handleBlog(request, env, path, false));
                 if (path.startsWith("/api/projects")) return cors(await handleProjects(request, env, path, false));
                 if (path.startsWith("/api/services")) return cors(await handleServices(request, env, path, false));
+                if (path.startsWith("/api/team")) return cors(await handleTeam(request, env, path, false));
+                // Public report access via token (no auth needed)
+                if (path.startsWith("/api/reports/")) return cors(await handleReports(request, env, path, false));
             }
 
             // Protected write endpoints — require valid JWT
@@ -43,7 +48,9 @@ export default {
             if (path.startsWith("/api/blog")) return cors(await handleBlog(request, env, path, true));
             if (path.startsWith("/api/projects")) return cors(await handleProjects(request, env, path, true));
             if (path.startsWith("/api/services")) return cors(await handleServices(request, env, path, true));
+            if (path.startsWith("/api/team")) return cors(await handleTeam(request, env, path, true));
             if (path.startsWith("/api/contact")) return cors(await handleContact(request, env, path));
+            if (path.startsWith("/api/reports")) return cors(await handleReports(request, env, path, true));
 
             return cors(notFound());
         } catch (err) {

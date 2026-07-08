@@ -1,35 +1,32 @@
-import { Routes, Route, NavLink } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import Posts from "./pages/Posts";
-import Projects from "./pages/Projects";
-import Messages from "./pages/Messages";
-import Settings from "./pages/Settings";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./lib/auth";
+import LoginPage from "./pages/Login";
+import Layout from "./pages/Layout";
+import ProjectsPage from "./pages/Projects";
+import ServicesPage from "./pages/Services";
+import TeamPage from "./pages/Team";
+import ReportsPage from "./pages/Reports";
+
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+    const { token, loading } = useAuth();
+    if (loading) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", fontFamily: "Inter,sans-serif", color: "#8B95A1" }}>Loading…</div>;
+    return token ? <>{children}</> : <Navigate to="/login" replace />;
+}
 
 export default function App() {
     return (
-        <div className="admin-layout">
-            <aside className="admin-sidebar">
-                <div className="brand">
-                    <h1>ANBE Admin</h1>
-                    <span>Nigeria Limited</span>
-                </div>
-                <nav className="admin-nav">
-                    <NavLink to="/" end>⬛ Dashboard</NavLink>
-                    <NavLink to="/posts">📝 Blog Posts</NavLink>
-                    <NavLink to="/projects">🔧 Projects</NavLink>
-                    <NavLink to="/messages">✉️ Messages</NavLink>
-                    <NavLink to="/settings">⚙️ Settings</NavLink>
-                </nav>
-            </aside>
-            <div className="admin-main">
-                <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/posts" element={<Posts />} />
-                    <Route path="/projects" element={<Projects />} />
-                    <Route path="/messages" element={<Messages />} />
-                    <Route path="/settings" element={<Settings />} />
-                </Routes>
-            </div>
-        </div>
+        <AuthProvider>
+            <Routes>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+                    <Route index element={<Navigate to="/projects" replace />} />
+                    <Route path="projects" element={<ProjectsPage />} />
+                    <Route path="services" element={<ServicesPage />} />
+                    <Route path="team" element={<TeamPage />} />
+                    <Route path="reports" element={<ReportsPage />} />
+                </Route>
+                <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+        </AuthProvider>
     );
 }
