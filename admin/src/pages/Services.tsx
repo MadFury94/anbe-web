@@ -30,8 +30,8 @@ const S = `
 
   /* Large number column */
   .svc-num-col {
-    width: 88px;
-    min-width: 88px;
+    width: 64px;
+    min-width: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,12 +40,11 @@ const S = `
     flex-shrink: 0;
   }
   .svc-big-num {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 40px;
-    font-weight: 700;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px;
+    font-weight: 500;
     color: #E8873A;
-    opacity: 0.22;
-    letter-spacing: -0.04em;
+    letter-spacing: 0.04em;
     line-height: 1;
     user-select: none;
   }
@@ -229,9 +228,9 @@ export default function ServicesPage() {
 
                         return (
                             <div className="svc-row" key={s.id}>
-                                {/* Big number */}
+                                {/* Clean number */}
                                 <div className="svc-num-col">
-                                    <span className="svc-big-num">{s.idx || formatNum(i + 1)}</span>
+                                    <span className="svc-big-num">{formatNum(i + 1)}</span>
                                 </div>
 
                                 {/* Content */}

@@ -22,8 +22,11 @@ export function cors(res: Response): Response {
 }
 
 // ── JWT (HS256) — pure Web Crypto, no libraries ───────────────────────────
-function b64url(buf: ArrayBuffer): string {
-    return btoa(String.fromCharCode(...new Uint8Array(buf)))
+function b64url(buf: ArrayBuffer | ArrayBufferView): string {
+    const bytes = buf instanceof ArrayBuffer
+        ? new Uint8Array(buf)
+        : new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength);
+    return btoa(String.fromCharCode(...bytes))
         .replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
 }
 
