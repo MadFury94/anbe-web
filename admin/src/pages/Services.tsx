@@ -3,69 +3,145 @@ import { api, type Service } from "../lib/api";
 import Modal from "../components/Modal";
 
 const S = `
-  /* ── Service row cards ── */
-  .svc-list{display:flex;flex-direction:column;gap:10px;}
-  .svc-card{
-    display:flex;align-items:stretch;background:#fff;
-    border:1px solid #e8e4dc;border-left:3px solid #E8873A;
-    transition:box-shadow .18s;overflow:hidden;
-  }
-  .svc-card:hover{box-shadow:0 2px 12px rgba(10,22,40,0.08);}
-
-  /* Drag handle */
-  .svc-drag{
-    width:32px;min-width:32px;display:flex;align-items:center;justify-content:center;
-    border-right:1px solid #f0ece5;color:#c8c2b8;font-size:16px;cursor:grab;
-    flex-shrink:0;user-select:none;
+  /* ── Numbered service list ── */
+  .svc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
 
-  /* Number badge */
-  .svc-num{
-    width:52px;min-width:52px;display:flex;align-items:center;justify-content:center;
-    border-right:1px solid #f0ece5;flex-shrink:0;
+  .svc-row {
+    display: flex;
+    align-items: stretch;
+    background: #fff;
+    border: 1px solid #E2DDD5;
+    border-top: none;
+    transition: border-left-color 0.15s, box-shadow 0.15s;
+    border-left: 3px solid transparent;
+    overflow: hidden;
+    position: relative;
   }
-  .svc-num span{
-    font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;
-    color:#E8873A;letter-spacing:-0.02em;
-  }
-
-  .svc-body{flex:1;padding:16px 20px;display:flex;align-items:center;gap:20px;overflow:hidden;}
-  .svc-info{flex:1;min-width:0;}
-  .svc-title{
-    font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;
-    color:#0A1628;margin-bottom:4px;
-  }
-  .svc-desc{
-    font-family:'Inter',sans-serif;font-size:13px;color:#8B95A1;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-    margin-bottom:6px;
-  }
-  .svc-meta{display:flex;align-items:center;gap:10px;}
-  .svc-feat-count{
-    font-family:'IBM Plex Mono',monospace;font-size:10px;
-    color:#8B95A1;letter-spacing:0.04em;
-    display:flex;align-items:center;gap:4px;
+  .svc-row:first-child { border-top: 1px solid #E2DDD5; }
+  .svc-row:hover {
+    border-left-color: #E8873A;
+    box-shadow: 0 2px 12px rgba(10,22,40,0.06);
+    z-index: 1;
   }
 
-  .svc-status-dot{
-    display:inline-flex;align-items:center;gap:5px;
-    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.04em;
-    text-transform:uppercase;
+  /* Large number column */
+  .svc-num-col {
+    width: 88px;
+    min-width: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #F0ECE5;
+    padding: 20px 0;
+    flex-shrink: 0;
   }
-  .svc-status-dot::before{
-    content:'';display:inline-block;width:6px;height:6px;border-radius:50%;
+  .svc-big-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: #E8873A;
+    opacity: 0.22;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    user-select: none;
   }
-  .svc-status-dot.live{color:#276749;}
-  .svc-status-dot.live::before{background:#4CAF50;}
-  .svc-status-dot.draft{color:#8B95A1;}
-  .svc-status-dot.draft::before{background:#c8c2b8;}
 
-  .svc-actions{display:flex;gap:6px;flex-shrink:0;}
+  /* Content column */
+  .svc-content {
+    flex: 1;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    overflow: hidden;
+    min-width: 0;
+  }
+  .svc-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .svc-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0A1628;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .svc-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #8B95A1;
+    line-height: 1.5;
+    /* 2-line clamp */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 8px;
+    max-width: 600px;
+  }
+  .svc-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .svc-feat-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #0A1628;
+    background: #F7F5F0;
+    border: 1px solid #E2DDD5;
+    padding: 3px 7px;
+    white-space: nowrap;
+  }
+  .svc-feat-more {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: #8B95A1;
+    padding: 3px 0;
+    white-space: nowrap;
+  }
 
-  @media(max-width:640px){
-    .svc-body{flex-wrap:wrap;gap:10px;}
-    .svc-num{width:40px;min-width:40px;}
-    .svc-drag{width:24px;min-width:24px;}
+  /* Right column: status + actions */
+  .svc-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 10px;
+    padding: 18px 20px 18px 0;
+    flex-shrink: 0;
+  }
+  .svc-actions {
+    display: flex;
+    gap: 6px;
+  }
+
+  /* Index label */
+  .svc-idx-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    color: #8B95A1;
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+  }
+
+  @media (max-width: 640px) {
+    .svc-num-col { width: 56px; min-width: 56px; }
+    .svc-big-num { font-size: 28px; }
+    .svc-content { flex-wrap: wrap; gap: 12px; padding: 14px 14px; }
+    .svc-right { flex-direction: row; align-items: center; padding: 0 14px 14px; }
   }
 `;
 
@@ -115,7 +191,7 @@ export default function ServicesPage() {
     };
 
     const del = async (id: number) => {
-        if (!confirm("Delete this service?")) return;
+        if (!confirm("Delete this service? This cannot be undone.")) return;
         await api.deleteService(id); load();
     };
 
@@ -146,49 +222,51 @@ export default function ServicesPage() {
                 <div className="empty">No services yet.</div>
             ) : (
                 <div className="svc-list">
-                    {services.map((s, i) => (
-                        <div className="svc-card" key={s.id}>
-                            {/* Drag handle */}
-                            <div className="svc-drag" title="Drag to reorder">
-                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                    <path d="M2 2h8M2 6h8M2 10h8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="square" />
-                                </svg>
-                            </div>
+                    {services.map((s, i) => {
+                        const feats = s.features || [];
+                        const visibleFeats = feats.slice(0, 4);
+                        const extra = feats.length - visibleFeats.length;
 
-                            {/* Number badge */}
-                            <div className="svc-num">
-                                <span>{s.idx || formatNum(i + 1)}</span>
-                            </div>
+                        return (
+                            <div className="svc-row" key={s.id}>
+                                {/* Big number */}
+                                <div className="svc-num-col">
+                                    <span className="svc-big-num">{s.idx || formatNum(i + 1)}</span>
+                                </div>
 
-                            <div className="svc-body">
-                                <div className="svc-info">
-                                    <div className="svc-title">{s.title}</div>
-                                    {s.description && (
-                                        <div className="svc-desc">
-                                            {s.description.length > 80 ? s.description.slice(0, 80) + "…" : s.description}
-                                        </div>
-                                    )}
-                                    <div className="svc-meta">
-                                        {s.features && s.features.length > 0 && (
-                                            <span className="svc-feat-count">
-                                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                                                    <path d="M2 2h6M2 5h6M2 8h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="square" />
-                                                </svg>
-                                                {s.features.length} feature{s.features.length !== 1 ? "s" : ""}
-                                            </span>
+                                {/* Content */}
+                                <div className="svc-content">
+                                    <div className="svc-info">
+                                        <div className="svc-title">{s.title}</div>
+                                        {s.description && (
+                                            <div className="svc-desc">{s.description}</div>
                                         )}
-                                        <span className={`svc-status-dot${s.published ? " live" : " draft"}`}>
-                                            {s.published ? "Live" : "Draft"}
-                                        </span>
+                                        {feats.length > 0 && (
+                                            <div className="svc-features">
+                                                {visibleFeats.map((feat, fi) => (
+                                                    <span key={fi} className="svc-feat-tag">{feat}</span>
+                                                ))}
+                                                {extra > 0 && (
+                                                    <span className="svc-feat-more">+{extra} more</span>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
-                                <div className="svc-actions">
-                                    <button className="action-btn" onClick={() => openEdit(s)}>Edit</button>
-                                    <button className="action-btn danger" onClick={() => del(s.id)}>Delete</button>
+
+                                {/* Right: status + actions */}
+                                <div className="svc-right">
+                                    <span className={`status-dot${s.published ? " live" : " draft"}`}>
+                                        {s.published ? "Live" : "Draft"}
+                                    </span>
+                                    <div className="svc-actions">
+                                        <button className="action-btn" onClick={() => openEdit(s)}>Edit</button>
+                                        <button className="action-btn danger" onClick={() => del(s.id)}>Delete</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             )}
 
@@ -205,24 +283,10 @@ export default function ServicesPage() {
                         </>
                     }
                 >
-                    {error && (
-                        <div
-                            style={{
-                                borderLeft: "3px solid #E8873A",
-                                background: "#fff8f3",
-                                color: "#c55a10",
-                                padding: "10px 14px",
-                                marginBottom: 16,
-                                fontSize: 13,
-                                fontFamily: "'Inter',sans-serif",
-                            }}
-                        >
-                            {error}
-                        </div>
-                    )}
+                    {error && <div className="form-error">{error}</div>}
                     <div className="f-field">
                         <label>Index Label</label>
-                        <input value={form.idx || ""} onChange={f("idx")} placeholder="01 — ENGINEERING" />
+                        <input value={form.idx || ""} onChange={f("idx")} placeholder="01" />
                     </div>
                     <div className="f-field">
                         <label>Title *</label>
@@ -248,7 +312,7 @@ export default function ServicesPage() {
                         </div>
                         <div className="f-field">
                             <label>Sort order</label>
-                            <input type="number" value={form.sort_order || 0} onChange={f("sort_order")} />
+                            <input type="number" value={form.sort_order ?? 0} onChange={f("sort_order")} />
                         </div>
                     </div>
                     <div className="f-field">

@@ -3,72 +3,156 @@ import { api, type TeamMember } from "../lib/api";
 import Modal from "../components/Modal";
 
 const S = `
-  /* ── Team grid ── */
-  .team-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
+  /* ── Photo card grid ── */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
   }
-  @media(max-width:900px){.team-grid{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:520px){.team-grid{grid-template-columns:1fr;}}
+  @media (max-width: 1100px) { .team-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 768px)  { .team-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px)  { .team-grid { grid-template-columns: 1fr; } }
 
-  /* ── Member card ── */
-  .team-card{
-    background:#fff;border:1px solid #e8e4dc;
-    display:flex;flex-direction:column;overflow:hidden;
-    transition:border-top-color .18s;border-top:2px solid transparent;
+  /* ── Card ── */
+  .team-card {
+    background: #fff;
+    border: 1px solid #E2DDD5;
+    border-bottom: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: border-bottom-color 0.15s, box-shadow 0.15s;
+    position: relative;
   }
-  .team-card:hover{border-top-color:#E8873A;}
-
-  .team-card-photo-wrap{
-    width:100%;aspect-ratio:1/1;overflow:hidden;
-    background:linear-gradient(135deg,#0A1628 0%,#1a3052 100%);
-    flex-shrink:0;position:relative;
-  }
-  .team-card-photo{
-    width:100%;height:100%;object-fit:cover;display:block;
-  }
-  .team-card-initials{
-    position:absolute;inset:0;display:flex;align-items:center;
-    justify-content:center;
-    font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700;
-    color:#E8873A;letter-spacing:-0.02em;
+  .team-card:hover {
+    border-bottom-color: #E8873A;
+    box-shadow: 0 6px 24px rgba(10,22,40,0.09);
   }
 
-  .team-card-body{padding:16px;flex:1;display:flex;flex-direction:column;}
-  .team-card-name{
-    font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;
-    color:#0A1628;margin-bottom:3px;
+  /* Photo wrapper: square */
+  .team-photo-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #0A1628;
+    position: relative;
+    flex-shrink: 0;
   }
-  .team-card-role{
-    font-family:'IBM Plex Mono',monospace;font-size:10px;
-    color:#E8873A;text-transform:uppercase;letter-spacing:0.08em;
-    margin-bottom:8px;
+  .team-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
   }
-  .team-card-footer{
-    display:flex;align-items:center;justify-content:space-between;
-    margin-top:auto;padding-top:12px;border-top:1px solid #f0ece5;
+  /* Initials avatar (always rendered behind photo) */
+  .team-initials {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #E8873A;
+    letter-spacing: -0.02em;
+    z-index: 0;
+    opacity: 0.4;
   }
 
-  .team-status-dot{
-    display:inline-flex;align-items:center;gap:5px;
-    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.04em;
-    text-transform:uppercase;
+  /* Hover action overlay */
+  .team-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10,22,40,0.60);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.18s;
+    z-index: 10;
   }
-  .team-status-dot::before{
-    content:'';display:inline-block;width:6px;height:6px;border-radius:50%;
-  }
-  .team-status-dot.live{color:#276749;}
-  .team-status-dot.live::before{background:#4CAF50;}
-  .team-status-dot.draft{color:#8B95A1;}
-  .team-status-dot.draft::before{background:#c8c2b8;}
+  .team-card:hover .team-card-overlay { opacity: 1; }
 
-  .team-card-actions{display:flex;gap:6px;}
+  .team-overlay-btn {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.13s, border-color 0.13s;
+  }
+  .team-overlay-btn:hover {
+    background: rgba(232,135,58,0.25);
+    border-color: #E8873A;
+  }
+  .team-overlay-btn.danger:hover {
+    background: rgba(220,38,38,0.25);
+    border-color: #fc8181;
+  }
+
+  /* Info section */
+  .team-card-info {
+    padding: 14px 14px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .team-card-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #0A1628;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+  }
+  .team-card-role {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: #E8873A;
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .team-card-status {
+    margin-top: 6px;
+  }
 
   /* Photo preview in modal */
-  .photo-preview{
-    width:80px;height:80px;object-fit:cover;
-    border:1px solid #e2ddd5;display:block;margin-bottom:12px;
+  .photo-preview-wrap {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border: 1px solid #E2DDD5;
+    margin-bottom: 14px;
+    flex-shrink: 0;
+    background: #0A1628;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .photo-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
   }
 `;
 
@@ -116,7 +200,7 @@ export default function TeamPage() {
     };
 
     const del = async (id: number) => {
-        if (!confirm("Remove this team member?")) return;
+        if (!confirm("Remove this team member? This cannot be undone.")) return;
         await api.deleteTeamMember(id); load();
     };
 
@@ -149,33 +233,48 @@ export default function TeamPage() {
                 <div className="team-grid">
                     {team.map((m) => (
                         <div className="team-card" key={m.id}>
-                            <div className="team-card-photo-wrap">
-                                {m.image ? (
+                            {/* Photo area */}
+                            <div className="team-photo-wrap">
+                                {/* Initials always present as background */}
+                                <div className="team-initials">{getInitials(m.name) || "?"}</div>
+                                {/* Photo on top if available */}
+                                {m.image && (
                                     <img
-                                        className="team-card-photo"
+                                        className="team-photo"
                                         src={m.image}
                                         alt={m.name}
                                         onError={(e) => {
                                             (e.target as HTMLImageElement).style.display = "none";
                                         }}
                                     />
-                                ) : null}
-                                {/* Always render initials as fallback behind image */}
-                                <div className="team-card-initials">
-                                    {getInitials(m.name) || "?"}
+                                )}
+                                {/* Hover overlay with action buttons */}
+                                <div className="team-card-overlay">
+                                    <button
+                                        className="team-overlay-btn"
+                                        title="Edit member"
+                                        onClick={() => openEdit(m)}
+                                    >
+                                        ✎
+                                    </button>
+                                    <button
+                                        className="team-overlay-btn danger"
+                                        title="Delete member"
+                                        onClick={() => del(m.id)}
+                                    >
+                                        ×
+                                    </button>
                                 </div>
                             </div>
-                            <div className="team-card-body">
+
+                            {/* Info */}
+                            <div className="team-card-info">
                                 <div className="team-card-name">{m.name}</div>
                                 <div className="team-card-role">{m.role}</div>
-                                <div className="team-card-footer">
-                                    <span className={`team-status-dot${m.published ? " live" : " draft"}`}>
+                                <div className="team-card-status">
+                                    <span className={`status-dot${m.published ? " live" : " draft"}`}>
                                         {m.published ? "Live" : "Draft"}
                                     </span>
-                                    <div className="team-card-actions">
-                                        <button className="action-btn" onClick={() => openEdit(m)}>Edit</button>
-                                        <button className="action-btn danger" onClick={() => del(m.id)}>Delete</button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -196,21 +295,7 @@ export default function TeamPage() {
                         </>
                     }
                 >
-                    {error && (
-                        <div
-                            style={{
-                                borderLeft: "3px solid #E8873A",
-                                background: "#fff8f3",
-                                color: "#c55a10",
-                                padding: "10px 14px",
-                                marginBottom: 16,
-                                fontSize: 13,
-                                fontFamily: "'Inter',sans-serif",
-                            }}
-                        >
-                            {error}
-                        </div>
-                    )}
+                    {error && <div className="form-error">{error}</div>}
                     <div className="f-row">
                         <div className="f-field">
                             <label>Full Name *</label>
@@ -226,12 +311,14 @@ export default function TeamPage() {
                         <input value={form.image || ""} onChange={f("image")} placeholder="/ceo.png" />
                     </div>
                     {form.image && (
-                        <img
-                            className="photo-preview"
-                            src={form.image}
-                            alt="preview"
-                            onError={(e) => { (e.currentTarget.style.display = "none"); }}
-                        />
+                        <div className="photo-preview-wrap">
+                            <img
+                                className="photo-preview"
+                                src={form.image}
+                                alt="preview"
+                                onError={(e) => { (e.currentTarget.style.display = "none"); }}
+                            />
+                        </div>
                     )}
                     <div className="f-field">
                         <label>Bio</label>
@@ -244,7 +331,7 @@ export default function TeamPage() {
                     <div className="f-row">
                         <div className="f-field">
                             <label>Sort order</label>
-                            <input type="number" value={form.sort_order || 99} onChange={f("sort_order")} />
+                            <input type="number" value={form.sort_order ?? 99} onChange={f("sort_order")} />
                         </div>
                         <div className="f-field">
                             <label>Published</label>

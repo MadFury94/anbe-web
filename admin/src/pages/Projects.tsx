@@ -4,85 +4,178 @@ import Modal from "../components/Modal";
 
 const S = `
   /* ── Filter tabs ── */
-  .proj-tabs{display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
-  .proj-tab{
-    padding:7px 16px;background:transparent;border:1px solid #e2ddd5;
-    font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;
-    text-transform:uppercase;letter-spacing:0.07em;color:#8B95A1;cursor:pointer;
-    transition:all .15s;
+  .proj-filters {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
   }
-  .proj-tab:hover{border-color:#c8c2b8;color:#0A1628;}
-  .proj-tab.active{background:#E8873A;border-color:#E8873A;color:#0A1628;}
+  .proj-tab {
+    padding: 7px 16px;
+    background: transparent;
+    border: 1px solid #E2DDD5;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8B95A1;
+    cursor: pointer;
+    transition: all 0.13s;
+    white-space: nowrap;
+  }
+  .proj-tab:hover { border-color: #c8c2b8; color: #0A1628; }
+  .proj-tab.active { background: #0A1628; border-color: #0A1628; color: #fff; }
 
-  .proj-count{
-    font-family:'IBM Plex Mono',monospace;font-size:11px;
-    color:#8B95A1;letter-spacing:0.04em;
-  }
-
-  /* ── Project cards ── */
-  .proj-list{display:flex;flex-direction:column;gap:12px;}
-  .proj-card{
-    display:flex;align-items:stretch;background:#fff;
-    border:1px solid #e8e4dc;border-left:3px solid transparent;
-    transition:border-left-color .18s;overflow:hidden;
-  }
-  .proj-card:hover{border-left-color:#E8873A;}
-
-  .proj-card-img{
-    width:120px;min-width:120px;height:90px;object-fit:cover;
-    display:block;flex-shrink:0;
-  }
-  .proj-card-img-fallback{
-    width:120px;min-width:120px;height:90px;flex-shrink:0;
-    background:linear-gradient(135deg,#0A1628 0%,#1a3052 100%);
-    display:flex;align-items:center;justify-content:center;
-  }
-  .proj-card-body{
-    flex:1;padding:14px 18px;display:flex;align-items:center;gap:16px;
-    overflow:hidden;
-  }
-  .proj-card-info{flex:1;min-width:0;}
-  .proj-card-title{
-    font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;
-    color:#0A1628;margin-bottom:4px;white-space:nowrap;
-    overflow:hidden;text-overflow:ellipsis;
-  }
-  .proj-card-client{
-    font-family:'IBM Plex Mono',monospace;font-size:10px;
-    color:#8B95A1;text-transform:uppercase;letter-spacing:0.06em;
-    margin-bottom:6px;
-  }
-  .proj-card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-  .proj-cat-badge{
-    font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;
-    text-transform:uppercase;letter-spacing:0.06em;
-    padding:2px 8px;background:#F7F5F0;color:#0A1628;border:1px solid #e2ddd5;
-  }
-  .proj-location{
-    font-family:'Inter',sans-serif;font-size:12px;color:#8B95A1;
-    display:flex;align-items:center;gap:4px;
+  .proj-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: #8B95A1;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
   }
 
-  .proj-status-dot{
-    display:inline-flex;align-items:center;gap:5px;
-    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.04em;
-    text-transform:uppercase;
+  /* ── Card grid ── */
+  .proj-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
   }
-  .proj-status-dot::before{
-    content:'';display:inline-block;width:6px;height:6px;border-radius:50%;
+  @media (max-width: 1024px) { .proj-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px)  { .proj-grid { grid-template-columns: 1fr; } }
+
+  /* ── Project card ── */
+  .proj-card {
+    background: #fff;
+    border: 1px solid #E2DDD5;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
-  .proj-status-dot.live{color:#276749;}
-  .proj-status-dot.live::before{background:#4CAF50;}
-  .proj-status-dot.draft{color:#8B95A1;}
-  .proj-status-dot.draft::before{background:#c8c2b8;}
+  .proj-card:hover {
+    border-color: #c8c2b8;
+    box-shadow: 0 4px 20px rgba(10,22,40,0.07);
+  }
 
-  .proj-actions{display:flex;gap:6px;flex-shrink:0;}
+  /* Card image */
+  .proj-card-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+  }
+  .proj-card-img-fallback {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #0A1628 0%, #152338 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
 
-  @media(max-width:680px){
-    .proj-card{flex-direction:column;}
-    .proj-card-img,.proj-card-img-fallback{width:100%;min-width:0;height:140px;}
-    .proj-card-body{flex-wrap:wrap;}
-    .proj-actions{margin-top:4px;}
+  /* Card top row: badge + status */
+  .proj-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 0;
+    gap: 8px;
+  }
+  .proj-cat-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    color: #E8873A;
+    background: rgba(232,135,58,0.10);
+    border: 1px solid rgba(232,135,58,0.25);
+    padding: 3px 8px;
+    white-space: nowrap;
+    max-width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Card body */
+  .proj-card-body {
+    padding: 10px 16px 0;
+    flex: 1;
+  }
+  .proj-card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #0A1628;
+    margin-bottom: 4px;
+    line-height: 1.3;
+    /* clamp to 2 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .proj-card-client {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: #8B95A1;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Meta pills */
+  .proj-card-meta {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .proj-meta-pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #8B95A1;
+    background: #F7F5F0;
+    border: 1px solid #E2DDD5;
+    padding: 3px 8px;
+    white-space: nowrap;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Card footer */
+  .proj-card-footer {
+    border-top: 1px solid #F0ECE5;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .proj-card-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  /* Mobile filter scroll */
+  @media (max-width: 640px) {
+    .proj-filters {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .proj-filters::-webkit-scrollbar { height: 0; }
   }
 `;
 
@@ -126,7 +219,7 @@ export default function ProjectsPage() {
     };
 
     const del = async (slug: string) => {
-        if (!confirm("Delete this project?")) return;
+        if (!confirm("Delete this project? This cannot be undone.")) return;
         await api.deleteProject(slug); load();
     };
 
@@ -146,21 +239,7 @@ export default function ProjectsPage() {
 
     const FormContent = (
         <>
-            {error && (
-                <div
-                    style={{
-                        borderLeft: "3px solid #E8873A",
-                        background: "#fff8f3",
-                        color: "#c55a10",
-                        padding: "10px 14px",
-                        marginBottom: 16,
-                        fontSize: 13,
-                        fontFamily: "'Inter',sans-serif",
-                    }}
-                >
-                    {error}
-                </div>
-            )}
+            {error && <div className="form-error">{error}</div>}
             <div className="f-row">
                 <div className="f-field">
                     <label>Title *</label>
@@ -176,7 +255,7 @@ export default function ProjectsPage() {
                     <label>Category</label>
                     <select value={form.category || "pipeline"} onChange={f("category")}>
                         {CATS.map((c) => (
-                            <option key={c} value={c}>{c}</option>
+                            <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
                         ))}
                     </select>
                 </div>
@@ -232,8 +311,8 @@ export default function ProjectsPage() {
             </div>
 
             <div className="toolbar">
-                <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" as const }}>
-                    <div className="proj-tabs">
+                <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" as const }}>
+                    <div className="proj-filters">
                         {FILTER_TABS.map((tab) => (
                             <button
                                 key={tab}
@@ -244,7 +323,9 @@ export default function ProjectsPage() {
                             </button>
                         ))}
                     </div>
-                    <span className="proj-count">{filtered.length} project{filtered.length !== 1 ? "s" : ""}</span>
+                    <span className="proj-count">
+                        {filtered.length} project{filtered.length !== 1 ? "s" : ""}
+                    </span>
                 </div>
                 <button className="add-btn" onClick={openAdd}>+ Add Project</button>
             </div>
@@ -254,47 +335,67 @@ export default function ProjectsPage() {
             ) : filtered.length === 0 ? (
                 <div className="empty">No projects found.</div>
             ) : (
-                <div className="proj-list">
+                <div className="proj-grid">
                     {filtered.map((p) => (
                         <div className="proj-card" key={p.slug}>
+                            {/* Image */}
                             {p.image ? (
                                 <img
                                     className="proj-card-img"
                                     src={p.image}
                                     alt={p.title}
-                                    onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                                    onError={(e) => {
+                                        const img = e.target as HTMLImageElement;
+                                        img.style.display = "none";
+                                        const fb = img.nextElementSibling as HTMLElement | null;
+                                        if (fb) fb.style.display = "flex";
+                                    }}
                                 />
-                            ) : (
-                                <div className="proj-card-img-fallback">
-                                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                                        <rect x="3" y="3" width="10" height="10" stroke="rgba(232,135,58,0.6)" strokeWidth="1.5" />
-                                        <rect x="15" y="3" width="10" height="10" stroke="rgba(232,135,58,0.6)" strokeWidth="1.5" />
-                                        <rect x="3" y="15" width="10" height="10" stroke="rgba(232,135,58,0.6)" strokeWidth="1.5" />
-                                        <rect x="15" y="15" width="10" height="10" stroke="rgba(232,135,58,0.6)" strokeWidth="1.5" />
-                                    </svg>
-                                </div>
-                            )}
+                            ) : null}
+                            <div
+                                className="proj-card-img-fallback"
+                                style={{ display: p.image ? "none" : "flex" }}
+                            >
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                    <rect x="3" y="3" width="11" height="11" stroke="rgba(232,135,58,0.5)" strokeWidth="1.5" />
+                                    <rect x="18" y="3" width="11" height="11" stroke="rgba(232,135,58,0.5)" strokeWidth="1.5" />
+                                    <rect x="3" y="18" width="11" height="11" stroke="rgba(232,135,58,0.5)" strokeWidth="1.5" />
+                                    <rect x="18" y="18" width="11" height="11" stroke="rgba(232,135,58,0.5)" strokeWidth="1.5" />
+                                </svg>
+                            </div>
+
+                            {/* Top: badge + status */}
+                            <div className="proj-card-top">
+                                {p.tag && <span className="proj-cat-badge">{p.tag}</span>}
+                                <span className={`status-dot${p.published ? " live" : " draft"}`}>
+                                    {p.published ? "Live" : "Draft"}
+                                </span>
+                            </div>
+
+                            {/* Body */}
                             <div className="proj-card-body">
-                                <div className="proj-card-info">
-                                    <div className="proj-card-title">{p.title}</div>
-                                    <div className="proj-card-client">{p.client}</div>
-                                    <div className="proj-card-meta">
-                                        {p.tag && <span className="proj-cat-badge">{p.tag}</span>}
-                                        {p.location && (
-                                            <span className="proj-location">
-                                                <svg width="10" height="12" viewBox="0 0 10 12" fill="none">
-                                                    <path d="M5 1C3.07 1 1.5 2.57 1.5 4.5c0 2.72 3.5 6.5 3.5 6.5s3.5-3.78 3.5-6.5C8.5 2.57 6.93 1 5 1z" stroke="#8B95A1" strokeWidth="1.2" />
-                                                    <circle cx="5" cy="4.5" r="1" fill="#8B95A1" />
-                                                </svg>
-                                                {p.location}
-                                            </span>
-                                        )}
-                                        <span className={`proj-status-dot${p.published ? " live" : " draft"}`}>
-                                            {p.published ? "Live" : "Draft"}
+                                <div className="proj-card-title">{p.title}</div>
+                                <div className="proj-card-client">{p.client}</div>
+                                <div className="proj-card-meta">
+                                    {p.location && (
+                                        <span className="proj-meta-pill" title={p.location}>
+                                            📍 {p.location}
                                         </span>
-                                    </div>
+                                    )}
+                                    {p.duration && (
+                                        <span className="proj-meta-pill" title={p.duration}>
+                                            ⏱ {p.duration}
+                                        </span>
+                                    )}
                                 </div>
-                                <div className="proj-actions">
+                            </div>
+
+                            {/* Footer */}
+                            <div className="proj-card-footer">
+                                <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 9, color: "#8B95A1", letterSpacing: "0.06em", textTransform: "uppercase" as const }}>
+                                    {p.category}
+                                </span>
+                                <div className="proj-card-actions">
                                     <button className="action-btn" onClick={() => openEdit(p)}>Edit</button>
                                     <button className="action-btn danger" onClick={() => del(p.slug)}>Delete</button>
                                 </div>
