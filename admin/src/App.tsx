@@ -6,6 +6,7 @@ import ProjectsPage from "./pages/Projects";
 import ServicesPage from "./pages/Services";
 import TeamPage from "./pages/Team";
 import ReportsPage from "./pages/Reports";
+import ReportFormPage from "./pages/ReportForm";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { token, loading } = useAuth();
@@ -24,6 +25,8 @@ export default function App() {
                     <Route path="services" element={<ServicesPage />} />
                     <Route path="team" element={<TeamPage />} />
                     <Route path="reports" element={<ReportsPage />} />
+                    <Route path="reports/new" element={<ReportFormPage />} />
+                    <Route path="reports/edit/:token" element={<ReportFormPage />} />
                 </Route>
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

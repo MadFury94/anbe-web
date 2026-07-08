@@ -1,25 +1,28 @@
 import type { Env } from "../index";
 import { json, notFound } from "../lib/utils";
 
-// Generate a cryptographically random URL-safe token
 async function generateToken(): Promise<string> {
     const bytes = crypto.getRandomValues(new Uint8Array(18));
     return btoa(String.fromCharCode(...bytes))
         .replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
 }
 
-function parseJson(val: unknown): unknown {
+function p(val: unknown): unknown {
     if (typeof val !== "string") return val;
     try { return JSON.parse(val); } catch { return val; }
 }
 
-function serializeReport(row: Record<string, unknown>) {
+function serialize(row: Record<string, unknown>) {
     return {
         ...row,
-        scope: parseJson(row.scope),
-        outcomes: parseJson(row.outcomes),
-        images: parseJson(row.images),
-        milestones: parseJson(row.milestones),
+        achievements: p(row.achievements),
+        work_summary: p(row.work_summary),
+        materials: p(row.materials),
+        hse_notes: p(row.hse_notes),
+        hse_status: p(row.hse_status),
+        personnel: p(row.personnel),
+        equipment: p(row.equipment),
+        images: p(row.images),
     };
 }
 
@@ -27,139 +30,135 @@ export async function handleReports(
     request: Request, env: Env, path: string, isAdmin: boolean
 ): Promise<Response> {
     const method = request.method;
-
-    // ── PUBLIC: GET /api/reports/:token — client views their report ────────
     const tokenMatch = path.match(/^\/api\/reports\/([A-Za-z0-9_-]{10,})$/);
-    if (tokenMatch && method === "GET") {
-        const token = tokenMatch[1];
+    const uploadMatch = path.match(/^\/api\/reports\/([A-Za-z0-9_-]{10,})\/upload$/);
+
+    // ── PUBLIC: GET /api/reports/:token ──────────────────────────────────
+    if (tokenMatch && method === "GET" && !isAdmin) {
         const row = await env.DB.prepare(
             "SELECT * FROM project_reports WHERE token = ?"
-        ).bind(token).first<Record<string, unknown>>();
+        ).bind(tokenMatch[1]).first<Record<string, unknown>>();
         if (!row) return notFound();
-
-        // Check expiry
-        if (row.expires_at && new Date(row.expires_at as string) < new Date()) {
+        if (row.expires_at && new Date(row.expires_at as string) < new Date())
             return json({ error: "This report link has expired." }, 410);
-        }
-
-        // Increment view count (fire-and-forget)
-        env.DB.prepare(
-            "UPDATE project_reports SET views = views + 1 WHERE token = ?"
-        ).bind(token).run().catch(() => { });
-
-        return json({ report: serializeReport(row) });
+        env.DB.prepare("UPDATE project_reports SET views = views + 1 WHERE token = ?")
+            .bind(tokenMatch[1]).run().catch(() => { });
+        return json({ report: serialize(row) });
     }
 
-    // Everything below requires admin auth ─────────────────────────────────
+    // Everything below requires admin
     if (!isAdmin) return json({ error: "Unauthorised" }, 401);
 
-    // GET /api/reports — list all reports (admin)
+    // GET /api/reports — list all (admin)
     if (path === "/api/reports" && method === "GET") {
         const { results } = await env.DB.prepare(
-            "SELECT id, token, title, client_name, client_company, category, location, views, created_at, expires_at FROM project_reports ORDER BY created_at DESC"
+            `SELECT id, token, project_title, client_name, client_company,
+             location, report_date, views, created_at, expires_at
+             FROM project_reports ORDER BY created_at DESC`
         ).all<Record<string, unknown>>();
         return json({ reports: results });
     }
 
-    // POST /api/reports — create a new report (admin)
+    // GET /api/reports/:token — full record (admin)
+    if (tokenMatch && method === "GET") {
+        const row = await env.DB.prepare(
+            "SELECT * FROM project_reports WHERE token = ?"
+        ).bind(tokenMatch[1]).first<Record<string, unknown>>();
+        if (!row) return notFound();
+        return json({ report: serialize(row) });
+    }
+
+    // POST /api/reports — create new report
     if (path === "/api/reports" && method === "POST") {
-        const body = await request.json<{
-            title: string;
-            client_name: string;
-            client_company?: string;
-            category?: string;
-            location?: string;
-            start_date?: string;
-            end_date?: string;
-            scope?: string[];
-            outcomes?: string[];
-            images?: string[];
-            milestones?: { label: string; date: string; done: boolean }[];
-            hse_note?: string;
-            prepared_by?: string;
-            expires_at?: string;
-        }>();
-
-        if (!body.title || !body.client_name) {
-            return json({ error: "title and client_name are required" }, 400);
-        }
-
+        const b = await request.json<Record<string, unknown>>();
+        if (!b.project_title || !b.client_name)
+            return json({ error: "project_title and client_name required" }, 400);
         const token = await generateToken();
-
         await env.DB.prepare(`
-            INSERT INTO project_reports
-              (token, title, client_name, client_company, category, location,
-               start_date, end_date, scope, outcomes, images, milestones,
-               hse_note, prepared_by, expires_at)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            INSERT INTO project_reports (
+              token, project_title, client_name, client_company, contractor, location, report_date,
+              introduction, scope_of_work, conclusion, achievements,
+              work_summary, materials, hse_notes, hse_status, personnel, equipment,
+              signoff_contractor_name, signoff_contractor_desig, signoff_contractor_date,
+              signoff_client_name, signoff_client_desig, signoff_client_date,
+              images, expires_at
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         `).bind(
             token,
-            body.title,
-            body.client_name,
-            body.client_company ?? "",
-            body.category ?? "",
-            body.location ?? "",
-            body.start_date ?? "",
-            body.end_date ?? "",
-            JSON.stringify(body.scope ?? []),
-            JSON.stringify(body.outcomes ?? []),
-            JSON.stringify(body.images ?? []),
-            JSON.stringify(body.milestones ?? []),
-            body.hse_note ?? "",
-            body.prepared_by ?? "ANBE Nigeria Limited",
-            body.expires_at ?? "",
+            b.project_title, b.client_name,
+            b.client_company ?? "", b.contractor ?? "ANBE Nigeria Limited",
+            b.location ?? "", b.report_date ?? "",
+            b.introduction ?? "", b.scope_of_work ?? "", b.conclusion ?? "",
+            JSON.stringify(b.achievements ?? []),
+            JSON.stringify(b.work_summary ?? { mechanical: [], civil: [], ei: [] }),
+            JSON.stringify(b.materials ?? { mechanical: [], civil: [], ei: [] }),
+            JSON.stringify(b.hse_notes ?? []),
+            JSON.stringify(b.hse_status ?? []),
+            JSON.stringify(b.personnel ?? []),
+            JSON.stringify(b.equipment ?? []),
+            b.signoff_contractor_name ?? "", b.signoff_contractor_desig ?? "", b.signoff_contractor_date ?? "",
+            b.signoff_client_name ?? "", b.signoff_client_desig ?? "", b.signoff_client_date ?? "",
+            JSON.stringify(b.images ?? []),
+            b.expires_at ?? "",
         ).run();
-
         return json({ token, url: `/report/${token}` }, 201);
     }
 
-    // PUT /api/reports/:token — update a report (admin)
-    if (tokenMatch && method === "PUT" && isAdmin) {
-        const token = tokenMatch[1];
-        const body = await request.json<Record<string, unknown>>();
-        await env.DB.prepare(`
-            UPDATE project_reports SET
-              title        = COALESCE(?, title),
-              client_name  = COALESCE(?, client_name),
-              client_company = COALESCE(?, client_company),
-              category     = COALESCE(?, category),
-              location     = COALESCE(?, location),
-              start_date   = COALESCE(?, start_date),
-              end_date     = COALESCE(?, end_date),
-              scope        = COALESCE(?, scope),
-              outcomes     = COALESCE(?, outcomes),
-              images       = COALESCE(?, images),
-              milestones   = COALESCE(?, milestones),
-              hse_note     = COALESCE(?, hse_note),
-              prepared_by  = COALESCE(?, prepared_by),
-              expires_at   = COALESCE(?, expires_at),
-              updated_at   = datetime('now')
-            WHERE token = ?
-        `).bind(
-            body.title ?? null,
-            body.client_name ?? null,
-            body.client_company ?? null,
-            body.category ?? null,
-            body.location ?? null,
-            body.start_date ?? null,
-            body.end_date ?? null,
-            body.scope ? JSON.stringify(body.scope) : null,
-            body.outcomes ? JSON.stringify(body.outcomes) : null,
-            body.images ? JSON.stringify(body.images) : null,
-            body.milestones ? JSON.stringify(body.milestones) : null,
-            body.hse_note ?? null,
-            body.prepared_by ?? null,
-            body.expires_at ?? null,
-            token,
-        ).run();
+    // PUT /api/reports/:token — update
+    if (tokenMatch && method === "PUT") {
+        const b = await request.json<Record<string, unknown>>();
+        const textFields = [
+            "project_title", "client_name", "client_company", "contractor", "location", "report_date",
+            "introduction", "scope_of_work", "conclusion", "expires_at",
+            "signoff_contractor_name", "signoff_contractor_desig", "signoff_contractor_date",
+            "signoff_client_name", "signoff_client_desig", "signoff_client_date",
+        ];
+        const jsonFields = ["achievements", "work_summary", "materials", "hse_notes", "hse_status", "personnel", "equipment", "images"];
+        const sets: string[] = ["updated_at = datetime('now')"];
+        const vals: unknown[] = [];
+        textFields.forEach(f => { if (b[f] !== undefined) { sets.push(`${f} = ?`); vals.push(b[f]); } });
+        jsonFields.forEach(f => { if (b[f] !== undefined) { sets.push(`${f} = ?`); vals.push(JSON.stringify(b[f])); } });
+        vals.push(tokenMatch[1]);
+        await env.DB.prepare(
+            `UPDATE project_reports SET ${sets.join(", ")} WHERE token = ?`
+        ).bind(...vals).run();
         return json({ ok: true });
     }
 
-    // DELETE /api/reports/:token (admin)
-    if (tokenMatch && method === "DELETE" && isAdmin) {
+    // POST /api/reports/:token/upload — upload image to R2, attach URL to report
+    if (uploadMatch && method === "POST") {
+        const token = uploadMatch[1];
+        const formData = await request.formData();
+        const file = formData.get("file") as File | null;
+        if (!file) return json({ error: "No file provided" }, 400);
+
+        const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
+        const key = `reports/${token}/${Date.now()}.${ext}`;
+
+        await env.REPORTS_BUCKET.put(key, await file.arrayBuffer(), {
+            httpMetadata: { contentType: file.type || "image/jpeg" },
+        });
+
+        // Construct public URL — requires public bucket or custom domain
+        const publicUrl = `https://pub-anbe-reports.r2.dev/${key}`;
+
+        // Append URL to report's images array
+        const row = await env.DB.prepare(
+            "SELECT images FROM project_reports WHERE token = ?"
+        ).bind(token).first<{ images: string }>();
+        const imgs: string[] = row ? JSON.parse(row.images || "[]") : [];
+        imgs.push(publicUrl);
         await env.DB.prepare(
-            "DELETE FROM project_reports WHERE token = ?"
-        ).bind(tokenMatch[1]).run();
+            "UPDATE project_reports SET images = ?, updated_at = datetime('now') WHERE token = ?"
+        ).bind(JSON.stringify(imgs), token).run();
+
+        return json({ url: publicUrl, key });
+    }
+
+    // DELETE /api/reports/:token
+    if (tokenMatch && method === "DELETE") {
+        await env.DB.prepare("DELETE FROM project_reports WHERE token = ?")
+            .bind(tokenMatch[1]).run();
         return json({ ok: true });
     }
 

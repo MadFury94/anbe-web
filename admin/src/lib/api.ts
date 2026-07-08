@@ -46,7 +46,9 @@ export const api = {
 
     // Reports
     getReports: () => req<{ reports: ReportSummary[] }>("GET", "/api/reports"),
+    getReport: (token: string) => req<{ report: Record<string, unknown> }>("GET", `/api/reports/${token}`),
     createReport: (data: Record<string, unknown>) => req<{ token: string; url: string }>("POST", "/api/reports", data),
+    updateReport: (token: string, data: Record<string, unknown>) => req<{ ok: boolean }>("PUT", `/api/reports/${token}`, data),
     deleteReport: (token: string) => req<{ ok: boolean }>("DELETE", `/api/reports/${token}`),
 };
 
@@ -65,7 +67,7 @@ export interface TeamMember {
 }
 
 export interface ReportSummary {
-    id: number; token: string; title: string; client_name: string;
-    client_company: string; category: string; location: string;
+    id: number; token: string; project_title: string; client_name: string;
+    client_company: string; category: string; location: string; report_date: string;
     views: number; created_at: string; expires_at: string;
 }

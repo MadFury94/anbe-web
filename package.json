@@ -5,9 +5,9 @@
   "scripts": {
     "client": "npm run dev --prefix client",
     "admin": "npm run dev --prefix admin",
-    "backend": "npm run dev --prefix backend",
+    "worker": "npm run dev --prefix worker",
     "dev": "npm run client",
     "build": "npm install --prefix client && npm run build --prefix client",
-    "install:all": "npm i --prefix client && npm i --prefix admin && npm i --prefix backend"
+    "install:all": "npm i --prefix client && npm i --prefix admin && npm i --prefix worker"
   }
 }

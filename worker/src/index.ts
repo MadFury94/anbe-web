@@ -12,6 +12,7 @@ export interface Env {
     SESSIONS: KVNamespace;
     JWT_SECRET: string;
     ADMIN_PASSWORD_HASH: string;
+    REPORTS_BUCKET: R2Bucket;
 }
 
 export default {

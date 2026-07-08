@@ -9,7 +9,6 @@
         "enabled": true,
         "head_sampling_rate": 1
     },
-    // D1 database — run: wrangler d1 create anbe-db
     "d1_databases": [
         {
             "binding": "DB",
@@ -17,15 +16,16 @@
             "database_id": "37675f7b-d542-4e1c-b30b-cb7b92bb9ff1"
         }
     ],
-    // KV namespace for sessions — run: wrangler kv namespace create SESSIONS
     "kv_namespaces": [
         {
             "binding": "SESSIONS",
             "id": "6ac8ec802f1046589dd1c168be93b8d7"
         }
+    ],
+    "r2_buckets": [
+        {
+            "binding": "REPORTS_BUCKET",
+            "bucket_name": "anbe-reports"
+        }
     ]
-    // Secrets (set via: wrangler secret put ADMIN_PASSWORD_HASH)
-    // Required secrets:
-    //   ADMIN_PASSWORD_HASH  — bcrypt hash of admin password
-    //   JWT_SECRET           — random 32+ char string for signing tokens
 }
