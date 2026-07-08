@@ -2,7 +2,13 @@
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import { useEffect, useState } from "react";
-import { blogPosts } from "../../src/data/blog";
+
+const API = import.meta.env.VITE_API_URL ?? "https://anbe-api.onochieazukaeme.workers.dev";
+
+interface BlogPost {
+  id: number; slug: string; title: string; excerpt: string;
+  category: string; image: string; read_time: string; created_at: string;
+}
 
 const S = `
   *{box-sizing:border-box;}
@@ -96,11 +102,29 @@ function PageHero() {
 }
 
 function BlogGrid() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${API}/api/blog`)
+      .then(r => r.json())
+      .then(d => { setPosts(d.posts ?? []); setLoading(false); })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return (
+    <section className="blog-section">
+      <div className="container" style={{ textAlign: "center", padding: "80px 0", fontFamily: "'IBM Plex Mono',monospace", fontSize: 13, color: "#8B95A1" }}>
+        Loading articles…
+      </div>
+    </section>
+  );
+
   return (
     <section className="blog-section">
       <div className="container">
         <div className="blog-grid reveal">
-          {blogPosts.map((post) => (
+          {posts.map((post) => (
             <a key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
               <div className="blog-card-img">
                 <img src={post.image} alt={post.title} />
@@ -108,7 +132,7 @@ function BlogGrid() {
               <div className="blog-card-body">
                 <div className="blog-meta">
                   <span className="blog-category">{post.category}</span>
-                  <span className="blog-date">{post.date} · {post.readTime}</span>
+                  <span className="blog-date">{post.created_at?.slice(0, 7)} · {post.read_time}</span>
                 </div>
                 <h3>{post.title}</h3>
                 <p>{post.excerpt}</p>

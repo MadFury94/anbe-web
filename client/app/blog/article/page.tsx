@@ -3,7 +3,13 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { blogPosts } from "../../../src/data/blog";
+
+const API = import.meta.env.VITE_API_URL ?? "https://anbe-api.onochieazukaeme.workers.dev";
+
+interface BlogPost {
+    id: number; slug: string; title: string; excerpt: string; content: string[];
+    category: string; image: string; read_time: string; created_at: string;
+}
 
 const S = `
   *{box-sizing:border-box;}
@@ -97,11 +103,39 @@ function useReveal() {
 
 export default function BlogArticlePage() {
     const { slug } = useParams<{ slug: string }>();
+    const [post, setPost] = useState<BlogPost | null>(null);
+    const [related, setRelated] = useState<BlogPost[]>([]);
+    const [status, setStatus] = useState<"loading" | "ok" | "notfound">("loading");
     useReveal();
 
-    const post = blogPosts.find((p) => p.slug === slug);
+    useEffect(() => {
+        if (!slug) { setStatus("notfound"); return; }
+        fetch(`${API}/api/blog/${slug}`)
+            .then(r => { if (r.status === 404) { setStatus("notfound"); return null; } return r.json(); })
+            .then(d => {
+                if (!d) return;
+                setPost(d.post);
+                setStatus("ok");
+                // fetch related (all posts, pick 2 different slugs)
+                fetch(`${API}/api/blog`)
+                    .then(r2 => r2.json())
+                    .then(d2 => setRelated((d2.posts ?? []).filter((p: BlogPost) => p.slug !== slug).slice(0, 2)));
+            })
+            .catch(() => setStatus("notfound"));
+    }, [slug]);
 
-    if (!post) {
+    if (status === "loading") return (
+        <>
+            <style>{S}</style>
+            <SiteNav activePath="/blog" />
+            <main>
+                <div style={{ padding: "200px 0", textAlign: "center", fontFamily: "'IBM Plex Mono',monospace", fontSize: 13, color: "#8B95A1" }}>Loading…</div>
+            </main>
+            <SiteFooter />
+        </>
+    );
+
+    if (status === "notfound" || !post) {
         return (
             <>
                 <style>{S}</style>
@@ -110,7 +144,7 @@ export default function BlogArticlePage() {
                     <section className="not-found">
                         <div className="container">
                             <h1>Article Not Found</h1>
-                            <p>We couldn't find the article you're looking for. It may have been moved or the URL may be incorrect.</p>
+                            <p>We couldn't find the article you're looking for.</p>
                             <a href="/blog" className="btn btn-primary">Back to Blog →</a>
                         </div>
                     </section>
@@ -120,7 +154,8 @@ export default function BlogArticlePage() {
         );
     }
 
-    const related = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
+    const content: string[] = Array.isArray(post.content) ? post.content : [];
+    const dateLabel = post.created_at?.slice(0, 7) ?? "";
 
     return (
         <>
@@ -135,12 +170,12 @@ export default function BlogArticlePage() {
                     <div className="article-hero-inner">
                         <div className="container">
                             <div className="breadcrumb">
-                                <a href="/">Home</a> / <a href="/blog" className="active">Blog</a> / {post.category}
+                                <a href="/">Home</a> / <a href="/blog">Blog</a> / {post.category}
                             </div>
                             <div className="article-meta">
                                 <span className="article-category">{post.category}</span>
-                                <span className="article-date">{post.date}</span>
-                                <span className="article-readtime">· {post.readTime}</span>
+                                <span className="article-date">{dateLabel}</span>
+                                <span className="article-readtime">· {post.read_time}</span>
                             </div>
                             <h1>{post.title}</h1>
                         </div>
@@ -151,9 +186,7 @@ export default function BlogArticlePage() {
                 <section className="article-body">
                     <div className="container">
                         <div className="article-content reveal">
-                            {post.content.map((para, i) => (
-                                <p key={i}>{para}</p>
-                            ))}
+                            {content.map((para, i) => <p key={i}>{para}</p>)}
                         </div>
                     </div>
                 </section>
@@ -172,7 +205,7 @@ export default function BlogArticlePage() {
                                         <div className="blog-card-body">
                                             <div className="blog-meta">
                                                 <span className="blog-category">{r.category}</span>
-                                                <span className="blog-date">{r.date} · {r.readTime}</span>
+                                                <span className="blog-date">{r.created_at?.slice(0, 7)} · {r.read_time}</span>
                                             </div>
                                             <h3>{r.title}</h3>
                                             <p>{r.excerpt}</p>

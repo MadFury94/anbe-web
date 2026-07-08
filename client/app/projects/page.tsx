@@ -89,19 +89,13 @@ const STYLES = `
   @media (max-width:760px){.projects-grid{grid-template-columns:1fr;}.stats-grid{grid-template-columns:1fr 1fr;}.stat:nth-child(3){border-left:none;padding-left:0;}.page-hero{padding:100px 0 50px;}.container{padding:0 20px;}.modal-meta{grid-template-columns:1fr;}}
 `;
 
-const PROJECT_DATA = [
-  { cat: "flare", tag: "Flare Systems", client: "Niger Delta Terminal", title: "Smokeless Flare Stack Retrofit", desc: "Design and fabrication of a high turndown flare system to replace an ageing stack at an onshore export terminal, engineered to reduce visible smoke and improve combustion efficiency under variable gas rates.", location: "Rivers State", duration: "7 Months", scope: "Design & Fabrication" },
-  { cat: "pipeline", tag: "Pipeline", client: "Delta State Flowline", title: "18km Trunkline Replacement", desc: "Full pipeline construction and hydrotesting scope covering an 18-kilometre flowline, delivered with zero lost-time incidents across an 11-month construction programme.", location: "Delta State", duration: "11 Months", scope: "Construction" },
-  { cat: "fabrication", tag: "Fabrication", client: "Rivers State Facility", title: "Remote Ignition System Upgrade", desc: "Installation of a tropicalised remote ignition system across three flare points, reducing manual intervention and improving ignition reliability during the wet season.", location: "Rivers State", duration: "4 Months", scope: "Fabrication & Install" },
-  { cat: "pipeline", tag: "Pipeline", client: "Bayelsa Flowstation", title: "Tie-In & Right-of-Way Reinstatement", desc: "Emergency tie-in works and pipeline right-of-way restoration completed within a compressed shutdown window to minimise production downtime.", location: "Bayelsa State", duration: "6 Weeks", scope: "Construction & Repair" },
-  { cat: "flare", tag: "Flare Systems", client: "Independent E&P Operator", title: "Vertical Smokeless Flare Installation", desc: "New-build vertical flare stack designed and installed for a marginal field development, commissioned ahead of first oil to meet regulatory gas-flaring standards.", location: "Rivers State", duration: "5 Months", scope: "Design, Procurement & Install" },
-  { cat: "maintenance", tag: "Maintenance", client: "Onshore Processing Facility", title: "Combustion Equipment Overhaul", desc: "Scheduled maintenance of ignition assemblies and generator sets across a producing facility's utility train, extending equipment service life.", location: "Rivers State", duration: "Ongoing Contract", scope: "Equipment Maintenance" },
-  { cat: "fabrication", tag: "Fabrication", client: "Port Harcourt Workshop Client", title: "Skid-Mounted Separator Package", desc: "In-house fabrication and pressure testing of a skid-mounted separator package at ANBE's Port Harcourt workshop ahead of site delivery.", location: "Port Harcourt", duration: "3 Months", scope: "Fabrication" },
-  { cat: "pipeline", tag: "Pipeline", client: "Rivers State Trunkline", title: "Pipeline Integrity Repair Programme", desc: "Multi-location pipeline repair and recoating programme following a routine integrity assessment across an operator's trunkline network.", location: "Rivers State", duration: "8 Months", scope: "Repair & Recoating" },
-  { cat: "maintenance", tag: "Maintenance", client: "Regional Field Operator", title: "Earth-Moving Fleet Maintenance Contract", desc: "Ongoing maintenance contract covering a fleet of earth-moving equipment supporting active field construction works.", location: "Niger Delta", duration: "Ongoing Contract", scope: "Equipment Maintenance" },
-];
+const API = import.meta.env.VITE_API_URL ?? "https://anbe-api.onochieazukaeme.workers.dev";
 
-type Project = typeof PROJECT_DATA[0];
+interface Project {
+  id: number; slug: string; title: string; client: string; category: string;
+  tag: string; description: string; image: string; location: string;
+  duration: string; scope: string;
+}
 
 function useReveal() {
   useEffect(() => {
@@ -145,6 +139,16 @@ function StatsStrip() {
 
 function ProjectsSection({ onOpen }: { onOpen: (p: Project) => void }) {
   const [filter, setFilter] = useState("all");
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${API}/api/projects`)
+      .then(r => r.json())
+      .then(d => { setProjects(d.projects ?? []); setLoading(false); })
+      .catch(() => setLoading(false));
+  }, []);
+
   const TABS = [
     { key: "all", label: "All Projects" },
     { key: "flare", label: "Flare Systems" },
@@ -152,7 +156,7 @@ function ProjectsSection({ onOpen }: { onOpen: (p: Project) => void }) {
     { key: "fabrication", label: "Fabrication" },
     { key: "maintenance", label: "Maintenance" },
   ];
-  const visible = PROJECT_DATA.filter((p) => filter === "all" || p.cat === filter);
+  const visible = projects.filter((p) => filter === "all" || p.category === filter);
   return (
     <>
       <section className="filter-bar">
@@ -169,19 +173,25 @@ function ProjectsSection({ onOpen }: { onOpen: (p: Project) => void }) {
       </section>
       <section className="projects-section">
         <div className="container">
-          <div className="projects-grid reveal">
-            {visible.map((p, i) => (
-              <div key={i} className="proj-card">
-                <div className="proj-thumb"><span className="zoom-tag">{p.tag}</span></div>
-                <div className="proj-body">
-                  <div className="client">{p.client}</div>
-                  <h3>{p.title}</h3>
-                  <p>{p.desc.split(",")[0] + "…"}</p>
-                  <button className="view-btn" onClick={() => onOpen(p)}>View Project <span className="arrow">→</span></button>
+          {loading ? (
+            <div style={{ textAlign: "center", padding: "80px 0", fontFamily: "'IBM Plex Mono',monospace", fontSize: 13, color: "#8B95A1" }}>Loading projects…</div>
+          ) : (
+            <div className="projects-grid reveal">
+              {visible.map((p) => (
+                <div key={p.id} className="proj-card">
+                  <div className="proj-thumb" style={p.image ? { backgroundImage: `url(${p.image})`, backgroundSize: "cover", backgroundPosition: "center" } : {}}>
+                    <span className="zoom-tag">{p.tag || p.category}</span>
+                  </div>
+                  <div className="proj-body">
+                    <div className="client">{p.client}</div>
+                    <h3>{p.title}</h3>
+                    <p>{p.description?.split(",")[0]}…</p>
+                    <button className="view-btn" onClick={() => onOpen(p)}>View Project <span className="arrow">→</span></button>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
           <div className="load-more-wrap">
             <a href="/#contact" className="btn btn-dark">Discuss a Project With Us →</a>
           </div>
@@ -202,11 +212,13 @@ function Modal({ project, onClose }: { project: Project | null; onClose: () => v
     <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <div className="modal-box">
         <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
-        <div className="modal-hero"><span className="tag">{project.tag}</span></div>
+        <div className="modal-hero" style={project.image ? { backgroundImage: `url(${project.image})`, backgroundSize: "cover", backgroundPosition: "center" } : {}}>
+          <span className="tag">{project.tag || project.category}</span>
+        </div>
         <div className="modal-content">
           <div className="client">{project.client}</div>
           <h3>{project.title}</h3>
-          <p>{project.desc}</p>
+          <p>{project.description}</p>
           <div className="modal-meta">
             <div><div className="lbl">Location</div><div className="val">{project.location}</div></div>
             <div><div className="lbl">Duration</div><div className="val">{project.duration}</div></div>
