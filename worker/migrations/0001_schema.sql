@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS blog_posts (
 -- Projects
 CREATE TABLE IF NOT EXISTS projects (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
+  slug TEXT UNIQUE NOT NULL,
   title TEXT NOT NULL,
   client TEXT,
   category TEXT,

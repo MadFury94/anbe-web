@@ -14,14 +14,14 @@
         {
             "binding": "DB",
             "database_name": "anbe-db",
-            "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+            "database_id": "37675f7b-d542-4e1c-b30b-cb7b92bb9ff1"
         }
     ],
     // KV namespace for sessions — run: wrangler kv namespace create SESSIONS
     "kv_namespaces": [
         {
             "binding": "SESSIONS",
-            "id": "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+            "id": "6ac8ec802f1046589dd1c168be93b8d7"
         }
     ]
     // Secrets (set via: wrangler secret put ADMIN_PASSWORD_HASH)

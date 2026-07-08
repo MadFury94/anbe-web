@@ -14,10 +14,10 @@ export async function handleAuth(request: Request, env: Env, path: string): Prom
         const { email, password } = body;
         if (!email || !password) return json({ error: "Email and password required" }, 400);
 
-        // Look up admin by email
+        // Look up admin by email (stored as username)
         const admin = await env.DB.prepare(
-            "SELECT id, email, name, password_hash FROM admins WHERE email = ?"
-        ).bind(email.toLowerCase().trim()).first<{ id: number; email: string; name: string; password_hash: string }>();
+            "SELECT id, username as email, password_hash FROM admin_users WHERE username = ?"
+        ).bind(email.toLowerCase().trim()).first<{ id: number; email: string; password_hash: string }>();
 
         if (!admin) return json({ error: "Invalid credentials" }, 401);
 
@@ -26,11 +26,11 @@ export async function handleAuth(request: Request, env: Env, path: string): Prom
 
         // Sign JWT — 8 hour expiry
         const token = await signJwt(
-            { sub: String(admin.id), email: admin.email, name: admin.name, exp: Math.floor(Date.now() / 1000) + 28800 },
+            { sub: String(admin.id), email: admin.email, name: "Admin", exp: Math.floor(Date.now() / 1000) + 28800 },
             env.JWT_SECRET
         );
 
-        return json({ token, admin: { id: admin.id, email: admin.email, name: admin.name } });
+        return json({ token, admin: { id: admin.id, email: admin.email, name: "Admin" } });
     }
 
     // POST /api/auth/verify — check if a token is still valid
