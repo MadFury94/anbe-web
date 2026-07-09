@@ -57,13 +57,23 @@ async function callAI(env: EnvWithAI, prompt: string): Promise<Record<string, un
                 max_tokens: 3000,
                 temperature: 0.3,
             });
-            const raw = (result.response ?? "").trim();
+            // Handle both string and object response formats
+            let raw = "";
+            if (typeof result.response === "string") {
+                raw = result.response.trim();
+            } else if (result.response && typeof result.response === "object") {
+                raw = JSON.stringify(result.response);
+            } else if (typeof result === "string") {
+                raw = (result as string).trim();
+            } else {
+                raw = JSON.stringify(result);
+            }
             const start = raw.indexOf("{");
             const end = raw.lastIndexOf("}");
             if (start !== -1 && end !== -1) {
                 return JSON.parse(raw.slice(start, end + 1));
             }
-            throw new Error("No JSON found in AI response");
+            throw new Error("AI returned no structured data. Try a more detailed description.");
         } catch (e) {
             console.error("CF AI error:", String(e));
             if (!env.OPENAI_API_KEY) throw e;
