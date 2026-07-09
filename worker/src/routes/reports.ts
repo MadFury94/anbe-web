@@ -110,7 +110,7 @@ export async function handleReports(
         const textFields = [
             "project_title", "client_name", "client_company", "contractor", "location", "report_date",
             "introduction", "scope_of_work", "conclusion", "expires_at",
-            "signoff_contractor_name", "signoff_contractor_desig", "signoff_contractor_date",
+            "signoff_contractor_name", "signoff_contractor_desig", "signoff_contractor_date", "signoff_contractor_signature",
             "signoff_client_name", "signoff_client_desig", "signoff_client_date",
         ];
         const jsonFields = ["achievements", "work_summary", "materials", "hse_notes", "hse_status", "personnel", "equipment", "images"];

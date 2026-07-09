@@ -100,7 +100,7 @@ interface ReportForm {
     materials: Materials;
     hse_notes: string[]; hse_status: Row[];
     personnel: Row[]; equipment: Row[];
-    signoff_contractor_name: string; signoff_contractor_desig: string; signoff_contractor_date: string;
+    signoff_contractor_name: string; signoff_contractor_desig: string; signoff_contractor_date: string; signoff_contractor_signature: string;
     signoff_client_name: string; signoff_client_desig: string; signoff_client_date: string;
     images: string[]; expires_at: string;
 }
@@ -114,7 +114,7 @@ const EMPTY: ReportForm = {
     materials: { mechanical: [["1", "", "", "", ""]], civil: [["1", "", "", "", ""]], ei: [["1", "", "", "", ""]] },
     hse_notes: [""], hse_status: [["", ""]],
     personnel: [["", ""]], equipment: [["", ""]],
-    signoff_contractor_name: "", signoff_contractor_desig: "", signoff_contractor_date: "",
+    signoff_contractor_name: "", signoff_contractor_desig: "", signoff_contractor_date: "", signoff_contractor_signature: "",
     signoff_client_name: "", signoff_client_desig: "", signoff_client_date: "",
     images: [], expires_at: "",
 };
@@ -248,6 +248,231 @@ function ImageUpload({ token, images, onChange }: { token: string; images: strin
                 ))}
                 <button className="add-row-btn" type="button" onClick={() => onChange([...images, ""])}>+ Add URL</button>
             </div>
+        </div>
+    );
+}
+
+// ── AI Document Autofill ──────────────────────────────────────────────────
+function AutofillUpload({ onFill }: { onFill: (data: Record<string, unknown>) => void }) {
+    const [prompt, setPrompt] = useState("");
+    const [generating, setGenerating] = useState(false);
+    const [status, setStatus] = useState<"idle" | "ok" | "err">("idle");
+    const [msg, setMsg] = useState("");
+    const [mode, setMode] = useState<"prompt" | "upload">("prompt");
+    const inputRef = useRef<HTMLInputElement>(null);
+    const token_ = localStorage.getItem("anbe_admin_token") ?? "";
+
+    const generateFromPrompt = async () => {
+        if (!prompt.trim()) return;
+        setGenerating(true); setStatus("idle"); setMsg("");
+        try {
+            const res = await fetch(`${API}/api/autofill`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token_}` },
+                body: JSON.stringify({ prompt }),
+            });
+            const data = await res.json() as { data?: Record<string, unknown>; error?: string };
+            if (!res.ok || data.error) throw new Error(data.error ?? "Generation failed");
+            onFill(data.data!);
+            setStatus("ok");
+            setMsg("✓ Report generated successfully. Review all fields before saving.");
+        } catch (e) {
+            setStatus("err");
+            setMsg((e as Error).message);
+        } finally { setGenerating(false); }
+    };
+
+    const uploadDoc = async (file: File) => {
+        setGenerating(true); setStatus("idle"); setMsg("");
+        try {
+            const fd = new FormData();
+            fd.append("file", file);
+            const res = await fetch(`${API}/api/autofill`, {
+                method: "POST",
+                headers: { Authorization: `Bearer ${token_}` },
+                body: fd,
+            });
+            const data = await res.json() as { data?: Record<string, unknown>; error?: string };
+            if (!res.ok || data.error) throw new Error(data.error ?? "Extraction failed");
+            onFill(data.data!);
+            setStatus("ok");
+            setMsg(`✓ Fields extracted from "${file.name}". Review before saving.`);
+        } catch (e) {
+            setStatus("err");
+            setMsg((e as Error).message);
+        } finally { setGenerating(false); }
+    };
+
+    return (
+        <div style={{ marginBottom: 32, border: "2px solid #E8873A", borderRadius: 2 }}>
+            {/* Header */}
+            <div style={{ background: "#E8873A", padding: "12px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ fontSize: 18 }}>🤖</span>
+                    <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 15, color: "#0A1628" }}>AI Report Generator</span>
+                    <span style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, color: "rgba(10,22,40,0.6)", background: "rgba(10,22,40,0.1)", padding: "2px 8px", borderRadius: 10 }}>Powered by Cloudflare AI</span>
+                </div>
+                <div style={{ display: "flex", gap: 6 }}>
+                    {(["prompt", "upload"] as const).map(m => (
+                        <button key={m} type="button" onClick={() => setMode(m)}
+                            style={{ padding: "5px 14px", fontSize: 12, fontFamily: "'Inter',sans-serif", fontWeight: 600, border: "none", borderRadius: 2, cursor: "pointer", background: mode === m ? "#0A1628" : "rgba(10,22,40,0.15)", color: mode === m ? "#fff" : "#0A1628" }}>
+                            {m === "prompt" ? "✏️ Describe Project" : "📄 Upload Document"}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            <div style={{ padding: "20px 18px" }}>
+                {mode === "prompt" && (
+                    <>
+                        <p style={{ fontSize: 13, color: "#4A5568", fontFamily: "'Inter',sans-serif", marginBottom: 12 }}>
+                            Describe the project in plain English — client, location, scope, duration, and any key details. AI will generate the entire report for you.
+                        </p>
+                        <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 2, padding: "10px 14px", marginBottom: 12 }}>
+                            <p style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, color: "#8B95A1", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 6 }}>Example prompt</p>
+                            <p style={{ fontSize: 12, color: "#4A5568", fontFamily: "'Inter',sans-serif", fontStyle: "italic", lineHeight: 1.6 }}>
+                                "Pipeline repair project for Heirs Energies at Umuechem Flow Station, Rivers State. 8-week scope replacing 120m of corroded 6-inch flowline. Tie-in completed during planned shutdown. 10 personnel deployed, zero LTI. Materials included 6-inch SCH40 pipe, fittings, and coating system."
+                            </p>
+                        </div>
+                        <textarea
+                            value={prompt}
+                            onChange={e => setPrompt(e.target.value)}
+                            rows={5}
+                            placeholder="Describe the project here — client name, location, scope of work, duration, personnel count, key outcomes…"
+                            style={{ width: "100%", border: "1px solid #e2e8f0", padding: "12px 14px", fontSize: 14, fontFamily: "'Inter',sans-serif", outline: "none", resize: "vertical", borderRadius: 2, color: "#0A1628", lineHeight: 1.6 }}
+                            onFocus={e => e.target.style.borderColor = "#E8873A"}
+                            onBlur={e => e.target.style.borderColor = "#e2e8f0"}
+                        />
+                        <button type="button" onClick={generateFromPrompt} disabled={generating || !prompt.trim()}
+                            style={{ marginTop: 12, padding: "12px 28px", background: generating ? "#8B95A1" : "#0A1628", color: "#fff", border: "none", fontSize: 14, fontWeight: 700, fontFamily: "'Inter',sans-serif", cursor: generating || !prompt.trim() ? "not-allowed" : "pointer", borderRadius: 2, display: "flex", alignItems: "center", gap: 10, transition: "background .2s" }}>
+                            {generating ? (
+                                <><span style={{ animation: "spin 1s linear infinite", display: "inline-block" }}>⏳</span> Generating report…</>
+                            ) : (
+                                <><span>⚡</span> Generate Full Report</>
+                            )}
+                        </button>
+                    </>
+                )}
+
+                {mode === "upload" && (
+                    <>
+                        <p style={{ fontSize: 13, color: "#4A5568", fontFamily: "'Inter',sans-serif", marginBottom: 16 }}>
+                            Upload an existing close-out report (PDF, DOCX, or TXT) and AI will extract and structure all the data into the form fields.
+                        </p>
+                        <div onClick={() => inputRef.current?.click()}
+                            style={{ border: "2px dashed #e2e8f0", borderRadius: 2, padding: "32px 20px", textAlign: "center", cursor: "pointer", transition: "border-color .2s" }}
+                            onMouseEnter={e => (e.currentTarget.style.borderColor = "#E8873A")}
+                            onMouseLeave={e => (e.currentTarget.style.borderColor = "#e2e8f0")}>
+                            <p style={{ fontSize: 32, marginBottom: 8 }}>📄</p>
+                            <p style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 600, fontSize: 14, color: "#0A1628", marginBottom: 4 }}>Click to upload a document</p>
+                            <p style={{ fontSize: 12, color: "#8B95A1", fontFamily: "'Inter',sans-serif" }}>PDF, DOCX, DOC, or TXT — max 5MB</p>
+                            <input ref={inputRef} type="file" accept=".pdf,.doc,.docx,.txt" style={{ display: "none" }}
+                                onChange={e => { const f = e.target.files?.[0]; if (f) uploadDoc(f); e.target.value = ""; }} />
+                        </div>
+                    </>
+                )}
+
+                {generating && (
+                    <div style={{ marginTop: 14, padding: "12px 16px", background: "rgba(232,135,58,0.06)", border: "1px solid rgba(232,135,58,0.2)", borderRadius: 2, fontSize: 13, color: "#92400e", fontFamily: "'Inter',sans-serif", display: "flex", alignItems: "center", gap: 10 }}>
+                        <span>⏳</span> AI is generating your report… this takes 10–20 seconds.
+                    </div>
+                )}
+
+                {msg && !generating && (
+                    <div style={{ marginTop: 14, padding: "12px 16px", borderRadius: 2, fontSize: 13, fontFamily: "'Inter',sans-serif", background: status === "ok" ? "rgba(34,197,94,0.08)" : "rgba(239,68,68,0.08)", border: `1px solid ${status === "ok" ? "rgba(34,197,94,0.3)" : "rgba(239,68,68,0.3)"}`, color: status === "ok" ? "#166534" : "#991b1b" }}>
+                        {msg}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}
+
+
+// ── Signature Pad ─────────────────────────────────────────────────────────
+function SignaturePad({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const drawing = useRef(false);
+    const [mode, setMode] = useState<"draw" | "upload">("draw");
+
+    const getPos = (e: React.MouseEvent | React.TouchEvent, canvas: HTMLCanvasElement) => {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        if ("touches" in e) {
+            return { x: (e.touches[0].clientX - rect.left) * scaleX, y: (e.touches[0].clientY - rect.top) * scaleY };
+        }
+        return { x: (e.clientX - rect.left) * scaleX, y: (e.clientY - rect.top) * scaleY };
+    };
+
+    const startDraw = (e: React.MouseEvent | React.TouchEvent) => {
+        e.preventDefault();
+        const canvas = canvasRef.current; if (!canvas) return;
+        drawing.current = true;
+        const ctx = canvas.getContext("2d")!;
+        const pos = getPos(e, canvas);
+        ctx.beginPath(); ctx.moveTo(pos.x, pos.y);
+    };
+    const draw = (e: React.MouseEvent | React.TouchEvent) => {
+        e.preventDefault();
+        if (!drawing.current) return;
+        const canvas = canvasRef.current; if (!canvas) return;
+        const ctx = canvas.getContext("2d")!;
+        ctx.lineWidth = 2; ctx.lineCap = "round"; ctx.strokeStyle = "#0A1628";
+        const pos = getPos(e, canvas);
+        ctx.lineTo(pos.x, pos.y); ctx.stroke();
+    };
+    const endDraw = () => {
+        drawing.current = false;
+        const canvas = canvasRef.current; if (!canvas) return;
+        onChange(canvas.toDataURL("image/png"));
+    };
+    const clear = () => {
+        const canvas = canvasRef.current; if (!canvas) return;
+        canvas.getContext("2d")!.clearRect(0, 0, canvas.width, canvas.height);
+        onChange("");
+    };
+    const uploadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]; if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => onChange(ev.target?.result as string);
+        reader.readAsDataURL(file);
+    };
+
+    return (
+        <div style={{ marginTop: 12 }}>
+            <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
+                <button type="button" onClick={() => setMode("draw")}
+                    style={{ padding: "6px 14px", fontSize: 12, fontFamily: "'Inter',sans-serif", border: "1px solid #e2e8f0", background: mode === "draw" ? "#0A1628" : "#fff", color: mode === "draw" ? "#fff" : "#4A5568", cursor: "pointer", borderRadius: 2 }}>
+                    ✏️ Draw
+                </button>
+                <button type="button" onClick={() => setMode("upload")}
+                    style={{ padding: "6px 14px", fontSize: 12, fontFamily: "'Inter',sans-serif", border: "1px solid #e2e8f0", background: mode === "upload" ? "#0A1628" : "#fff", color: mode === "upload" ? "#fff" : "#4A5568", cursor: "pointer", borderRadius: 2 }}>
+                    📎 Upload
+                </button>
+                {value && <button type="button" onClick={clear}
+                    style={{ padding: "6px 14px", fontSize: 12, fontFamily: "'Inter',sans-serif", border: "1px solid rgba(220,38,38,0.3)", background: "#fff", color: "#dc2626", cursor: "pointer", borderRadius: 2, marginLeft: "auto" }}>
+                    Clear
+                </button>}
+            </div>
+            {mode === "draw" && (
+                <canvas ref={canvasRef} width={400} height={120}
+                    onMouseDown={startDraw} onMouseMove={draw} onMouseUp={endDraw} onMouseLeave={endDraw}
+                    onTouchStart={startDraw} onTouchMove={draw} onTouchEnd={endDraw}
+                    style={{ border: "1px solid #e2e8f0", borderRadius: 2, cursor: "crosshair", touchAction: "none", width: "100%", height: 120, background: "#fafafa", display: "block" }} />
+            )}
+            {mode === "upload" && (
+                <div>
+                    <input type="file" accept="image/*" onChange={uploadFile}
+                        style={{ fontSize: 13, fontFamily: "'Inter',sans-serif" }} />
+                </div>
+            )}
+            {value && (
+                <div style={{ marginTop: 8, padding: "8px 12px", background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 2 }}>
+                    <p style={{ fontSize: 10, color: "#8B95A1", fontFamily: "'IBM Plex Mono',monospace", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 6 }}>Preview</p>
+                    <img src={value} alt="Signature preview" style={{ maxHeight: 60, maxWidth: "100%", objectFit: "contain" }} />
+                </div>
+            )}
         </div>
     );
 }
@@ -398,6 +623,9 @@ export default function ReportFormPage() {
                         </div>
                     )}
 
+                    {/* AI AUTOFILL BANNER */}
+                    <AutofillUpload onFill={(data) => setForm(prev => ({ ...prev, ...data }))} />
+
                     {/* COVER */}
                     <div className="form-section">
                         <SectionHead id="cover" title="Cover Details" />
@@ -545,6 +773,10 @@ export default function ReportFormPage() {
                                 <div className="f-field"><label>Name</label><input value={form.signoff_contractor_name} onChange={f("signoff_contractor_name")} /></div>
                                 <div className="f-field"><label>Designation</label><input value={form.signoff_contractor_desig} onChange={f("signoff_contractor_desig")} /></div>
                                 <div className="f-field"><label>Date</label><input type="date" value={form.signoff_contractor_date} onChange={f("signoff_contractor_date")} /></div>
+                            </div>
+                            <div className="f-field">
+                                <label>Signature</label>
+                                <SignaturePad value={form.signoff_contractor_signature} onChange={v => set("signoff_contractor_signature", v)} />
                             </div>
                         </div>
                         <div>

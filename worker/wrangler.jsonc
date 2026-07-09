@@ -27,5 +27,8 @@
             "binding": "REPORTS_BUCKET",
             "bucket_name": "anbe-reports"
         }
-    ]
+    ],
+    "ai": {
+        "binding": "AI"
+    }
 }
