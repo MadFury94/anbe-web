@@ -52,7 +52,7 @@ async function callAI(env: EnvWithAI, prompt: string): Promise<Record<string, un
     // Try Cloudflare Workers AI first (free, no key needed)
     if (env.AI) {
         try {
-            const result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+            const result = await env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
                 messages,
                 max_tokens: 3000,
                 temperature: 0.3,
