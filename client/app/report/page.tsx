@@ -61,6 +61,13 @@ const S = `
   /* IMAGES */
   .img-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:8px;}
   .img-gallery img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;border:1px solid rgba(10,22,40,0.1);}
+  /* ATTACHMENTS */
+  .attachment-list{display:flex;flex-direction:column;gap:10px;}
+  .attachment-link{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:14px 16px;border:1px solid rgba(10,22,40,0.12);color:#0A1628;text-decoration:none;background:#fff;}
+  .attachment-link:hover{border-color:#E8873A;}
+  .attachment-name{font-size:14px;font-weight:600;word-break:break-word;}
+  .attachment-meta{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8B95A1;margin-top:4px;}
+  .attachment-download{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#E8873A;text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;}
   /* HSE */
   .hse-box{background:#0A1628;padding:24px 28px;border-left:4px solid #E8873A;margin-bottom:20px;}
   .hse-box p{font-size:13.5px;color:rgba(247,245,240,0.75);line-height:1.7;font-family:'Inter',sans-serif;}
@@ -98,6 +105,7 @@ const S = `
 `;
 
 type Row = string[];
+interface Attachment { name: string; url: string; type?: string; size?: number; }
 interface Report {
     project_title: string; client_name: string; client_company: string;
     contractor: string; location: string; report_date: string;
@@ -109,7 +117,7 @@ interface Report {
     personnel: Row[]; equipment: Row[];
     signoff_contractor_name: string; signoff_contractor_desig: string; signoff_contractor_date: string;
     signoff_client_name: string; signoff_client_desig: string; signoff_client_date: string;
-    images: string[]; created_at: string;
+    images: string[]; attachments?: Attachment[]; created_at: string;
 }
 
 function fmt(d: string) {
@@ -137,6 +145,13 @@ function RptTable({ headers, rows }: { headers: string[]; rows: Row[]; }) {
             ))}</tbody>
         </table>
     );
+}
+
+function formatBytes(size?: number) {
+    if (!size) return "";
+    if (size < 1024) return `${size} B`;
+    if (size < 1024 * 1024) return `${(size / 1024).toFixed(1)} KB`;
+    return `${(size / (1024 * 1024)).toFixed(1)} MB`;
 }
 
 export default function ReportPage() {
@@ -168,6 +183,7 @@ export default function ReportPage() {
 
     const achievements = Array.isArray(report.achievements) ? report.achievements.filter(Boolean).map(s => s.replace(/^[•\-–*]\s*/, "")) : [];
     const images = Array.isArray(report.images) ? report.images.filter(Boolean) : [];
+    const attachments = Array.isArray(report.attachments) ? report.attachments.filter(file => file?.url) : [];
     const hseNotes = Array.isArray(report.hse_notes) ? report.hse_notes.filter(Boolean).map(s => s.replace(/^[•\-–*]\s*/, "")) : [];
 
     return (
@@ -297,6 +313,24 @@ export default function ReportPage() {
                             <div className="rpt-section-title">Project Photography</div>
                             <div className="img-gallery">
                                 {images.map((src, i) => <img key={i} src={src} alt={`Project image ${i + 1}`} loading="lazy" />)}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Supporting documents */}
+                    {attachments.length > 0 && (
+                        <div className="rpt-section">
+                            <div className="rpt-section-title">Supporting Documents</div>
+                            <div className="attachment-list">
+                                {attachments.map((file, i) => (
+                                    <a key={`${file.url}-${i}`} className="attachment-link" href={file.url} target="_blank" rel="noreferrer" download>
+                                        <div>
+                                            <div className="attachment-name">{file.name || `Attachment ${i + 1}`}</div>
+                                            <div className="attachment-meta">{[file.type, formatBytes(file.size)].filter(Boolean).join(" / ")}</div>
+                                        </div>
+                                        <span className="attachment-download">Download</span>
+                                    </a>
+                                ))}
                             </div>
                         </div>
                     )}

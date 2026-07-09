@@ -91,6 +91,7 @@ const S = `
 type Row = string[];
 interface WorkSummary { mechanical: Row[]; civil: Row[]; ei: Row[]; }
 interface Materials { mechanical: Row[]; civil: Row[]; ei: Row[]; }
+interface Attachment { name: string; url: string; key?: string; type?: string; size?: number; }
 interface ReportForm {
     project_title: string; client_name: string; client_company: string;
     contractor: string; location: string; report_date: string;
@@ -102,7 +103,7 @@ interface ReportForm {
     personnel: Row[]; equipment: Row[];
     signoff_contractor_name: string; signoff_contractor_desig: string; signoff_contractor_date: string; signoff_contractor_signature: string;
     signoff_client_name: string; signoff_client_desig: string; signoff_client_date: string;
-    images: string[]; expires_at: string;
+    images: string[]; attachments: Attachment[]; expires_at: string;
 }
 
 const EMPTY: ReportForm = {
@@ -116,7 +117,7 @@ const EMPTY: ReportForm = {
     personnel: [["", ""]], equipment: [["", ""]],
     signoff_contractor_name: "", signoff_contractor_desig: "", signoff_contractor_date: "", signoff_contractor_signature: "",
     signoff_client_name: "", signoff_client_desig: "", signoff_client_date: "",
-    images: [], expires_at: "",
+    images: [], attachments: [], expires_at: "",
 };
 
 const SECTIONS = [
@@ -132,6 +133,7 @@ const SECTIONS = [
     { id: "conclusion", label: "9. Conclusion" },
     { id: "signoff", label: "Sign-Off" },
     { id: "images", label: "Images" },
+    { id: "attachments", label: "Attachments" },
 ];
 
 // helpers
@@ -253,6 +255,92 @@ function ImageUpload({ token, images, onChange }: { token: string; images: strin
 }
 
 // ── AI Document Autofill ──────────────────────────────────────────────────
+function formatBytes(size?: number) {
+    if (!size) return "";
+    if (size < 1024) return `${size} B`;
+    if (size < 1024 * 1024) return `${(size / 1024).toFixed(1)} KB`;
+    return `${(size / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function AttachmentUpload({ token, attachments, onChange }: { token?: string | null; attachments: Attachment[]; onChange: (files: Attachment[]) => void }) {
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [uploading, setUploading] = useState(false);
+    const [uploadErr, setUploadErr] = useState("");
+    const canUpload = Boolean(token);
+
+    const doUpload = async (files: FileList | null) => {
+        if (!files?.length || !token) return;
+        setUploading(true);
+        setUploadErr("");
+        const authToken = localStorage.getItem("anbe_admin_token") ?? "";
+        const next = [...attachments];
+        for (const file of Array.from(files)) {
+            const fd = new FormData();
+            fd.append("file", file);
+            try {
+                const res = await fetch(`${API}/api/reports/${token}/attachments`, {
+                    method: "POST",
+                    headers: { Authorization: `Bearer ${authToken}` },
+                    body: fd,
+                });
+                const data = await res.json() as { attachment?: Attachment; error?: string };
+                if (!res.ok || data.error || !data.attachment) throw new Error(data.error ?? "Upload failed");
+                next.push(data.attachment);
+            } catch (e) {
+                setUploadErr((e as Error).message);
+            }
+        }
+        onChange(next);
+        setUploading(false);
+    };
+
+    return (
+        <div>
+            {!canUpload && (
+                <p style={{ fontSize: 12, color: "#8B95A1", marginBottom: 10 }}>
+                    Save the report first, then upload supporting documents.
+                </p>
+            )}
+            <div
+                className="img-zone"
+                onClick={() => canUpload && inputRef.current?.click()}
+                style={{ cursor: canUpload ? "pointer" : "not-allowed", opacity: canUpload ? 1 : 0.6 }}
+            >
+                <p>Attach supporting documents</p>
+                <p className="hint">PDF, Word, Excel, drawings, certificates, schedules or other project files</p>
+                <input
+                    ref={inputRef}
+                    type="file"
+                    multiple
+                    accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.jpg,.jpeg,.png,.webp,.zip"
+                    style={{ display: "none" }}
+                    onChange={e => { doUpload(e.target.files); e.target.value = ""; }}
+                    disabled={!canUpload}
+                />
+            </div>
+            {uploading && <p className="uploading-indicator">Uploading documents...</p>}
+            {uploadErr && <p style={{ color: "#c53030", fontSize: 12, marginTop: 6 }}>{uploadErr}</p>}
+            {attachments.length > 0 && (
+                <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: 8 }}>
+                    {attachments.map((file, i) => (
+                        <div key={`${file.url}-${i}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, border: "1px solid #e2e8f0", padding: "10px 12px", borderRadius: 2 }}>
+                            <div style={{ minWidth: 0 }}>
+                                <a href={file.url} target="_blank" rel="noreferrer" style={{ color: "#0A1628", fontSize: 13, fontWeight: 600, textDecoration: "none", wordBreak: "break-word" }}>
+                                    {file.name || `Attachment ${i + 1}`}
+                                </a>
+                                <div style={{ fontFamily: "'IBM Plex Mono',monospace", color: "#8B95A1", fontSize: 10, marginTop: 3 }}>
+                                    {[file.type, formatBytes(file.size)].filter(Boolean).join(" / ")}
+                                </div>
+                            </div>
+                            <button type="button" className="bullet-del" onClick={() => onChange(attachments.filter((_, j) => j !== i))}>x</button>
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}
+
 function AutofillUpload({ onFill }: { onFill: (data: Record<string, unknown>) => void }) {
     const [prompt, setPrompt] = useState("");
     const [generating, setGenerating] = useState(false);
@@ -491,7 +579,7 @@ export default function ReportFormPage() {
     useEffect(() => {
         if (!editToken) return;
         api.getReport(editToken).then(d => {
-            setForm(d.report as unknown as ReportForm);
+            setForm({ ...EMPTY, ...(d.report as unknown as ReportForm), attachments: ((d.report as { attachments?: Attachment[] }).attachments ?? []) });
             setSavedToken(editToken);
             setLoading(false);
         }).catch(() => setLoading(false));
@@ -624,7 +712,7 @@ export default function ReportFormPage() {
                     )}
 
                     {/* AI AUTOFILL BANNER */}
-                    <AutofillUpload onFill={(data) => setForm(prev => ({ ...prev, ...data }))} />
+                    <AutofillUpload onFill={(data) => setForm(prev => ({ ...prev, ...data, attachments: prev.attachments }))} />
 
                     {/* COVER */}
                     <div className="form-section">
@@ -797,6 +885,17 @@ export default function ReportFormPage() {
                             token={savedToken ?? editToken ?? "new"}
                             images={form.images}
                             onChange={imgs => set("images", imgs)}
+                        />
+                    </div>
+                    <hr className="section-divider" />
+
+                    {/* ATTACHMENTS */}
+                    <div className="form-section">
+                        <SectionHead id="attachments" title="Supporting Documents" />
+                        <AttachmentUpload
+                            token={savedToken ?? editToken}
+                            attachments={form.attachments ?? []}
+                            onChange={files => set("attachments", files)}
                         />
                     </div>
                     <hr className="section-divider" />

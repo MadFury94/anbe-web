@@ -35,8 +35,9 @@ CREATE TABLE project_reports (
   signoff_client_desig     TEXT,
   signoff_client_date      TEXT,
 
-  -- Images (JSON array of R2 URLs)
+  -- Images and supporting documents
   images          TEXT DEFAULT '[]',
+  attachments     TEXT DEFAULT '[]', -- JSON array of {name,url,key,type,size}
 
   -- Meta
   expires_at      TEXT,

@@ -23,6 +23,7 @@ function serialize(row: Record<string, unknown>) {
         personnel: p(row.personnel),
         equipment: p(row.equipment),
         images: p(row.images),
+        attachments: p(row.attachments),
     };
 }
 
@@ -32,6 +33,7 @@ export async function handleReports(
     const method = request.method;
     const tokenMatch = path.match(/^\/api\/reports\/([A-Za-z0-9_-]{10,})$/);
     const uploadMatch = path.match(/^\/api\/reports\/([A-Za-z0-9_-]{10,})\/upload$/);
+    const attachmentUploadMatch = path.match(/^\/api\/reports\/([A-Za-z0-9_-]{10,})\/attachments$/);
 
     // ── PUBLIC: GET /api/reports/:token ──────────────────────────────────
     if (tokenMatch && method === "GET" && !isAdmin) {
@@ -81,8 +83,8 @@ export async function handleReports(
               work_summary, materials, hse_notes, hse_status, personnel, equipment,
               signoff_contractor_name, signoff_contractor_desig, signoff_contractor_date,
               signoff_client_name, signoff_client_desig, signoff_client_date,
-              images, expires_at
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+              images, attachments, expires_at
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         `).bind(
             token,
             b.project_title, b.client_name,
@@ -99,6 +101,7 @@ export async function handleReports(
             b.signoff_contractor_name ?? "", b.signoff_contractor_desig ?? "", b.signoff_contractor_date ?? "",
             b.signoff_client_name ?? "", b.signoff_client_desig ?? "", b.signoff_client_date ?? "",
             JSON.stringify(b.images ?? []),
+            JSON.stringify(b.attachments ?? []),
             b.expires_at ?? "",
         ).run();
         return json({ token, url: `/report/${token}` }, 201);
@@ -113,7 +116,7 @@ export async function handleReports(
             "signoff_contractor_name", "signoff_contractor_desig", "signoff_contractor_date", "signoff_contractor_signature",
             "signoff_client_name", "signoff_client_desig", "signoff_client_date",
         ];
-        const jsonFields = ["achievements", "work_summary", "materials", "hse_notes", "hse_status", "personnel", "equipment", "images"];
+        const jsonFields = ["achievements", "work_summary", "materials", "hse_notes", "hse_status", "personnel", "equipment", "images", "attachments"];
         const sets: string[] = ["updated_at = datetime('now')"];
         const vals: unknown[] = [];
         textFields.forEach(f => { if (b[f] !== undefined) { sets.push(`${f} = ?`); vals.push(b[f]); } });
@@ -153,6 +156,43 @@ export async function handleReports(
         ).bind(JSON.stringify(imgs), token).run();
 
         return json({ url: publicUrl, key });
+    }
+
+    // POST /api/reports/:token/attachments — upload supporting document to R2
+    if (attachmentUploadMatch && method === "POST") {
+        const token = attachmentUploadMatch[1];
+        const formData = await request.formData();
+        const file = formData.get("file") as File | null;
+        if (!file) return json({ error: "No file provided" }, 400);
+
+        const safeName = file.name.replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/^-+|-+$/g, "") || "attachment";
+        const key = `reports/${token}/attachments/${Date.now()}-${safeName}`;
+
+        await env.REPORTS_BUCKET.put(key, await file.arrayBuffer(), {
+            httpMetadata: {
+                contentType: file.type || "application/octet-stream",
+                contentDisposition: `attachment; filename="${safeName.replace(/"/g, "")}"`,
+            },
+        });
+
+        const attachment = {
+            name: file.name,
+            url: `https://pub-anbe-reports.r2.dev/${key}`,
+            key,
+            type: file.type || "application/octet-stream",
+            size: file.size,
+        };
+
+        const row = await env.DB.prepare(
+            "SELECT attachments FROM project_reports WHERE token = ?"
+        ).bind(token).first<{ attachments: string }>();
+        const attachments: unknown[] = row ? JSON.parse(row.attachments || "[]") : [];
+        attachments.push(attachment);
+        await env.DB.prepare(
+            "UPDATE project_reports SET attachments = ?, updated_at = datetime('now') WHERE token = ?"
+        ).bind(JSON.stringify(attachments), token).run();
+
+        return json({ attachment });
     }
 
     // DELETE /api/reports/:token
