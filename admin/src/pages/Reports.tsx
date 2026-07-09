@@ -47,14 +47,14 @@ export default function ReportsPage() {
     };
 
     const copy = async (token: string) => {
-        const base = (import.meta.env.VITE_SITE_URL ?? (window.location.hostname === "localhost" ? "http://localhost:5173" : "https://anbenig.com"));
+        const base = (import.meta.env.VITE_SITE_URL ?? (window.location.hostname === "localhost" ? "http://localhost:5173" : "https://anbe-web.pages.dev"));
         await navigator.clipboard.writeText(`${base}/report/${token}`);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
 
     const previewUrl = (token: string) => {
-        const base = (import.meta.env.VITE_SITE_URL ?? (window.location.hostname === "localhost" ? "http://localhost:5173" : "https://anbenig.com"));
+        const base = (import.meta.env.VITE_SITE_URL ?? (window.location.hostname === "localhost" ? "http://localhost:5173" : "https://anbe-web.pages.dev"));
         return `${base}/report/${token}`;
     };
 

@@ -272,6 +272,47 @@ export default function ReportFormPage() {
         }).catch(() => setLoading(false));
     }, [editToken]);
 
+    // ── Autosave — fires 3s after last change, only when we have a token ──
+    const autosaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const [lastSaved, setLastSaved] = useState<Date | null>(null);
+    const [autoSaving, setAutoSaving] = useState(false);
+    const formRef = useRef(form);
+    formRef.current = form;
+
+    useEffect(() => {
+        if (!savedToken) return; // only autosave once report exists
+        if (autosaveTimer.current) clearTimeout(autosaveTimer.current);
+        autosaveTimer.current = setTimeout(async () => {
+            setAutoSaving(true);
+            try {
+                await api.updateReport(savedToken, formRef.current as unknown as Record<string, unknown>);
+                setLastSaved(new Date());
+            } catch { /* silent */ }
+            finally { setAutoSaving(false); }
+        }, 3000);
+        return () => { if (autosaveTimer.current) clearTimeout(autosaveTimer.current); };
+    }, [form, savedToken]);
+
+    // ── Pre-fill from project ─────────────────────────────────────────────
+    const [projects, setProjects] = useState<{ slug: string; title: string; client: string; client_company?: string; location: string; description: string; scope: string; duration: string; category: string }[]>([]);
+    useEffect(() => {
+        api.getProjects().then(r => setProjects(r.projects as typeof projects)).catch(() => { });
+    }, []);
+
+    const prefillFromProject = (slug: string) => {
+        const p = projects.find(x => x.slug === slug);
+        if (!p) return;
+        setForm(prev => ({
+            ...prev,
+            project_title: p.title || prev.project_title,
+            client_name: prev.client_name || p.client || "",
+            client_company: prev.client_company || "",
+            location: p.location || prev.location,
+            scope_of_work: prev.scope_of_work || p.description || "",
+            work_summary: prev.work_summary,
+        }));
+    };
+
     // Track active section via scroll
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -286,7 +327,7 @@ export default function ReportFormPage() {
         setForm(p => ({ ...p, [k]: e.target.value }));
     const set = (k: keyof ReportForm, v: unknown) => setForm(p => ({ ...p, [k]: v }));
 
-    const siteBase = import.meta.env.VITE_SITE_URL ?? (window.location.hostname === "localhost" ? "http://localhost:5173" : "https://anbenig.com");
+    const siteBase = import.meta.env.VITE_SITE_URL ?? (window.location.hostname === "localhost" ? "http://localhost:5173" : "https://anbe-web.pages.dev");
 
     const save = async () => {
         if (!form.project_title || !form.client_name) { setError("Project title and client name are required."); return; }
@@ -334,7 +375,7 @@ export default function ReportFormPage() {
                         <div>
                             <h1>{editToken ? "Edit Report" : "New Client Report"}</h1>
                             <p style={{ fontSize: 13, color: "#8B95A1", marginTop: 4 }}>
-                                Fill in each section. Changes are saved when you click Save.
+                                {autoSaving ? "⏳ Saving…" : lastSaved ? `✓ Last saved ${lastSaved.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}` : "Changes save automatically after you stop typing."}
                             </p>
                         </div>
                         <div className="actions">
@@ -360,6 +401,26 @@ export default function ReportFormPage() {
                     {/* COVER */}
                     <div className="form-section">
                         <SectionHead id="cover" title="Cover Details" />
+
+                        {/* Pre-fill from existing project */}
+                        {projects.length > 0 && !editToken && (
+                            <div style={{ background: "rgba(232,135,58,0.06)", border: "1px solid rgba(232,135,58,0.2)", padding: "14px 16px", marginBottom: 24, borderRadius: 2 }}>
+                                <label style={{ display: "block", fontFamily: "'IBM Plex Mono',monospace", fontSize: 10, fontWeight: 600, color: "#E8873A", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 8 }}>
+                                    ⚡ Pre-fill from existing project
+                                </label>
+                                <select
+                                    defaultValue=""
+                                    onChange={e => { if (e.target.value) prefillFromProject(e.target.value); }}
+                                    style={{ width: "100%", border: "1px solid rgba(232,135,58,0.3)", background: "#fff", padding: "10px 12px", fontSize: 13, fontFamily: "'Inter',sans-serif", color: "#0A1628", outline: "none", borderRadius: 2, cursor: "pointer" }}
+                                >
+                                    <option value="" disabled>Select a project to auto-fill title, client, location and scope…</option>
+                                    {projects.map(p => (
+                                        <option key={p.slug} value={p.slug}>{p.title} — {p.client}</option>
+                                    ))}
+                                </select>
+                                <p style={{ fontSize: 11, color: "#8B95A1", marginTop: 6, fontFamily: "'Inter',sans-serif" }}>Only empty fields will be filled. Your existing entries won't be overwritten.</p>
+                            </div>
+                        )}
                         <div className="f-row">
                             <div className="f-field"><label>Project Title *</label><input value={form.project_title} onChange={f("project_title")} placeholder="e.g. Interconnecting Piping for EP-6 Pump" /></div>
                             <div className="f-field"><label>Report Date</label><input type="date" value={form.report_date} onChange={f("report_date")} /></div>

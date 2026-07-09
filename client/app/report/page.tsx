@@ -10,9 +10,22 @@ const S = `
   h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.01em;}
   .report-page{min-height:100vh;}
   .topbar{background:#0A1628;padding:14px 0;border-bottom:3px solid #E8873A;}
-  .topbar-inner{max-width:900px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;}
+  .topbar-inner{max-width:900px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
   .topbar img{height:44px;width:auto;}
+  .topbar-right{display:flex;align-items:center;gap:16px;}
   .confidential{font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(247,245,240,0.5);letter-spacing:0.12em;text-transform:uppercase;}
+  .pdf-btn{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#0A1628;background:#E8873A;border:none;padding:8px 16px;cursor:pointer;transition:background .2s;white-space:nowrap;}
+  .pdf-btn:hover{background:#F0A669;}
+  @media print{
+    .topbar,.rpt-footer{display:none!important;}
+    .pdf-btn{display:none!important;}
+    body{background:#fff!important;}
+    .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .rpt-table th{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .rpt-section{page-break-inside:avoid;}
+    .body-wrap{padding-bottom:0!important;}
+    @page{margin:18mm 15mm;}
+  }
   /* COVER */
   .cover{background:linear-gradient(135deg,#0A1628 0%,#16283F 100%);padding:60px 0 52px;position:relative;overflow:hidden;}
   .cover::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(139,149,161,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(139,149,161,0.05) 1px,transparent 1px);background-size:48px 48px;}
@@ -152,7 +165,10 @@ export default function ReportPage() {
                 <div className="topbar">
                     <div className="topbar-inner">
                         <a href="/"><img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" /></a>
-                        <span className="confidential">Confidential — For {report.client_name} only</span>
+                        <div className="topbar-right">
+                            <span className="confidential">Confidential — For {report.client_name} only</span>
+                            <button className="pdf-btn" onClick={() => window.print()}>⬇ Download PDF</button>
+                        </div>
                     </div>
                 </div>
 
