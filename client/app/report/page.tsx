@@ -250,7 +250,7 @@ export default function ReportPage() {
                             <div className="rpt-section-title">5. HSE Performance</div>
                             {hseNotes.length > 0 && (
                                 <div className="hse-box">
-                                    <ul className="bullet-list">{hseNotes.map((n, i) => <li key={i}>{n}</li>)}</ul>
+                                    <ul className="hse-list">{hseNotes.map((n, i) => <li key={i}>{n}</li>)}</ul>
                                 </div>
                             )}
                             {report.hse_status?.some(r => r.some(c => c?.trim())) && (
