@@ -14,7 +14,7 @@ export interface Env {
     JWT_SECRET: string;
     ADMIN_PASSWORD_HASH: string;
     REPORTS_BUCKET: R2Bucket;
-    AI?: { run: (model: string, opts: unknown) => Promise<{ response?: string }> };
+    AI?: { run: (model: string, opts: unknown) => Promise<unknown> };
     OPENAI_API_KEY?: string;
 }
 
@@ -55,7 +55,7 @@ export default {
             if (path.startsWith("/api/team")) return cors(await handleTeam(request, env, path, true));
             if (path.startsWith("/api/contact")) return cors(await handleContact(request, env, path));
             if (path.startsWith("/api/reports")) return cors(await handleReports(request, env, path, true));
-            if (path === "/api/autofill") return cors(await handleAutofill(request, env, path));
+            if (path === "/api/autofill") return cors(await handleAutofill(request, env));
 
             return cors(notFound());
         } catch (err) {

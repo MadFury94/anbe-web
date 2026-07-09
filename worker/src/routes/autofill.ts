@@ -2,7 +2,7 @@ import type { Env } from "../index";
 import { json } from "../lib/utils";
 
 interface EnvWithAI extends Env {
-    AI?: { run: (model: string, opts: unknown) => Promise<{ response?: string }> };
+    AI?: { run: (model: string, opts: unknown) => Promise<unknown> };
     OPENAI_API_KEY?: string;
 }
 
@@ -43,6 +43,37 @@ Rules:
 - Always include at least 3 achievements, 4 HSE notes, 3 personnel roles
 - Materials should be realistic for the project type (pipeline, flare, fabrication, maintenance)`;
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+    return typeof value === "object" && value !== null;
+}
+
+function extractAIText(value: unknown): string {
+    if (typeof value === "string") return value.trim();
+    if (!isRecord(value)) return "";
+
+    const directFields = ["response", "text", "content", "answer", "generated_text", "output_text"];
+    for (const field of directFields) {
+        const text = extractAIText(value[field]);
+        if (text) return text;
+    }
+
+    const nestedFields = ["result", "output", "message", "data"];
+    for (const field of nestedFields) {
+        const text = extractAIText(value[field]);
+        if (text) return text;
+    }
+
+    const choices = value.choices;
+    if (Array.isArray(choices)) {
+        for (const choice of choices) {
+            const text = extractAIText(choice);
+            if (text) return text;
+        }
+    }
+
+    return JSON.stringify(value);
+}
+
 async function callAI(env: EnvWithAI, prompt: string): Promise<Record<string, unknown>> {
     const messages = [
         { role: "system", content: SYSTEM_PROMPT },
@@ -57,17 +88,7 @@ async function callAI(env: EnvWithAI, prompt: string): Promise<Record<string, un
                 max_tokens: 3000,
                 temperature: 0.3,
             });
-            // Handle both string and object response formats
-            let raw = "";
-            if (typeof result.response === "string") {
-                raw = result.response.trim();
-            } else if (result.response && typeof result.response === "object") {
-                raw = JSON.stringify(result.response);
-            } else if (typeof result === "string") {
-                raw = (result as string).trim();
-            } else {
-                raw = JSON.stringify(result);
-            }
+            const raw = extractAIText(result);
             const start = raw.indexOf("{");
             const end = raw.lastIndexOf("}");
             if (start !== -1 && end !== -1) {
@@ -130,7 +151,7 @@ export async function handleAutofill(request: Request, env: EnvWithAI): Promise<
         if (!file) return json({ error: "No file provided" }, 400);
 
         const buf = await file.arrayBuffer();
-        const decoder = new TextDecoder("utf-8", { fatal: false });
+        const decoder = new TextDecoder("utf-8", { fatal: false, ignoreBOM: false });
         let text = decoder.decode(buf)
             .replace(/[^\x09\x0A\x0D\x20-\x7E\u00A0-\uFFFF]/g, " ")
             .replace(/\s{3,}/g, "\n")
