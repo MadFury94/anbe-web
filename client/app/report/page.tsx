@@ -64,6 +64,9 @@ const S = `
   /* HSE */
   .hse-box{background:#0A1628;padding:24px 28px;border-left:4px solid #E8873A;margin-bottom:20px;}
   .hse-box p{font-size:13.5px;color:rgba(247,245,240,0.75);line-height:1.7;font-family:'Inter',sans-serif;}
+  .hse-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .hse-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(247,245,240,0.82);line-height:1.65;font-family:'Inter',sans-serif;}
+  .hse-list li::before{content:"";width:6px;height:6px;border-radius:50%;background:#E8873A;flex-shrink:0;margin-top:7px;}
   /* SIGNOFF */
   .signoff-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:8px;}
   .signoff-party{border:1px solid rgba(10,22,40,0.12);padding:20px 24px;}
@@ -117,11 +120,20 @@ function fmt(d: string) {
 
 function RptTable({ headers, rows }: { headers: string[]; rows: Row[]; }) {
     if (!rows?.length) return null;
+    const filled = rows
+        .filter(r => r.some(c => c?.trim()))
+        .map(r => {
+            // Pad short rows to match header count
+            const padded = [...r];
+            while (padded.length < headers.length) padded.push("");
+            return padded;
+        });
+    if (!filled.length) return null;
     return (
         <table className="rpt-table">
             <thead><tr>{headers.map(h => <th key={h}>{h}</th>)}</tr></thead>
-            <tbody>{rows.filter(r => r.some(c => c?.trim())).map((row, i) => (
-                <tr key={i}>{row.map((cell, j) => <td key={j}>{cell}</td>)}</tr>
+            <tbody>{filled.map((row, i) => (
+                <tr key={i}>{row.slice(0, headers.length).map((cell, j) => <td key={j}>{cell}</td>)}</tr>
             ))}</tbody>
         </table>
     );
@@ -154,9 +166,9 @@ export default function ReportPage() {
         <><style>{S}</style><div className="state"><div className="state-box"><h2>Report Not Found</h2><p>This link is invalid or has been removed. Contact ANBE Nigeria Limited.</p><a href="/" style={{ color: "#E8873A", fontFamily: "'IBM Plex Mono',monospace", fontSize: 12 }}>← anbenig.com</a></div></div></>
     );
 
-    const achievements = Array.isArray(report.achievements) ? report.achievements.filter(Boolean) : [];
+    const achievements = Array.isArray(report.achievements) ? report.achievements.filter(Boolean).map(s => s.replace(/^[•\-–*]\s*/, "")) : [];
     const images = Array.isArray(report.images) ? report.images.filter(Boolean) : [];
-    const hseNotes = Array.isArray(report.hse_notes) ? report.hse_notes.filter(Boolean) : [];
+    const hseNotes = Array.isArray(report.hse_notes) ? report.hse_notes.filter(Boolean).map(s => s.replace(/^[•\-–*]\s*/, "")) : [];
 
     return (
         <>
