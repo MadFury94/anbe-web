@@ -113,7 +113,7 @@ const EMPTY: ReportForm = {
     work_summary: { mechanical: [["", ""]], civil: [["", ""]], ei: [["", ""]] },
     materials: { mechanical: [["1", "", "", "", ""]], civil: [["1", "", "", "", ""]], ei: [["1", "", "", "", ""]] },
     hse_notes: [""], hse_status: [["", ""]],
-    personnel: [["", "", ""]], equipment: [["", ""]],
+    personnel: [["", ""]], equipment: [["", ""]],
     signoff_contractor_name: "", signoff_contractor_desig: "", signoff_contractor_date: "",
     signoff_client_name: "", signoff_client_desig: "", signoff_client_date: "",
     images: [], expires_at: "",
@@ -286,7 +286,7 @@ export default function ReportFormPage() {
         setForm(p => ({ ...p, [k]: e.target.value }));
     const set = (k: keyof ReportForm, v: unknown) => setForm(p => ({ ...p, [k]: v }));
 
-    const siteBase = window.location.hostname === "localhost" ? "http://localhost:5173" : "https://anbenig.com";
+    const siteBase = import.meta.env.VITE_SITE_URL ?? (window.location.hostname === "localhost" ? "http://localhost:5173" : "https://anbenig.com");
 
     const save = async () => {
         if (!form.project_title || !form.client_name) { setError("Project title and client name are required."); return; }
@@ -447,7 +447,8 @@ export default function ReportFormPage() {
                     {/* PERSONNEL */}
                     <div className="form-section">
                         <SectionHead id="personnel" num="6" title="Project Personnel Summary" />
-                        <DynTable headers={["Name", "Designation", "Role"]} rows={form.personnel} onChange={rows => set("personnel", rows)} />
+                        <p style={{ fontSize: 12, color: "#8B95A1", marginBottom: 12, fontFamily: "'Inter',sans-serif" }}>Enter each role and the number of personnel in that role.</p>
+                        <DynTable headers={["Role", "Number"]} rows={form.personnel} onChange={rows => set("personnel", rows)} />
                     </div>
                     <hr className="section-divider" />
 

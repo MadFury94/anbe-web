@@ -47,14 +47,14 @@ export default function ReportsPage() {
     };
 
     const copy = async (token: string) => {
-        const base = window.location.hostname === "localhost" ? "http://localhost:5173" : "https://anbenig.com";
+        const base = (import.meta.env.VITE_SITE_URL ?? (window.location.hostname === "localhost" ? "http://localhost:5173" : "https://anbenig.com"));
         await navigator.clipboard.writeText(`${base}/report/${token}`);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
 
     const previewUrl = (token: string) => {
-        const base = window.location.hostname === "localhost" ? "http://localhost:5173" : "https://anbenig.com";
+        const base = (import.meta.env.VITE_SITE_URL ?? (window.location.hostname === "localhost" ? "http://localhost:5173" : "https://anbenig.com"));
         return `${base}/report/${token}`;
     };
 

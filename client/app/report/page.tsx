@@ -235,7 +235,7 @@ export default function ReportPage() {
                     {report.personnel?.some(r => r.some(c => c?.trim())) && (
                         <div className="rpt-section">
                             <div className="rpt-section-title">6. Project Personnel Summary</div>
-                            <RptTable headers={["Name", "Designation", "Role"]} rows={report.personnel} />
+                            <RptTable headers={["Role", "Number"]} rows={report.personnel} />
                         </div>
                     )}
 
