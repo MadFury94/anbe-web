@@ -228,9 +228,9 @@ function Hero() {
       <div className="flare-glow" aria-hidden="true" />
       <div className="container hero-grid">
         <div>
-          <div className="eyebrow">Est. 1990 — Port Harcourt, Nigeria</div>
+          <div className="eyebrow">Est. 1990, Port Harcourt, Nigeria</div>
           <h1>Engineering integrity, <em>from wellhead to flare tip.</em></h1>
-          <p className="lead">ANBE Nigeria Limited designs, fabricates, and installs the pipeline and flare systems that keep Nigeria's oil &amp; gas facilities running safely — built by an indigenous team with 36 years in the field.</p>
+          <p className="lead">ANBE Nigeria Limited designs, fabricates, and installs the pipeline and flare systems that keep Nigeria's oil &amp; gas facilities running safely, built by an indigenous team with 36 years in the field.</p>
           <div className="hero-actions">
             <a href="/projects" className="btn btn-primary">View Our Projects →</a>
             <a href="#services" className="btn btn-ghost">Explore Capabilities</a>
@@ -349,46 +349,46 @@ function Services() {
         <div className="section-head reveal">
           <div className="eyebrow">EPC Capability</div>
           <h2>Engineering, procurement, and construction under one roof.</h2>
-          <p>From flare stack design to trunkline installation, our scopes move through the same three disciplines — sequenced by our own field teams, not subcontracted out.</p>
+          <p>From flare stack design to trunkline installation, our scopes move through the same three disciplines, sequenced by our own field teams, not subcontracted out.</p>
         </div>
         <div className="services-grid reveal">
           <div className="service-card">
-            <div className="idx">01 — DESIGN &amp; ENGINEERING</div>
+            <div className="idx">01, DESIGN &amp; ENGINEERING</div>
             <svg className="icon" viewBox="0 0 44 44" fill="none"><rect x="6" y="6" width="32" height="32" rx="1" stroke="#E8873A" strokeWidth="1.5" /><path d="M14 30 L20 18 L26 24 L32 12" stroke="#0A1628" strokeWidth="1.5" /></svg>
             <h3>Engineering Works</h3>
             <p>Design and engineering solutions for oil and gas facilities, including flare systems, process engineering, and project management from concept to commissioning.</p>
             <a href="#contact" className="learn">Discuss a Scope <span className="arrow">→</span></a>
           </div>
           <div className="service-card">
-            <div className="idx">02 — CONSTRUCTION</div>
+            <div className="idx">02, CONSTRUCTION</div>
             <svg className="icon" viewBox="0 0 44 44" fill="none"><path d="M8 34 L8 20 L22 20 L22 8 L36 8 L36 34" stroke="#E8873A" strokeWidth="1.5" fill="none" /><circle cx="22" cy="34" r="2" fill="#0A1628" /></svg>
             <h3>Construction Services</h3>
             <p>Full-scope pipeline construction, installation, and repair, including tie-ins, hydrotesting, and right-of-way reinstatement across any terrain.</p>
             <a href="#contact" className="learn">Discuss a Scope <span className="arrow">→</span></a>
           </div>
           <div className="service-card">
-            <div className="idx">03 — PROCUREMENT</div>
+            <div className="idx">03, PROCUREMENT</div>
             <svg className="icon" viewBox="0 0 44 44" fill="none"><rect x="8" y="12" width="28" height="20" rx="1" stroke="#E8873A" strokeWidth="1.5" /><path d="M8 18 H36" stroke="#0A1628" strokeWidth="1.5" /></svg>
             <h3>Procurement &amp; Stockpiling</h3>
             <p>Sourcing, quality verification, and stockpiling of materials and equipment for oil &amp; gas facility construction.</p>
             <a href="#contact" className="learn">Discuss a Scope <span className="arrow">→</span></a>
           </div>
           <div className="service-card">
-            <div className="idx">04 — FABRICATION</div>
+            <div className="idx">04, FABRICATION</div>
             <svg className="icon" viewBox="0 0 44 44" fill="none"><path d="M10 34 L34 34 M14 34 L14 20 L30 20 L30 34" stroke="#E8873A" strokeWidth="1.5" fill="none" /><circle cx="22" cy="14" r="4" stroke="#0A1628" strokeWidth="1.5" /></svg>
             <h3>Fabrication &amp; Workshop Services</h3>
             <p>In-house fabrication of flare components, structural steel, and skid-mounted equipment at our Port Harcourt facility.</p>
             <a href="#contact" className="learn">Discuss a Scope <span className="arrow">→</span></a>
           </div>
           <div className="service-card">
-            <div className="idx">05 — MAINTENANCE</div>
+            <div className="idx">05, MAINTENANCE</div>
             <svg className="icon" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="14" stroke="#E8873A" strokeWidth="1.5" /><path d="M22 14 V22 L28 26" stroke="#0A1628" strokeWidth="1.5" /></svg>
             <h3>Manpower Services</h3>
             <p>Supply of skilled and experienced engineering personnel, technicians, and support staff for oil and gas projects across the Niger Delta.</p>
             <a href="#contact" className="learn">Discuss a Scope <span className="arrow">→</span></a>
           </div>
           <div className="service-card">
-            <div className="idx">06 — SUPPORT</div>
+            <div className="idx">06, SUPPORT</div>
             <svg className="icon" viewBox="0 0 44 44" fill="none"><path d="M22 8 C 30 8 36 14 36 22 C 36 30 30 36 22 36 C 14 36 8 30 8 22" stroke="#E8873A" strokeWidth="1.5" fill="none" /><path d="M8 22 L14 22 L11 28 Z" fill="#0A1628" /></svg>
             <h3>Logistics Services</h3>
             <p>Comprehensive logistics support including materials handling, transportation, and site supply chain management for oil and gas operations.</p>
@@ -526,7 +526,7 @@ function Sustainability() {
 /* ── Testimonials ── */
 const TESTIMONIALS = [
   { quote: `"ANBE mobilised within days and closed out the flare retrofit ahead of our turnaround window. Documentation was clean and the crew ran a tight site."`, name: "Facility Manager", org: "Onshore Export Terminal, Rivers State" },
-  { quote: `"What stood out was the fabrication quality — every skid arrived to spec and passed inspection first time."`, name: "Project Engineer", org: "Independent E&P Operator" },
+  { quote: `"What stood out was the fabrication quality, every skid arrived to spec and passed inspection first time."`, name: "Project Engineer", org: "Independent E&P Operator" },
   { quote: `"A dependable indigenous partner for pipeline work. Budgets held and the safety record was spotless across the programme."`, name: "Procurement Lead", org: "EPC Contractor, Niger Delta" },
 ];
 
@@ -595,7 +595,7 @@ function Careers() {
           <div>
             <div className="eyebrow">Careers</div>
             <h2>Build the systems that keep the field running.</h2>
-            <p>We hire engineers, fabricators, and field technicians who take safety and precision seriously — and back them with steady, well-run projects.</p>
+            <p>We hire engineers, fabricators, and field technicians who take safety and precision seriously, and back them with steady, well-run projects.</p>
             <div className="careers-tags">
               <span>Health Cover</span><span>Field Allowances</span><span>Training Sponsorship</span><span>Local Hire Priority</span>
             </div>
@@ -603,7 +603,7 @@ function Careers() {
           <div className="careers-side">
             <div className="role"><h5>Pipeline Construction Supervisor</h5><span>Port Harcourt</span></div>
             <div className="role"><h5>Flare &amp; Ignition Fabricator</h5><span>Port Harcourt</span></div>
-            <div className="role"><h5>HSE Officer — Field Sites</h5><span>Niger Delta</span></div>
+            <div className="role"><h5>HSE Officer, Field Sites</h5><span>Niger Delta</span></div>
             <a href="#contact" className="btn btn-primary" style={{ alignSelf: "flex-start", marginTop: 6 }}>View Open Roles →</a>
           </div>
         </div>
@@ -628,9 +628,9 @@ function Contact() {
             <div className="item"><div className="lbl">Phone</div><div className="val">08033100539<small>08037753444</small></div></div>
             <div className="item"><div className="lbl">Email</div><div className="val">info@anbenigeria.com<small>anbenig@yahoo.com</small></div></div>
             <div className="item"><div className="lbl">Business Hours</div><div className="val">24/7 Field Response<small>Office: Mon–Fri, 8am–5pm WAT</small></div></div>
-            <div className="map-box"><div className="grid-overlay" /><span>MAP — No. 245, Aba Road, Rumuogba Layout, Port Harcourt, Rivers State</span></div>
+            <div className="map-box"><div className="grid-overlay" /><span>MAP, No. 245, Aba Road, Rumuogba Layout, Port Harcourt, Rivers State</span></div>
           </div>
-          <form className="contact-form" onSubmit={(e) => { e.preventDefault(); setStatus("Thank you — we'll respond within one business day."); }}>
+          <form className="contact-form" onSubmit={(e) => { e.preventDefault(); setStatus("Thank you, we'll respond within one business day."); }}>
             <div className="form-row">
               <div className="field"><label htmlFor="fname">Full Name</label><input id="fname" type="text" required /></div>
               <div className="field"><label htmlFor="fcompany">Company</label><input id="fcompany" type="text" /></div>

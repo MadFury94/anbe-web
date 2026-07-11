@@ -104,13 +104,13 @@ function ContactBody() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setSending(true);
-        setTimeout(() => { setSending(false); setStatus("Thank you — we'll respond within one business day."); }, 1000);
+        setTimeout(() => { setSending(false); setStatus("Thank you, we'll respond within one business day."); }, 1000);
     };
     return (
         <section className="section-pad" style={{ background: "#F7F5F0" }}>
             <div className="container">
                 <div className="contact-grid reveal">
-                    {/* Left — info */}
+                    {/* Left, info */}
                     <div className="contact-info">
                         <div className="item">
                             <div className="lbl">Head Office</div>
@@ -131,11 +131,11 @@ function ContactBody() {
                         <img className="office-img" src="/contact.jpg" alt="ANBE Port Harcourt office" />
                         <div className="map-box" style={{ marginTop: 16 }}>
                             <div className="grid-overlay" />
-                            <span>MAP — No. 245, Aba Road, Rumuogba Layout, Port Harcourt, Rivers State</span>
+                            <span>MAP, No. 245, Aba Road, Rumuogba Layout, Port Harcourt, Rivers State</span>
                         </div>
                     </div>
 
-                    {/* Right — form */}
+                    {/* Right, form */}
                     <form className="contact-form" onSubmit={handleSubmit}>
                         <div className="form-row">
                             <div className="field"><label htmlFor="fname">Full Name</label><input id="fname" type="text" required /></div>

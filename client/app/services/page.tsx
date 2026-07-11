@@ -117,19 +117,19 @@ function PageHero() {
                 <div className="breadcrumb"><a href="/">Home</a> / Services</div>
                 <div className="eyebrow">EPC Capability</div>
                 <h1>Engineering, procurement, and construction under one roof.</h1>
-                <p>From flare stack design to trunkline installation, our scopes move through the same three disciplines — sequenced by our own field teams, not subcontracted out.</p>
+                <p>From flare stack design to trunkline installation, our scopes move through the same three disciplines, sequenced by our own field teams, not subcontracted out.</p>
             </div>
         </section>
     );
 }
 
 const SERVICES = [
-    { idx: "01 — DESIGN & ENGINEERING", img: "/industrial-1.jpg", title: "Smokeless Flare & Ignition Systems", desc: "Design and fabrication of vertical and horizontal smokeless flares, high turndown flares, and tropicalised remote ignition systems for onshore and offshore facilities.", features: ["Vertical & Horizontal Flares", "High Turndown Design", "Remote Ignition Systems", "Tropicalised Components"] },
-    { idx: "02 — CONSTRUCTION", img: "/industrial-5.jpg", title: "Pipeline Construction & Repair", desc: "Full-scope pipeline construction, installation, and repair, including tie-ins, hydrotesting, and right-of-way reinstatement across any terrain.", features: ["New Pipeline Construction", "Emergency Tie-ins", "Hydrotesting", "ROW Reinstatement"] },
-    { idx: "03 — PROCUREMENT", img: "/industrial-9.jpg", title: "Procurement & Stockpiling", desc: "Sourcing, quality verification, and stockpiling of materials and equipment for oil & gas facility construction with vendor management.", features: ["Material Sourcing", "Quality Verification", "Vendor Management", "Stockpile Management"] },
-    { idx: "04 — FABRICATION", img: "/industrial-3.jpg", title: "Fabrication & Workshop Services", desc: "In-house fabrication of flare components, structural steel, and skid-mounted equipment at our Port Harcourt facility with full QA/QC inspection.", features: ["Flare Components", "Structural Steel", "Skid Fabrication", "QA/QC Inspection"] },
-    { idx: "05 — MAINTENANCE", img: "/industrial-11.jpg", title: "Equipment Maintenance", desc: "Combustion equipment maintenance covering generators, earth-moving equipment, and flare ignition assemblies — with 24/7 emergency response capability.", features: ["Preventive Maintenance", "Emergency Response", "Generator Overhaul", "Ignition Assemblies"] },
-    { idx: "06 — SUPPORT", img: "/industrial-7.jpg", title: "24/7 Technical Partner Support", desc: "Direct access to ANBE Technical Partners for specialist expertise across the full life cycle of a facility — from first oil to decommissioning planning.", features: ["Round-the-Clock Support", "Specialist Advisory", "Field Response Teams", "Life-cycle Management"] },
+    { idx: "01, DESIGN & ENGINEERING", img: "/industrial-1.jpg", title: "Smokeless Flare & Ignition Systems", desc: "Design and fabrication of vertical and horizontal smokeless flares, high turndown flares, and tropicalised remote ignition systems for onshore and offshore facilities.", features: ["Vertical & Horizontal Flares", "High Turndown Design", "Remote Ignition Systems", "Tropicalised Components"] },
+    { idx: "02, CONSTRUCTION", img: "/industrial-5.jpg", title: "Pipeline Construction & Repair", desc: "Full-scope pipeline construction, installation, and repair, including tie-ins, hydrotesting, and right-of-way reinstatement across any terrain.", features: ["New Pipeline Construction", "Emergency Tie-ins", "Hydrotesting", "ROW Reinstatement"] },
+    { idx: "03, PROCUREMENT", img: "/industrial-9.jpg", title: "Procurement & Stockpiling", desc: "Sourcing, quality verification, and stockpiling of materials and equipment for oil & gas facility construction with vendor management.", features: ["Material Sourcing", "Quality Verification", "Vendor Management", "Stockpile Management"] },
+    { idx: "04, FABRICATION", img: "/industrial-3.jpg", title: "Fabrication & Workshop Services", desc: "In-house fabrication of flare components, structural steel, and skid-mounted equipment at our Port Harcourt facility with full QA/QC inspection.", features: ["Flare Components", "Structural Steel", "Skid Fabrication", "QA/QC Inspection"] },
+    { idx: "05, MAINTENANCE", img: "/industrial-11.jpg", title: "Equipment Maintenance", desc: "Combustion equipment maintenance covering generators, earth-moving equipment, and flare ignition assemblies, with 24/7 emergency response capability.", features: ["Preventive Maintenance", "Emergency Response", "Generator Overhaul", "Ignition Assemblies"] },
+    { idx: "06, SUPPORT", img: "/industrial-7.jpg", title: "24/7 Technical Partner Support", desc: "Direct access to ANBE Technical Partners for specialist expertise across the full life cycle of a facility, from first oil to decommissioning planning.", features: ["Round-the-Clock Support", "Specialist Advisory", "Field Response Teams", "Life-cycle Management"] },
 ];
 
 function ServicesSection() {
@@ -139,7 +139,7 @@ function ServicesSection() {
                 <div className="reveal" style={{ maxWidth: 640, marginBottom: 56 }}>
                     <div className="eyebrow">What We Deliver</div>
                     <h2 style={{ fontSize: "clamp(28px,3.4vw,42px)", lineHeight: 1.1, color: "#0A1628" }}>Six service lines, one delivery team.</h2>
-                    <p style={{ color: "#4A5568", fontSize: 16, marginTop: 16 }}>Every scope runs through our in-house engineering, procurement, and construction disciplines — no hand-offs.</p>
+                    <p style={{ color: "#4A5568", fontSize: 16, marginTop: 16 }}>Every scope runs through our in-house engineering, procurement, and construction disciplines, no hand-offs.</p>
                 </div>
                 <div className="services-grid reveal">
                     {SERVICES.map((s) => (
@@ -178,7 +178,7 @@ function FeatureBand() {
 const PROCESS = [
     { n: "01", title: "Engineering & Design", desc: "Every scope starts at the drawing board. Our engineers develop technical specifications, material take-offs, and HSE plans before procurement begins.", img: "/industrial-2.jpg" },
     { n: "02", title: "Procurement", desc: "We source materials and equipment directly, applying quality verification checks at the supplier before anything reaches site.", img: "/industrial-6.jpg" },
-    { n: "03", title: "Construction & Installation", desc: "Our own field teams mobilise and execute — tie-ins, welding, testing, and commissioning — with daily progress reporting to the client.", img: "/industrial-8.jpg" },
+    { n: "03", title: "Construction & Installation", desc: "Our own field teams mobilise and execute, tie-ins, welding, testing, and commissioning, with daily progress reporting to the client.", img: "/industrial-8.jpg" },
     { n: "04", title: "Commissioning & Close-out", desc: "Every scope is formally closed with hydrotesting certificates, as-built documentation, and a final HSE close-out sign-off.", img: "/industrial-10.jpg" },
 ];
 
@@ -188,7 +188,7 @@ function ProcessSection() {
             <div className="container">
                 <div className="reveal" style={{ maxWidth: 640, marginBottom: 56 }}>
                     <div className="eyebrow">How We Work</div>
-                    <h2 style={{ fontSize: "clamp(28px,3.4vw,42px)", lineHeight: 1.1, color: "#0A1628" }}>Design through close-out — no gaps.</h2>
+                    <h2 style={{ fontSize: "clamp(28px,3.4vw,42px)", lineHeight: 1.1, color: "#0A1628" }}>Design through close-out, no gaps.</h2>
                     <p style={{ color: "#4A5568", fontSize: 16, marginTop: 16 }}>A single project team takes each scope from the first drawing to the final handover document.</p>
                 </div>
                 <div className="process-steps reveal">

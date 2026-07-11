@@ -118,7 +118,7 @@ function PageHero() {
       <div className="container page-hero-inner">
         <div className="breadcrumb"><a href="/">Home</a> / Projects</div>
         <h1>A record of pipeline, flare, and fabrication work across the Niger Delta.</h1>
-        <p>Every project below moved through the same three disciplines — engineering, procurement, and construction — delivered by ANBE's own field teams from mobilisation to close-out.</p>
+        <p>Every project below moved through the same three disciplines, engineering, procurement, and construction, delivered by ANBE's own field teams from mobilisation to close-out.</p>
       </div>
     </section>
   );

@@ -158,7 +158,7 @@ function Overview() {
                     <div className="eyebrow">About ANBE</div>
                     <h2 style={{ fontSize: "clamp(28px,3.4vw,42px)", lineHeight: 1.1, color: "#0A1628", marginBottom: 24 }}>Engineering excellence delivered by Nigerian hands.</h2>
                     <p style={{ fontSize: 16, color: "#4A5568", lineHeight: 1.7, marginBottom: 20 }}>ANBE Nigeria Limited provides pipeline construction, fabrication engineering, and flare system design to operators across Nigeria's oil &amp; gas sector. Our fabrication and maintenance facility, combined with a technical team drawn from combustion engineering and equipment maintenance disciplines, lets us take a project from design through procurement to commissioning without handing it off.</p>
-                    <p style={{ fontSize: 16, color: "#4A5568", lineHeight: 1.7, marginBottom: 36 }}>We are 100% indigenous-owned and operate out of Port Harcourt with a field response capability that runs around the clock. Every scope is planned, permitted, and closed out against a documented HSE standard — because Nigeria's oil &amp; gas sector demands nothing less.</p>
+                    <p style={{ fontSize: 16, color: "#4A5568", lineHeight: 1.7, marginBottom: 36 }}>We are 100% indigenous-owned and operate out of Port Harcourt with a field response capability that runs around the clock. Every scope is planned, permitted, and closed out against a documented HSE standard, because Nigeria's oil &amp; gas sector demands nothing less.</p>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
                         {[["36+", "Years in Operation"], ["140+", "Projects Completed"], ["60+", "Engineers & Technicians"], ["0", "Lost-Time Incidents YTD"]].map(([n, l]) => (
                             <div key={l} style={{ paddingLeft: 18, borderLeft: "2px solid #E8873A" }}>
@@ -178,7 +178,7 @@ function CeoSection() {
         <section className="section-pad on-dark">
             <div className="container ceo-grid">
                 <div className="reveal ceo-photo">
-                    <img src="/ceo.png" alt="Ernest Azukaeme — CEO" />
+                    <img src="/ceo.png" alt="Ernest Azukaeme, CEO" />
                     <div className="ceo-tag">
                         <strong>Ernest Azukaeme</strong>
                         <span>Chief Executive Officer</span>
@@ -189,7 +189,7 @@ function CeoSection() {
                     <h2 style={{ fontSize: "clamp(26px,3vw,38px)", color: "#fff", marginBottom: 32, lineHeight: 1.15 }}>Message from our Chief Executive Officer</h2>
                     <p className="ceo-quote">"At ANBE Nigeria, we are driven by a passion for excellence and a commitment to delivering innovative engineering solutions that power Nigeria's energy sector."</p>
                     <p style={{ color: "rgba(247,245,240,0.68)", fontSize: 15, lineHeight: 1.7, marginBottom: 20, fontFamily: "'Inter',sans-serif" }}>Our success is built on the dedication of our talented team and the trust of our valued clients. We continue to invest in cutting-edge technology, professional development, and safety protocols to ensure we remain at the forefront of the industry.</p>
-                    <p style={{ color: "rgba(247,245,240,0.68)", fontSize: 15, lineHeight: 1.7, fontFamily: "'Inter',sans-serif" }}>What we have built over 36 years is more than a company — it is proof that indigenous engineering talent can meet the highest international standards, right here in Nigeria.</p>
+                    <p style={{ color: "rgba(247,245,240,0.68)", fontSize: 15, lineHeight: 1.7, fontFamily: "'Inter',sans-serif" }}>What we have built over 36 years is more than a company, it is proof that indigenous engineering talent can meet the highest international standards, right here in Nigeria.</p>
                     <div style={{ marginTop: 36, paddingTop: 24, borderTop: "1px solid rgba(247,245,240,0.14)" }}>
                         <div style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 18, fontWeight: 600, color: "#fff" }}>Ernest Azukaeme</div>
                         <div style={{ fontFamily: "'IBM Plex Mono',monospace", fontSize: 11, color: "#E8873A", letterSpacing: "0.06em", textTransform: "uppercase", marginTop: 4 }}>CEO, ANBE Nigeria Limited</div>
@@ -204,10 +204,10 @@ function CoreValues() {
     const values = [
         { n: "01", title: "Mission", desc: "Deliver engineering solutions of international standard, executed by Nigerian talent, from wellhead to flare tip." },
         { n: "02", title: "Vision", desc: "Become a leading Pipeline, Engineering & Construction company across West Africa, setting the benchmark for indigenous technical excellence." },
-        { n: "03", title: "Safety First", desc: "Uncompromising commitment to safety in all operations — every scope is planned and permitted against a documented HSE standard." },
+        { n: "03", title: "Safety First", desc: "Uncompromising commitment to safety in all operations, every scope is planned and permitted against a documented HSE standard." },
         { n: "04", title: "Quality Excellence", desc: "Delivering superior quality in every project, backed by real project data and international benchmarks." },
-        { n: "05", title: "Integrity", desc: "Operating with honesty and transparency — our budgets and schedules are backed by facts, not estimates alone." },
-        { n: "06", title: "Accountability", desc: "Taking full responsibility for our commitments — from first mobilisation to final close-out documentation." },
+        { n: "05", title: "Integrity", desc: "Operating with honesty and transparency, our budgets and schedules are backed by facts, not estimates alone." },
+        { n: "06", title: "Accountability", desc: "Taking full responsibility for our commitments, from first mobilisation to final close-out documentation." },
     ];
     return (
         <section className="section-pad" style={{ background: "#F7F5F0" }}>
@@ -220,7 +220,7 @@ function CoreValues() {
                 <div className="values-grid reveal">
                     {values.map((v) => (
                         <div key={v.n} className="value-card">
-                            <div className="v-num">{v.n} —</div>
+                            <div className="v-num">{v.n} - </div>
                             <h4>{v.title}</h4>
                             <p>{v.desc}</p>
                         </div>
@@ -268,7 +268,7 @@ function MilestonesSection() {
         { year: "1998", title: "First Major Pipeline Contract", desc: "Awarded first large-scale trunkline construction contract in the Niger Delta, establishing ANBE's field construction capability." },
         { year: "2005", title: "Fabrication Facility Established", desc: "Opened ANBE's in-house fabrication workshop in Port Harcourt, enabling end-to-end delivery without third-party sub-contracting." },
         { year: "2012", title: "Flare & Ignition Division", desc: "Expanded into specialist smokeless flare design and tropicalised remote ignition system installation." },
-        { year: "2019", title: "100+ Projects Milestone", desc: "Surpassed 100 completed project scopes across pipeline, flare systems, and fabrication — all with a clean safety record." },
+        { year: "2019", title: "100+ Projects Milestone", desc: "Surpassed 100 completed project scopes across pipeline, flare systems, and fabrication, all with a clean safety record." },
         { year: "2026", title: "36 Years & Counting", desc: "Continuing to deliver pipeline integrity, flare engineering, and fabrication services with zero lost-time incidents year to date." },
     ];
     return (
@@ -278,7 +278,7 @@ function MilestonesSection() {
                     <div className="reveal milestones-intro">
                         <div className="eyebrow">Our History</div>
                         <h2 style={{ fontSize: "clamp(28px,3.4vw,42px)", lineHeight: 1.1, color: "#0A1628", marginBottom: 16 }}>36 years of delivery in the Niger Delta.</h2>
-                        <p style={{ fontSize: 16, color: "#4A5568", lineHeight: 1.7, marginBottom: 0 }}>From a small start in 1990 to over 140 completed scopes across Nigeria, every milestone reflects the same commitment — well-planned, safely executed, and properly closed out.</p>
+                        <p style={{ fontSize: 16, color: "#4A5568", lineHeight: 1.7, marginBottom: 0 }}>From a small start in 1990 to over 140 completed scopes across Nigeria, every milestone reflects the same commitment, well-planned, safely executed, and properly closed out.</p>
                         <img src="/group.jpg" alt="ANBE team" />
                     </div>
                     <div className="reveal milestones">

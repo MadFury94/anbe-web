@@ -194,7 +194,7 @@ export default function ReportPage() {
                     <div className="topbar-inner">
                         <a href="/"><img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" /></a>
                         <div className="topbar-right">
-                            <span className="confidential">Confidential — For {report.client_name} only</span>
+                            <span className="confidential">Confidential, For {report.client_name} only</span>
                             <button className="pdf-btn" onClick={() => window.print()}>⬇ Download PDF</button>
                         </div>
                     </div>
@@ -212,7 +212,7 @@ export default function ReportPage() {
                             <div className="cm-lbl">Contractor</div>
                             <div className="cm-val">{report.contractor || "ANBE Nigeria Limited"}</div>
                             <div className="cm-lbl">Location</div>
-                            <div className="cm-val">{report.location || "—"}</div>
+                            <div className="cm-val">{report.location || " - "}</div>
                             <div className="cm-lbl">Report Date</div>
                             <div className="cm-val">{report.report_date ? fmt(report.report_date) : fmt(report.created_at)}</div>
                         </div>
@@ -341,13 +341,13 @@ export default function ReportPage() {
                             <div className="rpt-section-title">Sign-Off</div>
                             <div className="signoff-grid">
                                 <div className="signoff-party">
-                                    <div className="sp-label">For Contractor — ANBE Nigeria Limited</div>
+                                    <div className="sp-label">For Contractor, ANBE Nigeria Limited</div>
                                     {[["Name", report.signoff_contractor_name], ["Designation", report.signoff_contractor_desig], ["Date", report.signoff_contractor_date ? fmt(report.signoff_contractor_date) : ""], ["Signature", ""]].map(([l, v]) => (
                                         <div key={l} className="sp-field"><div className="sp-lbl">{l}</div><div className="sp-val">{v}</div></div>
                                     ))}
                                 </div>
                                 <div className="signoff-party">
-                                    <div className="sp-label">For Client — {report.client_company || report.client_name}</div>
+                                    <div className="sp-label">For Client - {report.client_company || report.client_name}</div>
                                     {[["Name", report.signoff_client_name], ["Designation", report.signoff_client_desig], ["Date", report.signoff_client_date ? fmt(report.signoff_client_date) : ""], ["Signature", ""]].map(([l, v]) => (
                                         <div key={l} className="sp-field"><div className="sp-lbl">{l}</div><div className="sp-val">{v}</div></div>
                                     ))}
