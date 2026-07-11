@@ -57,7 +57,7 @@ const STYLES = `
   .hero-grid { display:grid;grid-template-columns:1.15fr 0.85fr;gap:60px;align-items:center;position:relative;z-index:2; }
   .hero h1 { font-size:clamp(38px,5.2vw,68px);color:#fff;line-height:1.05;letter-spacing:-0.02em;margin-bottom:24px; }
   .hero h1 em { font-style:normal;color:var(--amber); }
-  .hero p.lead { font-size:18px;color:rgba(255,255,255,0.72);max-width:520px;margin-bottom:36px;font-weight:400; }
+  .hero p.lead { font-size:18px;color:rgba(255,255,255,0.72);max-width:680px;margin-bottom:36px;font-weight:400; }
   .hero-actions { display:flex;gap:16px;flex-wrap:wrap;margin-bottom:56px; }
   .btn { display:inline-flex;align-items:center;gap:10px;padding:15px 28px;font-size:14px;font-weight:600;letter-spacing:0.02em;border-radius:2px;transition:all .25s ease; }
   .btn-primary { background:var(--amber);color:var(--navy); }
@@ -78,7 +78,7 @@ const STYLES = `
 `;
 
 const STYLES2 = `
-  .section-head { max-width:640px;margin-bottom:56px; }
+  .section-head { max-width:960px;margin-bottom:56px; }
   .section-head h2 { font-size:clamp(28px,3.4vw,42px);line-height:1.1; }
   .section-head p { color:var(--steel-dark);font-size:16px;margin-top:16px;max-width:560px; }
   .section-pad { padding:110px 0; }
@@ -155,7 +155,7 @@ const STYLES3 = `
   .sustain-list .row p { font-size:14px;color:var(--steel-dark); }
   .sustain-visual { aspect-ratio:1/1;border:1px solid var(--line);position:relative;background:var(--paper-2); }
   .sustain-visual svg { position:absolute;inset:0;width:100%;height:100%; }
-  .testi-wrap { max-width:820px;margin:0 auto;text-align:center; }
+  .testi-wrap { max-width:960px;margin:0 auto;text-align:center; }
   .testi-slide { display:none; }
   .testi-slide.active { display:block;animation:fadeUp .5s ease; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);} }
@@ -211,7 +211,7 @@ const STYLES3 = `
     .careers-panel { grid-template-columns:1fr;padding:44px 32px; }
     .careers-side { border-left:none;padding-left:0;border-top:1px solid rgba(247,245,240,0.14);padding-top:28px; }
   }
-  @media (max-width:760px) {
+  @media (max-width:920px) {
     .stats-grid { grid-template-columns:repeat(2,1fr); }
     .stat:nth-child(3) { border-left:none;padding-left:0; }
     .services-grid,.news-grid,.projects-preview,.industries-grid { grid-template-columns:1fr; }
@@ -277,11 +277,11 @@ function About() {
         </div>
         <div className="reveal">
           <div className="eyebrow">About ANBE</div>
-          <h2>An indigenous engineering house built for the Niger Delta's toughest work.</h2>
-          <p style={{ color: "var(--steel-dark)", fontSize: 16, marginTop: 18 }}>Incorporated in 1990, ANBE Nigeria Limited provides pipeline construction, fabrication engineering, and flare system design to operators across Nigeria's oil &amp; gas sector. Our fabrication and maintenance facility, combined with a technical team drawn from combustion engineering and equipment maintenance disciplines, lets us take a project from design through procurement to commissioning without handing it off.</p>
+          <h2>Your Trusted partner in Oil &amp; Gas Engineering</h2>
+          <p style={{ color: "var(--steel-dark)", fontSize: 16, marginTop: 18 }}>ANBE Nigeria Limited is an indigenous engineering company, incorporated in 1990 to provide prompt and efficient services to the oil and gas sector of the economy.</p>
           <ul className="values-list">
             <li><strong>Mission</strong><span>Deliver engineering solutions of international standard, executed by Nigerian talent.</span></li>
-            <li><strong>Vision</strong><span>Become a leading Pipeline, Engineering &amp; Construction company across West Africa.</span></li>
+            <li><strong>Vision</strong><span>To become an international pipeline, engineering and construction service company that provides services of international standard.</span></li>
             <li><strong>Safety</strong><span>Every scope is planned, permitted, and closed out against a documented HSE standard.</span></li>
             <li><strong>Reliability</strong><span>Budgets and schedules are backed by real project data, not estimates alone.</span></li>
           </ul>
@@ -355,15 +355,15 @@ function Services() {
           <div className="service-card">
             <div className="idx">01 — DESIGN &amp; ENGINEERING</div>
             <svg className="icon" viewBox="0 0 44 44" fill="none"><rect x="6" y="6" width="32" height="32" rx="1" stroke="#E8873A" strokeWidth="1.5" /><path d="M14 30 L20 18 L26 24 L32 12" stroke="#0A1628" strokeWidth="1.5" /></svg>
-            <h3>Smokeless Flare &amp; Ignition Systems</h3>
-            <p>Design and fabrication of vertical and horizontal smokeless flares, high turndown flares, and tropicalised remote ignition systems.</p>
+            <h3>Engineering Works</h3>
+            <p>Design and engineering solutions for oil and gas facilities, including flare systems, process engineering, and project management from concept to commissioning.</p>
             <a href="#contact" className="learn">Discuss a Scope <span className="arrow">→</span></a>
           </div>
           <div className="service-card">
             <div className="idx">02 — CONSTRUCTION</div>
             <svg className="icon" viewBox="0 0 44 44" fill="none"><path d="M8 34 L8 20 L22 20 L22 8 L36 8 L36 34" stroke="#E8873A" strokeWidth="1.5" fill="none" /><circle cx="22" cy="34" r="2" fill="#0A1628" /></svg>
-            <h3>Pipeline Construction &amp; Repair</h3>
-            <p>Full-scope pipeline construction, installation, and repair, including tie-ins, hydrotesting, and right-of-way reinstatement.</p>
+            <h3>Construction Services</h3>
+            <p>Full-scope pipeline construction, installation, and repair, including tie-ins, hydrotesting, and right-of-way reinstatement across any terrain.</p>
             <a href="#contact" className="learn">Discuss a Scope <span className="arrow">→</span></a>
           </div>
           <div className="service-card">
@@ -383,15 +383,15 @@ function Services() {
           <div className="service-card">
             <div className="idx">05 — MAINTENANCE</div>
             <svg className="icon" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="14" stroke="#E8873A" strokeWidth="1.5" /><path d="M22 14 V22 L28 26" stroke="#0A1628" strokeWidth="1.5" /></svg>
-            <h3>Equipment Maintenance</h3>
-            <p>Combustion equipment maintenance covering generators, earth-moving equipment, and flare ignition assemblies.</p>
+            <h3>Manpower Services</h3>
+            <p>Supply of skilled and experienced engineering personnel, technicians, and support staff for oil and gas projects across the Niger Delta.</p>
             <a href="#contact" className="learn">Discuss a Scope <span className="arrow">→</span></a>
           </div>
           <div className="service-card">
             <div className="idx">06 — SUPPORT</div>
             <svg className="icon" viewBox="0 0 44 44" fill="none"><path d="M22 8 C 30 8 36 14 36 22 C 36 30 30 36 22 36 C 14 36 8 30 8 22" stroke="#E8873A" strokeWidth="1.5" fill="none" /><path d="M8 22 L14 22 L11 28 Z" fill="#0A1628" /></svg>
-            <h3>24/7 Technical Partner Support</h3>
-            <p>Direct access to ANBE Technical Partners for specialist expertise across the life of a facility.</p>
+            <h3>Logistics Services</h3>
+            <p>Comprehensive logistics support including materials handling, transportation, and site supply chain management for oil and gas operations.</p>
             <a href="#contact" className="learn">Discuss a Scope <span className="arrow">→</span></a>
           </div>
         </div>
@@ -624,11 +624,11 @@ function Contact() {
         </div>
         <div className="contact-grid reveal">
           <div className="contact-info">
-            <div className="item"><div className="lbl">Head Office</div><div className="val">Port Harcourt, Rivers State<small>Nigeria</small></div></div>
-            <div className="item"><div className="lbl">Phone</div><div className="val">+234 803 310 0539<small>+234 803 775 3444</small></div></div>
-            <div className="item"><div className="lbl">Email</div><div className="val">info@anbenig.com</div></div>
+            <div className="item"><div className="lbl">Head Office</div><div className="val">No. 245, Aba Road, Rumuogba Layout, Port Harcourt, Rivers State<small>Nigeria</small></div></div>
+            <div className="item"><div className="lbl">Phone</div><div className="val">08033100539<small>08037753444</small></div></div>
+            <div className="item"><div className="lbl">Email</div><div className="val">info@anbenigeria.com<small>anbenig@yahoo.com</small></div></div>
             <div className="item"><div className="lbl">Business Hours</div><div className="val">24/7 Field Response<small>Office: Mon–Fri, 8am–5pm WAT</small></div></div>
-            <div className="map-box"><div className="grid-overlay" /><span>MAP — PORT HARCOURT, RIVERS STATE</span></div>
+            <div className="map-box"><div className="grid-overlay" /><span>MAP — No. 245, Aba Road, Rumuogba Layout, Port Harcourt, Rivers State</span></div>
           </div>
           <form className="contact-form" onSubmit={(e) => { e.preventDefault(); setStatus("Thank you — we'll respond within one business day."); }}>
             <div className="form-row">

@@ -20,9 +20,9 @@ const S = `
   .page-hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(139,149,161,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(139,149,161,0.06) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(180deg,rgba(0,0,0,0.5),transparent 80%);}
   .flare-glow{position:absolute;right:8%;top:10%;width:360px;height:360px;background:radial-gradient(circle,rgba(232,135,58,0.28) 0%,transparent 70%);filter:blur(12px);animation:flarePulse 6s ease-in-out infinite;}
   @keyframes flarePulse{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:.85;transform:scale(1.06);}}
-  .page-hero-inner{position:relative;z-index:2;max-width:760px;}
+  .page-hero-inner{position:relative;z-index:2;max-width:920px;}
   .page-hero h1{font-size:clamp(34px,4.6vw,56px);color:#fff;line-height:1.08;margin-bottom:20px;}
-  .page-hero p{font-size:17px;color:rgba(247,245,240,0.68);max-width:600px;}
+  .page-hero p{font-size:17px;color:rgba(247,245,240,0.68);max-width:760px;}
   .breadcrumb{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8B95A1;margin-bottom:22px;letter-spacing:0.04em;}
   .breadcrumb a{color:#E8873A;text-decoration:none;}
 
@@ -62,7 +62,7 @@ const S = `
     .contact-grid{grid-template-columns:1fr;}
     .team-strip{grid-template-columns:repeat(2,1fr);}
   }
-  @media (max-width:760px){
+  @media (max-width:920px){
     .form-row{grid-template-columns:1fr;}
     .team-strip{grid-template-columns:1fr;}
     .container{padding:0 20px;}
@@ -114,15 +114,15 @@ function ContactBody() {
                     <div className="contact-info">
                         <div className="item">
                             <div className="lbl">Head Office</div>
-                            <div className="val">Port Harcourt, Rivers State<small>Nigeria</small></div>
+                            <div className="val">No. 245, Aba Road, Rumuogba Layout, Port Harcourt, Rivers State<small>Nigeria</small></div>
                         </div>
                         <div className="item">
                             <div className="lbl">Phone</div>
-                            <div className="val">+234 803 310 0539<small>+234 803 775 3444</small></div>
+                            <div className="val">08033100539<small>08037753444</small></div>
                         </div>
                         <div className="item">
                             <div className="lbl">Email</div>
-                            <div className="val">info@anbenig.com</div>
+                            <div className="val">info@anbenigeria.com</div>
                         </div>
                         <div className="item">
                             <div className="lbl">Business Hours</div>
@@ -131,7 +131,7 @@ function ContactBody() {
                         <img className="office-img" src="/contact.jpg" alt="ANBE Port Harcourt office" />
                         <div className="map-box" style={{ marginTop: 16 }}>
                             <div className="grid-overlay" />
-                            <span>MAP — PORT HARCOURT, RIVERS STATE</span>
+                            <span>MAP — No. 245, Aba Road, Rumuogba Layout, Port Harcourt, Rivers State</span>
                         </div>
                     </div>
 

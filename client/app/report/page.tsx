@@ -89,10 +89,10 @@ const S = `
   .rpt-footer .pby strong{color:#E8873A;display:block;margin-bottom:3px;font-size:11px;}
   /* STATES */
   .state{min-height:80vh;display:flex;align-items:center;justify-content:center;padding:48px;}
-  .state-box{max-width:480px;text-align:center;}
+  .state-box{max-width:640px;text-align:center;}
   .state-box h2{font-size:26px;color:#0A1628;margin-bottom:12px;}
   .state-box p{font-size:15px;color:#4A5568;line-height:1.7;margin-bottom:28px;}
-  @media(max-width:640px){
+  @media(max-width:960px){
     .cover-meta{grid-template-columns:1fr;}
     .signoff-grid{grid-template-columns:1fr;}
     .img-gallery{grid-template-columns:1fr;}
