@@ -73,7 +73,7 @@ const S = `
   }
 `;
 
-function useReveal() {
+function useReveal(refreshKey: string) {
   useEffect(() => {
     const els = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver(
@@ -82,7 +82,7 @@ function useReveal() {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [refreshKey]);
 }
 
 
@@ -104,6 +104,7 @@ function PageHero() {
 function BlogGrid() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  useReveal(`${loading}:${posts.length}`);
 
   useEffect(() => {
     fetch(`${API}/api/blog`)
@@ -169,7 +170,6 @@ function CtaBand() {
 }
 
 export default function BlogPage() {
-  useReveal();
   return (
     <>
       <style>{S}</style>

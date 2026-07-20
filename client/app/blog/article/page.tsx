@@ -87,7 +87,7 @@ const S = `
   }
 `;
 
-function useReveal() {
+function useReveal(refreshKey: string) {
     useEffect(() => {
         const els = document.querySelectorAll(".reveal");
         const io = new IntersectionObserver(
@@ -96,7 +96,7 @@ function useReveal() {
         );
         els.forEach((el) => io.observe(el));
         return () => io.disconnect();
-    }, []);
+    }, [refreshKey]);
 }
 
 
@@ -106,7 +106,7 @@ export default function BlogArticlePage() {
     const [post, setPost] = useState<BlogPost | null>(null);
     const [related, setRelated] = useState<BlogPost[]>([]);
     const [status, setStatus] = useState<"loading" | "ok" | "notfound">("loading");
-    useReveal();
+    useReveal(`${status}:${related.length}`);
 
     useEffect(() => {
         if (!slug) { setStatus("notfound"); return; }

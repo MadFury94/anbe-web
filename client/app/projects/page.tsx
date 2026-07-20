@@ -97,7 +97,7 @@ interface Project {
   duration: string; scope: string;
 }
 
-function useReveal() {
+function useReveal(refreshKey: string) {
   useEffect(() => {
     const els = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver(
@@ -106,7 +106,7 @@ function useReveal() {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [refreshKey]);
 }
 
 
@@ -141,6 +141,7 @@ function ProjectsSection({ onOpen }: { onOpen: (p: Project) => void }) {
   const [filter, setFilter] = useState("all");
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  useReveal(`${loading}:${filter}:${projects.length}`);
 
   useEffect(() => {
     fetch(`${API}/api/projects`)
@@ -247,7 +248,6 @@ function CtaBand() {
 }
 
 export default function ProjectsPage() {
-  useReveal();
   const [modal, setModal] = useState<Project | null>(null);
   return (
     <>
