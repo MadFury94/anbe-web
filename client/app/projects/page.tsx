@@ -144,9 +144,9 @@ function ProjectsSection({ onOpen }: { onOpen: (p: Project) => void }) {
 
   useEffect(() => {
     fetch(`${API}/api/projects`)
-      .then(r => r.json())
+      .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
       .then(d => { setProjects(d.projects ?? []); setLoading(false); })
-      .catch(() => setLoading(false));
+      .catch(err => { console.error("Projects fetch error:", err); setLoading(false); });
   }, []);
 
   const TABS = [
@@ -175,6 +175,8 @@ function ProjectsSection({ onOpen }: { onOpen: (p: Project) => void }) {
         <div className="container">
           {loading ? (
             <div style={{ textAlign: "center", padding: "80px 0", fontFamily: "'IBM Plex Mono',monospace", fontSize: 13, color: "#8B95A1" }}>Loading projects…</div>
+          ) : !visible.length ? (
+            <div style={{ textAlign: "center", padding: "80px 0", fontFamily: "'IBM Plex Mono',monospace", fontSize: 13, color: "#8B95A1" }}>No projects found.</div>
           ) : (
             <div className="projects-grid reveal">
               {visible.map((p) => (

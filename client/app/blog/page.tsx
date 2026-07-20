@@ -107,15 +107,23 @@ function BlogGrid() {
 
   useEffect(() => {
     fetch(`${API}/api/blog`)
-      .then(r => r.json())
+      .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
       .then(d => { setPosts(d.posts ?? []); setLoading(false); })
-      .catch(() => setLoading(false));
+      .catch(err => { console.error("Blog fetch error:", err); setLoading(false); });
   }, []);
 
   if (loading) return (
     <section className="blog-section">
       <div className="container" style={{ textAlign: "center", padding: "80px 0", fontFamily: "'IBM Plex Mono',monospace", fontSize: 13, color: "#8B95A1" }}>
         Loading articles…
+      </div>
+    </section>
+  );
+
+  if (!posts.length) return (
+    <section className="blog-section">
+      <div className="container" style={{ textAlign: "center", padding: "80px 0", fontFamily: "'IBM Plex Mono',monospace", fontSize: 13, color: "#8B95A1" }}>
+        No articles found.
       </div>
     </section>
   );
