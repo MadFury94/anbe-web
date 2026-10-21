@@ -307,6 +307,7 @@ export function TerrainSection() {
                 document.getElementById(`terrain-${next}`)?.focus();
               }}
             >
+              <img className="terrain-image" src={item.image} alt="" loading="lazy" width={1536} height={1024} />
               <span className="tag">Niger Delta</span>
               <span className="terrain-title">{item.title}</span>
             </button>

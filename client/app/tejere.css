@@ -63,6 +63,25 @@
 .terrain-choice.selected {
   border-color: var(--amber);
 }
+.terrain-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+.terrain-choice::before {
+  background: linear-gradient(180deg, rgba(10,22,40,.05) 25%, rgba(10,22,40,.9) 100%);
+  opacity: 1;
+  z-index: 1;
+}
+.terrain-choice:hover .terrain-image {
+  transform: scale(1.04);
+}
+.terrain-choice .terrain-title {
+  z-index: 2;
+}
 .terrain-title {
   color: white;
   font-family: var(--font-space);
@@ -164,7 +183,7 @@ article[id] {
   }
   .terrain-choice {
     aspect-ratio: auto !important;
-    min-height: 120px;
+    min-height: 220px;
   }
   .terrain-details dl {
     grid-template-columns: 1fr;

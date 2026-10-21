@@ -119,18 +119,21 @@ export const tejere = {
   "terrains": [
     {
       "title": "Onshore",
+      "image": "/Onshore Pipeline Through Niger Delta Greens.png",
       "desc": "Dry-land corridors run beside roads, farms and settlements. The main task is keeping the right-of-way clear and the relationship with nearby communities healthy.",
       "concern": "Right-of-way integrity and third-party interference",
       "approach": "Regular patrols, community liaison and early reporting"
     },
     {
       "title": "Swamp",
+      "image": "/Elevated Pipeline Across Niger Delta Swamp.png",
       "desc": "Swamp corridors are slow to reach and change with the seasons. Plans here depend on knowing when and how each stretch can be accessed.",
       "concern": "Seasonal access and wide, hard-to-observe corridors",
       "approach": "Local guides, seasonal planning and remote monitoring"
     },
     {
       "title": "Creek",
+      "image": "/Winding Niger Delta Mangrove Creek.png",
       "desc": "Creeks are the roads of the Delta. Jetties and crossings sit at the meeting point of operations and everyday community life.",
       "concern": "Waterway crossings, jetty safety and boat traffic",
       "approach": "Knowing which jetty is safe in which season, and who uses it"
