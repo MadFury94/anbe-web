@@ -48,21 +48,28 @@ function AnimatedHeading({
   return (
     <h1
       className="mb-4 text-4xl font-normal text-white md:text-5xl lg:text-6xl xl:text-7xl"
-      style={{ letterSpacing: "-0.04em" }}
+      style={{ letterSpacing: "-0.04em", fontSize: "clamp(32px, 3.8vw, 54px)" }}
     >
       {lines.map((line, lineIndex) => (
         <span className="block" key={`${line}-${lineIndex}`}>
-          {Array.from(line).map((character, charIndex) => (
-            <span
-              className="inline-block transition-[opacity,transform] duration-500"
-              key={`${lineIndex}-${charIndex}`}
-              style={{
-                opacity: visible ? 1 : 0,
-                transform: visible ? "translateX(0)" : "translateX(-18px)",
-                transitionDelay: `${lineIndex * line.length * charDelay + charIndex * charDelay}ms`,
-              }}
-            >
-              {character === " " ? "\u00A0" : character}
+          {line.split(" ").map((word, wordIndex) => (
+            <span key={`${lineIndex}-${wordIndex}`}>
+              {wordIndex > 0 && " "}
+              <span className="inline-block whitespace-nowrap">
+                {Array.from(word).map((character, charIndex) => (
+                  <span
+                    className="inline-block transition-[opacity,transform] duration-500"
+                    key={charIndex}
+                    style={{
+                      opacity: visible ? 1 : 0,
+                      transform: visible ? "translateX(0)" : "translateX(-18px)",
+                      transitionDelay: `${(lineIndex * line.length + line.split(" ").slice(0, wordIndex).join(" ").length + charIndex) * charDelay}ms`,
+                    }}
+                  >
+                    {character}
+                  </span>
+                ))}
+              </span>
             </span>
           ))}
         </span>
