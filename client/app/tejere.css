@@ -1,0 +1,194 @@
+/* Small content accommodations; the original page styles remain in data/design.ts. */
+.tejere-brand {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  line-height: 1.15;
+  font-family: var(--font-space);
+}
+.tejere-brand strong {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.tejere-brand small {
+  font-family: var(--font-ibm);
+  color: var(--amber);
+  letter-spacing: 0.24em;
+  font-size: 10px;
+  margin-top: 4px;
+}
+.footer-brand .tejere-brand {
+  margin-bottom: 16px;
+}
+.leadership-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+.about-visual .badge {
+  background: rgba(10, 22, 40, 0.92);
+  padding: 18px !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+.placeholder-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  color: var(--steel);
+}
+.service-features {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  font-size: 14px;
+  color: var(--steel-dark);
+}
+.service-features li {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+.terrain-grid {
+  grid-template-columns: repeat(3, 1fr) !important;
+}
+.terrain-choice {
+  text-align: left;
+  cursor: pointer;
+  aspect-ratio: 3/2 !important;
+}
+.terrain-choice.selected {
+  border-color: var(--amber);
+}
+.terrain-title {
+  color: white;
+  font-family: var(--font-space);
+  font-size: 22px;
+  position: relative;
+}
+.terrain-details {
+  border: 1px solid var(--line-dark);
+  padding: 32px;
+  margin-top: 24px;
+}
+.terrain-details p {
+  margin: 16px 0;
+  max-width: 760px;
+}
+.terrain-details dl {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 12px 20px;
+  font-size: 14px;
+}
+.terrain-details dt {
+  color: var(--amber);
+}
+.terrain-details dd {
+  color: var(--steel);
+}
+.governance-quote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.governance-quote blockquote {
+  font-family: var(--font-space);
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.3;
+  border-left: 3px solid var(--amber);
+  padding-left: 24px;
+}
+.milestone-art {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-space);
+  color: var(--amber);
+  font-size: 54px;
+  opacity: 0.7;
+}
+.leadership-facts {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+}
+.leadership-facts li {
+  font-size: 12px;
+  border: 1px solid var(--line-dark);
+  padding: 10px 14px;
+  color: var(--amber);
+}
+.contact-note {
+  font-size: 13px;
+  color: var(--steel-dark);
+}
+.contact-form button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  align-self: flex-start;
+}
+.footer-col .contact-value {
+  display: block;
+  font-size: 14px;
+  color: var(--steel);
+  margin-bottom: 10px;
+}
+.footer-col .contact-label {
+  color: var(--steel);
+  font-size: 11px;
+}
+.footer-socials {
+  color: var(--steel);
+  font-size: 12px;
+}
+section[id],
+article[id] {
+  scroll-margin-top: 85px;
+}
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 4px;
+}
+@media (max-width: 760px) {
+  .terrain-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .terrain-choice {
+    aspect-ratio: auto !important;
+    min-height: 120px;
+  }
+  .terrain-details dl {
+    grid-template-columns: 1fr;
+  }
+  .tejere-brand strong {
+    font-size: 18px;
+  }
+  .hero-meta {
+    gap: 20px !important;
+    flex-wrap: wrap;
+  }
+  .hero-meta .lbl {
+    max-width: 130px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .partners-track {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

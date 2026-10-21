@@ -13,6 +13,7 @@ const cfRedirects = {
 };
 
 export default defineConfig({
+    publicDir: "public-tejere",
     plugins: [react(), tailwindcss(), cfRedirects],
     resolve: {
         alias: {

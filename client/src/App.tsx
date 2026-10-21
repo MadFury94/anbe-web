@@ -5,20 +5,35 @@ import Services from "../app/services/page";
 import Projects from "../app/projects/page";
 import Contact from "../app/contact/page";
 import Blog from "../app/blog/page";
-import BlogArticle from "../app/blog/article/page";
-import ReportPage from "../app/report/page";
+import TejereLayout from "../components/TejereLayout";
+import { PageHero } from "../components/TejereSections";
 
 export default function App() {
-    return (
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogArticle />} />
-            <Route path="/report/:token" element={<ReportPage />} />
-        </Routes>
-    );
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/services" element={<Services />} />
+      <Route path="/projects" element={<Projects />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/blog" element={<Blog />} />
+      <Route
+        path="*"
+        element={
+          <TejereLayout path="">
+            <PageHero
+              label="Page not found"
+              title="This page is not available."
+              text="Use the navigation to explore Tejere Anderson Services."
+            />
+            <div className="container section-pad">
+              <a href="/" className="btn btn-primary">
+                Return home →
+              </a>
+            </div>
+          </TejereLayout>
+        }
+      />
+    </Routes>
+  );
 }

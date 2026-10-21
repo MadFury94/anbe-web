@@ -1,13 +1,19 @@
 {
-  "name": "anbe-web",
+  "name": "tejere-anderson-services",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "client": "npm run dev --prefix client",
-    "admin": "npm run dev --prefix admin",
-    "worker": "npm run dev --prefix worker",
     "dev": "npm run client",
-    "build": "npm install --prefix client && npm run build --prefix client",
-    "install:all": "npm i --prefix client && npm i --prefix admin && npm i --prefix worker"
+    "build": "npm run build --prefix client",
+    "typecheck": "node client/node_modules/typescript/bin/tsc -p client/tsconfig.app.json --noEmit",
+    "deploy": "npm run build && wrangler pages deploy client/dist --project-name tejere-anderson-services --branch tejere",
+    "install:all": "npm ci --prefix client",
+    "test:smoke": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.151.3"
   }
 }

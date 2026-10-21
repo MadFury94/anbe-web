@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { tejere } from "../src/data/tejere";
 
 const NAV_CSS = `
   .site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,22,40,0.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(247,245,240,0.14);}
@@ -28,8 +29,8 @@ const NAV_CSS = `
 const NAV_LINKS = [
     { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
-    { href: "/projects", label: "Projects" },
-    { href: "/blog", label: "Blog" },
+    { href: "/projects", label: "Track Record" },
+    { href: "/blog", label: "Insights" },
 ];
 
 interface SiteNavProps {
@@ -57,7 +58,7 @@ export default function SiteNav({ activePath }: SiteNavProps) {
             <header className="site-nav">
                 <div className="nav-inner">
                     <a href="/" className="nav-logo">
-                        <img src="/anbe-logo.svg" alt="ANBE Nigeria Limited" style={{ height: 40, width: "auto", display: "block" }} />
+                        <span className="tejere-brand"><strong>{tejere.company.shortName}</strong><small>SERVICES</small></span>
                     </a>
 
                     <nav className="main-links" aria-label="Main navigation">
@@ -70,14 +71,14 @@ export default function SiteNav({ activePath }: SiteNavProps) {
 
                     <a href="/contact" className="nav-cta-btn">Contact Us</a>
 
-                    <button className="nav-toggle-btn" aria-label="Toggle menu" onClick={() => setMob(!mob)}>
+                    <button className="nav-toggle-btn" aria-label="Toggle menu" aria-expanded={mob} aria-controls="mobile-navigation" onClick={() => setMob(!mob)}>
                         {mob ? "✕" : "☰"}
                     </button>
                 </div>
             </header>
 
             {mob && (
-                <div className="mobile-menu">
+                <div className="mobile-menu" id="mobile-navigation">
                     {NAV_LINKS.map(({ href, label }) => (
                         <a key={href} href={href} onClick={() => setMob(false)}>{label}</a>
                     ))}
