@@ -12,7 +12,6 @@ import {
   GovernanceSection,
   Testimonials,
   News,
-  Careers,
   ContactSection,
 } from "../components/TejereSections";
 
@@ -31,7 +30,6 @@ export default function Home() {
       <GovernanceSection />
       <Testimonials />
       <News />
-      <Careers />
       <ContactSection />
     </TejereLayout>
   );

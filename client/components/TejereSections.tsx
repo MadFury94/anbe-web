@@ -505,33 +505,6 @@ export function News() {
   );
 }
 
-export function Careers() {
-  return (
-    <section className="section-pad" id="careers">
-      <div className="container">
-        <div className="careers-panel reveal">
-          <div>
-            <div className="eyebrow">Careers</div>
-            <h2>Work with Tejere Anderson Services.</h2>
-            <p>Career enquiries: {t.careers.email}</p>
-            <div className="careers-tags">
-              {t.services.map((s) => (
-                <span key={s.id}>{s.title}</span>
-              ))}
-            </div>
-          </div>
-          <div className="careers-side">
-            <div className="role">
-              <h5>Current opportunities</h5>
-              <span>{t.careers.roles}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function ContactSection() {
   return (
     <section className="section-pad" id="contact">

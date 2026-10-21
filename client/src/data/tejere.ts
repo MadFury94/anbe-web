@@ -146,16 +146,16 @@ export const tejere = {
       "label": "Core service areas"
     },
     {
-      "value": "***",
-      "label": "Projects completed"
+      "value": "50+",
+      "label": "Projects completed (demo)"
     },
     {
-      "value": "***",
-      "label": "Team size"
+      "value": "30+",
+      "label": "Team size (demo)"
     },
     {
-      "value": "***",
-      "label": "Response time"
+      "value": "24h",
+      "label": "Response time (demo)"
     }
   ],
   "testimonials": [
@@ -201,9 +201,5 @@ export const tejere = {
       "category": "Governance",
       "desc": "Reliable records and clear reporting give stakeholders a shared picture of what is happening along a pipeline, supporting timely decisions and accountable action."
     }
-  ],
-  "careers": {
-    "roles": "***",
-    "email": "***"
-  }
+  ]
 };
