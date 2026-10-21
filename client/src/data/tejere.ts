@@ -160,9 +160,19 @@ export const tejere = {
   ],
   "testimonials": [
     {
-      "quote": "***",
-      "name": "***",
-      "org": "***"
+      "quote": "The team took time to understand our corridor, access routes and operational priorities. Clear communication made it easier to plan each stage with confidence.",
+      "name": "Operations Manager",
+      "org": "Demo upstream operator"
+    },
+    {
+      "quote": "What stood out was the emphasis on listening. Bringing community representatives into the conversation early helped everyone understand their responsibilities.",
+      "name": "Community Liaison Lead",
+      "org": "Demo host-community programme"
+    },
+    {
+      "quote": "A practical approach to difficult terrain, supported by regular updates and a shared view of the risks. It is the kind of coordination an energy project needs.",
+      "name": "Project Coordinator",
+      "org": "Demo energy services partner"
     }
   ],
   "partners": [
@@ -174,9 +184,22 @@ export const tejere = {
   ],
   "news": [
     {
-      "title": "***",
-      "date": "***",
-      "desc": "***"
+      "title": "Why pipeline security starts with community trust",
+      "date": "Demo article",
+      "category": "Community",
+      "desc": "A look at how early dialogue, shared responsibilities and regular engagement can help operators and host communities protect a corridor together."
+    },
+    {
+      "title": "Planning for onshore, swamp and creek operations",
+      "date": "Demo article",
+      "category": "Field Operations",
+      "desc": "Every terrain brings different access and monitoring challenges. Explore the questions that help shape a practical plan before teams enter the field."
+    },
+    {
+      "title": "Turning field intelligence into better decisions",
+      "date": "Demo article",
+      "category": "Governance",
+      "desc": "Reliable records and clear reporting give stakeholders a shared picture of what is happening along a pipeline, supporting timely decisions and accountable action."
     }
   ],
   "careers": {

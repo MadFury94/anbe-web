@@ -451,14 +451,16 @@ export function LeadershipSection() {
 }
 
 export function Testimonials() {
+  const [active, setActive] = useState(0);
   return (
     <section className="section-pad on-dark">
       <div className="container testi-wrap">
         <div className="eyebrow" style={{ justifyContent: "center" }}>
           Client Feedback
         </div>
+        <p style={{ color: "var(--steel)", fontSize: 13, marginBottom: 28 }}>Demo testimonials — illustrative feedback, not actual client endorsements.</p>
         {t.testimonials.map((item, i) => (
-          <div key={i} className="testi-slide active">
+          <div key={i} className={`testi-slide${i === active ? " active" : ""}`}>
             <p className="testi-quote">{item.quote}</p>
             <div className="testi-person">
               {item.name}
@@ -466,6 +468,11 @@ export function Testimonials() {
             </div>
           </div>
         ))}
+        <div className="testi-dots">
+          {t.testimonials.map((_, i) => (
+            <button type="button" key={i} className={i === active ? "active" : ""} onClick={() => setActive(i)} aria-label={`Show demo testimonial ${i + 1}`} aria-pressed={i === active} />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -483,7 +490,7 @@ export function News() {
           {t.news.map((item, i) => (
             <article className="news-card" key={i}>
               <div className="news-thumb">
-                <span className="cat">Insights</span>
+                <span className="cat">{item.category}</span>
               </div>
               <div className="news-body">
                 <div className="date">{item.date}</div>
