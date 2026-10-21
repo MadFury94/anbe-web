@@ -109,18 +109,10 @@
 .terrain-details dd {
   color: var(--steel);
 }
-.governance-quote {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-}
-.governance-quote blockquote {
-  font-family: var(--font-space);
-  font-size: clamp(24px, 3vw, 36px);
-  line-height: 1.3;
-  border-left: 3px solid var(--amber);
-  padding-left: 24px;
+.governance-image img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 .milestone-art {
   position: absolute;

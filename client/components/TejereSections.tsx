@@ -413,8 +413,13 @@ export function GovernanceSection() {
             ))}
           </div>
         </div>
-        <div className="reveal sustain-visual governance-quote">
-          <blockquote>{t.governanceQuote}</blockquote>
+        <div className="reveal sustain-visual governance-image">
+          <img
+            src="/Overcast Niger Delta metering station (1) (1).png"
+            alt={`Niger Delta metering station. ${t.governanceQuote}`}
+            width={1254}
+            height={1254}
+          />
         </div>
       </div>
     </section>
