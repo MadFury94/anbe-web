@@ -31,7 +31,7 @@ export default function SiteFooter() {
             <div className="footer-col">
               <h5>Our Approach</h5>
               <a href="/projects">Track Record</a>
-              <a href="/services#terrain">Onshore, Swamp &amp; Creek</a>
+              <a href="/services#terrain">Our operating environments</a>
               <a href="/services#approach">How We Work</a>
               <a href="/about#governance">Smart Petroleum Governance</a>
             </div>

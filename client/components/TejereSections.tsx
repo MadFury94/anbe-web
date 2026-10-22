@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
 import { tejere as t } from "../src/data/tejere";
+import UpstreamField from "./UpstreamField";
 
 export function SectionHeading({
   eyebrow,
@@ -45,87 +46,22 @@ export function PageHero({
 }
 
 export function Hero() {
-  return (
-    <section className="hero">
-      <div className="flare-glow" aria-hidden="true" />
-      <div className="container hero-grid">
-        <div>
-          <div className="eyebrow">Energy services · Niger Delta</div>
-          <h2 style={{ fontSize: "clamp(38px,5.2vw,68px)", color: "white" }}>
-            Steel plus{" "}
-            <em style={{ color: "var(--amber)", fontStyle: "normal" }}>
-              consent.
-            </em>
-          </h2>
-          <p className="lead" style={{ marginTop: 24 }}>
-            {t.company.description}
-          </p>
-          <div className="hero-actions">
-            <a className="btn btn-primary" href="/contact">
-              Request a briefing →
-            </a>
-            <a className="btn btn-ghost" href="/services">
-              Explore Capabilities
-            </a>
-          </div>
-          <div className="hero-meta">
-            {t.stats.slice(0, 3).map((s) => (
-              <div key={s.label}>
-                <span className="num">{s.value}</span>
-                <span className="lbl">{s.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="hero-schematic">
-          <span className="corner tl" />
-          <span className="corner br" />
-          <svg
-            viewBox="0 0 400 420"
-            role="img"
-            aria-label="Illustrative pipeline corridor and host community"
-          >
-            <path
-              d="M20 140Q130 80 200 190T400 270"
-              stroke="#24404b"
-              strokeWidth="30"
-              fill="none"
-            />
-            <path
-              d="M40 350H110L180 260H245L310 180H360"
-              stroke="#E8873A"
-              strokeWidth="3"
-              fill="none"
-            />
-            {[
-              [110, 350, "VALVE STATION"],
-              [180, 260, "CREEK CROSSING"],
-              [310, 180, "HOST COMMUNITY"],
-            ].map(([x, y, label]) => (
-              <g key={label}>
-                <circle
-                  cx={x}
-                  cy={y}
-                  r="9"
-                  fill="#0A1628"
-                  stroke="#E8873A"
-                  strokeWidth="2"
-                />
-                <text
-                  x={Number(x) - 50}
-                  y={Number(y) - 25}
-                  fill="#8B95A1"
-                  fontSize="10"
-                >
-                  {label}
-                </text>
-              </g>
-            ))}
-          </svg>
-        </div>
-      </div>
-    </section>
-  );
+  return <section className="intro-hero"><div className="container intro-grid">
+    <div><div className="eyebrow">Upstream & exploration · Niger Delta</div>
+      <h1>Upstream, built with <em>the community.</em></h1><p className="intro-lead">{t.company.description}</p>
+      <div className="hero-actions"><a className="btn btn-primary" href="/contact">Request a briefing →</a><a className="btn btn-dark" href="/services">See our services →</a></div>
+      <p className="intro-footnote">ONSHORE / SWAMP / CREEK / DEEP OFFSHORE</p>
+      <div className="intro-signature"><span className="signature-line"/><span>Local knowledge.<br/><strong>From the first survey onward.</strong></span></div>
+    </div>
+    <UpstreamField />
+  </div></section>;
+}
+
+export function CommunitySection() {
+  return <section className="section-pad community-section" id="community"><div className="container community-grid">
+    <figure><img src="/images/concept-1.jpg" alt="Tejere Jolomi Thomas with Government Oweizide Ekpemupolo" width="664" height="886" loading="lazy"/><figcaption>Tejere Jolomi Thomas with Government Oweizide Ekpemupolo, popularly known as Tompolo.</figcaption></figure>
+    <div><div className="eyebrow">Community relationships</div><h2>Rooted in the Niger Delta</h2><p>Upstream work in the Niger Delta succeeds when it is built on trust with the region’s leaders and communities.</p><p>Tejere is an associate of Government Oweizide Ekpemupolo, popularly known as Tompolo, a Niger Delta leader.</p></div>
+  </div></section>;
 }
 
 export function AboutSection() {
@@ -135,7 +71,7 @@ export function AboutSection() {
         <div className="reveal about-visual">
           <img
             className="leadership-image"
-            src={t.leadership.photo}
+            src="/images/tejere-portrait.jpg"
             alt={t.leadership.name}
           />
           <div className="badge">
@@ -145,7 +81,7 @@ export function AboutSection() {
         </div>
         <div className="reveal">
           <div className="eyebrow">About Tejere Anderson Services</div>
-          <h2>Pipeline protection built around people and place.</h2>
+          <h2>Upstream expertise. Community understanding.</h2>
           <p style={{ marginTop: 18, color: "var(--steel-dark)" }}>
             {t.company.description}
           </p>
@@ -216,10 +152,9 @@ export function ServicesSection() {
       <div className="container">
         <SectionHeading
           eyebrow="Our Services"
-          title="Security, support and community partnership."
+          title="Three services that work as one."
         >
-          Practical services for upstream operations and pipeline corridors
-          across the Niger Delta.
+          Run the upstream work well, explore responsibly, and develop the community programmes that keep operations welcome.
         </SectionHeading>
         <div className="services-grid reveal">
           {t.services.map((s, i) => (
@@ -238,12 +173,12 @@ export function ServicesSection() {
                   y="6"
                   width="32"
                   height="32"
-                  stroke="#E8873A"
+                  stroke="#b8892f"
                   strokeWidth="1.5"
                 />
                 <path
                   d="M14 30L20 18L26 24L32 12"
-                  stroke="#0A1628"
+                  stroke="#0e2236"
                   strokeWidth="1.5"
                 />
               </svg>
@@ -273,10 +208,9 @@ export function TerrainSection() {
       <div className="container">
         <SectionHeading
           eyebrow="Where We Work"
-          title="Three terrains, one map."
+          title="Four settings. Local understanding."
         >
-          Onshore, swamp and creek each carry different risks. We plan for each
-          one on its own terms.
+          Onshore, swamp, creek and deep offshore: each brings its own access, logistics and community questions.
         </SectionHeading>
         <div
           className="industries-grid terrain-grid"
@@ -307,7 +241,7 @@ export function TerrainSection() {
                 document.getElementById(`terrain-${next}`)?.focus();
               }}
             >
-              <img className="terrain-image" src={item.image} alt="" loading="lazy" width={1536} height={1024} />
+              {item.image ? <img className="terrain-image" src={item.image} alt="" loading="lazy" width={1536} height={1024} /> : <div className="offshore-art" aria-hidden="true"><svg viewBox="0 0 300 200"><path d="M0 160 Q40 145 80 160 T160 160 T240 160 T320 160 M0 180 Q40 165 80 180 T160 180 T240 180 T320 180 M100 150 V100 H220 V150 M90 100 H230 M120 100 L150 35 L180 100 M133 72 H167 M195 100 V65" fill="none" stroke="currentColor" strokeWidth="3"/></svg></div>}
               <span className="tag">Niger Delta</span>
               <span className="terrain-title">{item.title}</span>
             </button>
@@ -370,25 +304,24 @@ export function TrackRecord() {
 
 export function ApproachSection() {
   return (
-    <section className="section-pad on-dark" id="approach">
+    <section className="section-pad lifecycle" id="approach">
       <div className="container">
         <SectionHeading
           eyebrow="How We Work"
-          title="Build agreement. Protect it."
+          title="The upstream lifecycle."
         >
-          A pipeline stays secure when the people along it agree it should. Our
-          process builds that agreement, then protects it.
+          Every stage touches the people who live nearby. We plan the technical work and the community programme together.
         </SectionHeading>
-        <div className="why-grid reveal">
+        <ol className="lifecycle-steps" aria-label="Upstream lifecycle stages">
           {t.approach.map((a, i) => (
-            <article className="why-item" key={a.title}>
-              <h4>
-                0{i + 1} · {a.title}
-              </h4>
+            <li className="lifecycle-step" key={a.title}>
+              <span className="lifecycle-number" aria-hidden="true">0{i + 1}</span>
+              <h3>{a.title}</h3>
               <p>{a.desc}</p>
-            </article>
+              <span className="lifecycle-outcome"><span aria-hidden="true">✓</span>{["Agree access early", "Keep neighbours informed", "Plan with the community", "Review and report openly"][i]}</span>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );
@@ -400,7 +333,7 @@ export function GovernanceSection() {
       <div className="container sustain-grid">
         <div className="reveal">
           <div className="eyebrow">Our Approach</div>
-          <h2>Smart Petroleum Governance</h2>
+          <h2>Smart Petroleum Governance</h2><blockquote className="governance-quote">{t.governanceQuote}</blockquote>
           <div className="sustain-list" style={{ marginTop: 30 }}>
             {t.governance.map((g, i) => (
               <div className="row" key={g.title}>
@@ -517,9 +450,9 @@ export function ContactSection() {
       <div className="container">
         <SectionHeading
           eyebrow="Contact"
-          title="Talk to us about your corridor."
+          title="Talk to us about your upstream project."
         >
-          Tell us where you operate and what you need protected.
+          Tell us where you operate or plan to explore, and the support your project needs.
         </SectionHeading>
         <div className="contact-grid reveal">
           <div className="contact-info">
@@ -605,9 +538,9 @@ export function CtaBand() {
     <section className="cta-band">
       <div className="container cta-inner">
         <div>
-          <h2>Let’s talk about your corridor.</h2>
+          <h2>Let’s talk about your upstream project.</h2>
           <p>
-            Pipeline security, oilfield support and community risk management.
+            Upstream operations, exploration support and community programmes.
           </p>
         </div>
         <a href="/contact" className="btn btn-primary">

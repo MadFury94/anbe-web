@@ -3,6 +3,7 @@ import {
   PageHero,
   AboutSection,
   LeadershipSection,
+  CommunitySection,
   GovernanceSection,
   TrackRecord,
   CtaBand,
@@ -19,6 +20,7 @@ export default function AboutPage() {
       />
       <AboutSection />
       <LeadershipSection />
+      <CommunitySection />
       <GovernanceSection />
       <TrackRecord />
       <CtaBand />

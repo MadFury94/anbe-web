@@ -3,18 +3,18 @@
 @import "tailwindcss";
 
 :root {
-  --navy: #0A1628;
-  --navy-2: #122238;
+  --navy: #0e2236;
+  --navy-2: #16314a;
   --charcoal: #1B222B;
-  --paper: #F7F5F0;
-  --paper-2: #EEEAE0;
+  --paper: #eef2f1;
+  --paper-2: #cfe3e0;
   --steel: #8B95A1;
-  --steel-dark: #4A5568;
-  --ink: #12181F;
-  --amber: #E8873A;
-  --amber-soft: #F0A669;
+  --steel-dark: #4e5b67;
+  --ink: #16222d;
+  --amber: #b8892f;
+  --amber-soft: #cfad69;
   --ember: #B4502A;
-  --line: rgba(10, 22, 40, 0.12);
+  --line: rgba(14, 34, 54, 0.12);
   --line-dark: rgba(247, 245, 240, 0.14);
   /* font variables — resolved at runtime, no next/font */
   --font-space: 'Space Grotesk', sans-serif;
@@ -175,7 +175,7 @@ img {
 }
 
 .vex-tag {
-  background: rgba(10, 22, 40, 0.9);
+  background: rgba(14, 34, 54, 0.9);
   border: 1px solid rgba(247, 245, 240, 0.22);
   border-radius: 2px;
   box-shadow: inset 3px 0 0 var(--amber);

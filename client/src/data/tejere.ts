@@ -1,12 +1,12 @@
-// Tejere content from the supplied concept. *** marks information not yet provided.
+// Content adapted from the supplied Tejere website concept.
 export const tejere = {
   "company": {
     "name": "Tejere Anderson Services",
     "shortName": "Tejere Anderson",
-    "tagline": "Pipeline security. Oilfield support. Community risk management.",
+    "tagline": "Upstream operations. Exploration. Community programmes.",
     "location": "Niger Delta, Nigeria",
     "established": "***",
-    "description": "Tejere Anderson Services supports upstream operations and protects pipelines across the Niger Delta, by building community programmes with the people who live alongside them."
+    "description": "Tejere Anderson Services supports upstream operations and exploration in the Niger Delta, with community programmes that bring host communities in from the first survey."
   },
   "contact": {
     "address": "***",
@@ -16,87 +16,87 @@ export const tejere = {
     "social": "***"
   },
   "hero": {
-    "headline": "Steel plus consent.",
-    "subheading": "Protecting pipelines.\nBuilding partnerships.",
-    "tagline": "Security. Support. Community."
+    "headline": "Upstream, built with the community.",
+    "subheading": "Upstream and exploration support in the Niger Delta.",
+    "tagline": "Local knowledge. Shared progress."
   },
   "services": [
     {
-      "id": "pipeline-security",
-      "title": "Pipeline security",
-      "desc": "Protection and optimisation of pipeline networks, using security models built around local conditions.",
+      "id": "upstream-operations",
+      "title": "Upstream operations",
+      "desc": "Practical support for oilfield operations, from the first site visit through to production.",
       "features": [
-        "Pipeline security architecture",
-        "Proactive risk-mitigation frameworks",
-        "Continuity planning for high-risk zones"
+        "Upstream oilfield support",
+        "Major gas project delivery",
+        "Operational continuity in high-risk zones"
       ]
     },
     {
-      "id": "oilfield-support",
-      "title": "Oilfield support",
-      "desc": "Practical support for upstream and midstream operations, from exploration through to production.",
+      "id": "exploration-support",
+      "title": "Exploration support",
+      "desc": "Support for exploration programmes on land, in swamp and creek areas, and in deep offshore settings.",
       "features": [
-        "Upstream and midstream operations",
-        "Deep offshore and exploration support",
-        "Major gas project delivery"
+        "Deep offshore and exploration",
+        "Access planning for survey and drilling sites",
+        "Stakeholder coordination before work begins"
       ]
     },
     {
-      "id": "community-risk",
-      "title": "Community risk management",
-      "desc": "Community programmes and structured engagement between operators, contractors, government and host communities.",
+      "id": "community-programmes",
+      "title": "Community programmes",
+      "desc": "Development and engagement programmes that bring host communities in as partners.",
       "features": [
+        "Community programmes development and engagement",
         "Host-community engagement frameworks",
-        "Mediation and stakeholder dialogue",
-        "Community programmes development and engagement"
+        "Mediation between operators, government and communities"
       ]
     }
   ],
   "approach": [
     {
-      "title": "Read the corridor",
-      "desc": "We study the terrain, the seasons and the stakeholders before we propose anything."
+      "title": "Survey and explore",
+      "desc": "Agree access and expectations with host communities before survey crews arrive."
     },
     {
-      "title": "Agree with the community",
-      "desc": "We sit down with host communities and leaders to agree how the corridor will be shared and protected."
+      "title": "Drill and appraise",
+      "desc": "Keep neighbours informed while wells are drilled, so the site stays welcome."
     },
     {
-      "title": "Monitor and respond",
-      "desc": "We combine field intelligence with digital monitoring to spot problems early."
+      "title": "Develop the field",
+      "desc": "Build community programmes alongside the development plan, not after it."
     },
     {
-      "title": "Review and renew",
-      "desc": "We report openly, review the agreement regularly and adjust as conditions change."
+      "title": "Produce and sustain",
+      "desc": "Review programmes regularly and report openly as production runs."
     }
   ],
   "governance": [
     {
       "title": "Modernisation",
-      "desc": "Digital monitoring that watches a line in real time, and security infrastructure that anticipates trouble instead of reacting to it."
+      "desc": "Digital monitoring that tracks operations in real time, from the survey to the production site."
     },
     {
       "title": "Transparency",
-      "desc": "Data-driven decision frameworks that replace rumour with record, so every stakeholder can see what is happening."
+      "desc": "Data-driven decisions that every stakeholder, including host communities, can see."
     },
     {
       "title": "Efficiency",
-      "desc": "Less loss to theft, leakage and delay, so more of the value of every barrel reaches the people who live beside it."
+      "desc": "Security and planning designed to anticipate problems instead of reacting to them."
     }
   ],
-  "governanceQuote": "Africa cannot secure, measure or fairly distribute what it cannot see.",
+  "governanceQuote": "Africa cannot measure or fairly distribute what it cannot see.",
   "leadership": {
     "name": "Tejere Jolomi Thomas",
     "role": "Chief Executive Officer",
-    "photo": "/tejere-leadership.jpg",
+    "photo": "/images/tejere-leadership.jpg",
     "bio": [
-      "Tejere has spent more than two decades in oil and gas, across upstream operations, offshore and exploration, pipeline security and community risk management. His strength is upstream work and the development of community programmes that bring host communities in as partners. He knows the onshore, the swamp and the creek first-hand.",
-      "He is also Executive Vice President of Ocean Wave Group, where since 2024 he has led the protection of pipeline networks and the coordination of stakeholders along complex energy corridors. An indigene of Kokori in Delta State, he is known as a trusted mediator between investors, government, contractors and host communities."
+      "Tejere has more than 20 years of experience in upstream operations, deep offshore and exploration, and the development of community programmes and engagement. He has worked across onshore, swamp and creek environments in the Niger Delta.",
+      "His focus is upstream operations that involve host communities as partners from the start. An indigene of Kokori, Ethiope East Local Government Area, Delta State, he works between energy investors, government institutions, contractors and host communities.",
+      "He is also Executive Vice President of Ocean Wave Group, where since 2024 he has led pipeline network protection."
     ],
     "facts": [
       "20+ years in oil and gas",
-      "Escravos Gas-to-Liquids (EGTL), 2011 to 2013",
-      "Named by Africa Energy News among Africa's most forward-looking energy minds"
+      "Escravos Gas-to-Liquids (EGTL), 2011 to 2013"
     ]
   },
   "track": [
@@ -120,23 +120,30 @@ export const tejere = {
     {
       "title": "Onshore",
       "image": "/Onshore Pipeline Through Niger Delta Greens.png",
-      "desc": "Dry-land corridors run beside roads, farms and settlements. The main task is keeping the right-of-way clear and the relationship with nearby communities healthy.",
-      "concern": "Right-of-way integrity and third-party interference",
-      "approach": "Regular patrols, community liaison and early reporting"
+      "desc": "Land-based exploration and development depend on survey lines, access roads and well sites, all of which cross land that communities use every day.",
+      "concern": "Access to land and early agreement with landholders",
+      "approach": "Community liaison before survey crews arrive"
     },
     {
       "title": "Swamp",
       "image": "/Elevated Pipeline Across Niger Delta Swamp.png",
-      "desc": "Swamp corridors are slow to reach and change with the seasons. Plans here depend on knowing when and how each stretch can be accessed.",
-      "concern": "Seasonal access and wide, hard-to-observe corridors",
-      "approach": "Local guides, seasonal planning and remote monitoring"
+      "desc": "Swamp areas are slow to reach and change with the seasons. Upstream plans here depend on knowing when and how each site can be reached.",
+      "concern": "Seasonal access for crews, equipment and rigs",
+      "approach": "Local knowledge and seasonal planning"
     },
     {
       "title": "Creek",
       "image": "/Winding Niger Delta Mangrove Creek.png",
-      "desc": "Creeks are the roads of the Delta. Jetties and crossings sit at the meeting point of operations and everyday community life.",
-      "concern": "Waterway crossings, jetty safety and boat traffic",
-      "approach": "Knowing which jetty is safe in which season, and who uses it"
+      "desc": "Creeks are the roads of the Delta. Jetties and waterways carry upstream logistics and everyday community life at the same time.",
+      "concern": "Waterway logistics, jetties and boat traffic",
+      "approach": "Knowing which waterway is safe in which season, and who uses it"
+    },
+    {
+      "title": "Deep offshore",
+      "image": "",
+      "desc": "Deep offshore projects run on long timelines and rely on shore bases, supply routes and the communities that support them.",
+      "concern": "Long-lead planning and shore-side community relations",
+      "approach": "Early engagement with the communities hosting the shore base"
     }
   ],
   "stats": [
@@ -146,19 +153,11 @@ export const tejere = {
     },
     {
       "value": "3",
-      "label": "Core service areas"
+      "label": "Integrated service areas"
     },
     {
-      "value": "50+",
-      "label": "Projects completed (demo)"
-    },
-    {
-      "value": "30+",
-      "label": "Team size (demo)"
-    },
-    {
-      "value": "24h",
-      "label": "Response time (demo)"
+      "value": "4",
+      "label": "Operating environments"
     }
   ],
   "testimonials": [

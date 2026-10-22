@@ -3,20 +3,20 @@ import { useEffect, useState } from "react";
 import { tejere } from "../src/data/tejere";
 
 const NAV_CSS = `
-  .site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,22,40,0.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(247,245,240,0.14);}
+  .site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.97);backdrop-filter:blur(10px);border-bottom:1px solid #d5dddc;}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1240px;margin:0 auto;padding:0 32px;height:64px;}
-  .nav-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;}
+  .nav-logo .tejere-brand{color:#0e2236;} .nav-logo .tejere-brand small{color:#7e5a12;} .nav-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;}
   .main-links{display:flex;gap:28px;align-items:center;}
-  .main-links a{font-family:'Inter',sans-serif;font-size:14px;color:rgba(255,255,255,0.82);font-weight:500;position:relative;padding:4px 0;text-decoration:none;white-space:nowrap;}
-  .main-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:#E8873A;transition:width .3s ease;}
+  .main-links a{font-family:var(--font-inter);font-size:14px;color:#16222d;font-weight:500;position:relative;padding:4px 0;text-decoration:none;white-space:nowrap;}
+  .main-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:#b8892f;transition:width .3s ease;}
   .main-links a:hover::after,.main-links a.nav-active::after{width:100%;}
-  .nav-cta-btn{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#0A1628;background:#E8873A;padding:10px 20px;border-radius:2px;letter-spacing:0.02em;transition:background .25s ease;text-decoration:none;white-space:nowrap;flex-shrink:0;}
-  .nav-cta-btn:hover{background:#F0A669;}
-  .nav-toggle-btn{display:none;background:none;border:none;color:#fff;font-size:26px;cursor:pointer;padding:4px;line-height:1;flex-shrink:0;}
-  .mobile-menu{position:fixed;top:64px;left:0;right:0;bottom:0;background:rgba(10,22,40,0.99);z-index:997;display:flex;flex-direction:column;padding:32px;gap:0;overflow-y:auto;}
-  .mobile-menu a{font-family:'Inter',sans-serif;font-size:18px;font-weight:500;color:rgba(255,255,255,0.9);text-decoration:none;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.07);}
+  .nav-cta-btn{font-family:var(--font-inter);font-size:13px;font-weight:600;color:#0e2236;background:#b8892f;padding:10px 20px;border-radius:2px;letter-spacing:0.02em;transition:background .25s ease;text-decoration:none;white-space:nowrap;flex-shrink:0;}
+  .nav-cta-btn:hover{background:#cfad69;}
+  .nav-toggle-btn{display:none;background:none;border:none;color:#0e2236;font-size:26px;cursor:pointer;padding:4px;line-height:1;flex-shrink:0;}
+  .mobile-menu{position:fixed;top:64px;left:0;right:0;bottom:0;background:rgba(14,34,54,0.99);z-index:997;display:flex;flex-direction:column;padding:32px;gap:0;overflow-y:auto;}
+  .mobile-menu a{font-family:var(--font-inter);font-size:18px;font-weight:500;color:rgba(255,255,255,0.9);text-decoration:none;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.07);}
   .mobile-menu a:last-child{border-bottom:none;}
-  .mobile-menu a.mob-cta{margin-top:24px;background:#E8873A;color:#0A1628;padding:16px 24px;text-align:center;font-weight:600;border-bottom:none;border-radius:2px;}
+  .mobile-menu a.mob-cta{margin-top:24px;background:#b8892f;color:#0e2236;padding:16px 24px;text-align:center;font-weight:600;border-bottom:none;border-radius:2px;}
   @media(max-width:1080px){.main-links{gap:18px;}}
   @media(max-width:900px){.main-links{gap:14px;} .main-links a{font-size:13px;}}
   @media(max-width:760px){

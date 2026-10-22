@@ -30,7 +30,7 @@ a {
   font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #e8873a;
+  color: #b8892f;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -40,7 +40,7 @@ a {
   content: "";
   width: 28px;
   height: 1px;
-  background: #e8873a;
+  background: #b8892f;
   flex-shrink: 0;
 }
 .btn {
@@ -57,20 +57,20 @@ a {
   text-decoration: none;
 }
 .btn-primary {
-  background: #e8873a;
-  color: #0a1628;
+  background: #b8892f;
+  color: #0e2236;
 }
 .btn-primary:hover {
-  background: #f0a669;
+  background: #cfad69;
   transform: translateY(-1px);
 }
 .btn-dark {
-  border: 1px solid rgba(10, 22, 40, 0.12);
-  color: #0a1628;
+  border: 1px solid rgba(14, 34, 54, 0.12);
+  color: #0e2236;
 }
 .btn-dark:hover {
-  border-color: #0a1628;
-  background: #0a1628;
+  border-color: #0e2236;
+  background: #0e2236;
   color: #fff;
 }
 .reveal {
@@ -88,7 +88,7 @@ a {
   padding: 110px 0;
 }
 .on-dark {
-  background: #0a1628;
+  background: #0e2236;
 }
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -101,8 +101,8 @@ a {
 .page-hero {
   padding: 180px 0 90px;
   background:
-    linear-gradient(180deg, rgba(10, 22, 40, 0.9) 0%, #0a1628 100%),
-    linear-gradient(135deg, #0a1628 0%, #10203a 55%, #16283f 100%);
+    linear-gradient(180deg, rgba(14, 34, 54, 0.9) 0%, #0e2236 100%),
+    linear-gradient(135deg, #0e2236 0%, #10203a 55%, #16283f 100%);
   position: relative;
   overflow: hidden;
 }
@@ -167,7 +167,7 @@ a {
   letter-spacing: 0.04em;
 }
 .breadcrumb a {
-  color: #e8873a;
+  color: #b8892f;
   text-decoration: none;
 }
 
@@ -192,16 +192,16 @@ a {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(10, 22, 40, 0.88);
+  background: rgba(14, 34, 54, 0.88);
   backdrop-filter: blur(8px);
   padding: 20px 24px;
-  border-top: 2px solid #e8873a;
+  border-top: 2px solid #b8892f;
 }
 .overview-img .img-badge .num {
   font-family: "Space Grotesk", sans-serif;
   font-size: 32px;
   font-weight: 700;
-  color: #e8873a;
+  color: #b8892f;
   line-height: 1;
 }
 .overview-img .img-badge .lbl {
@@ -216,7 +216,7 @@ a {
   position: absolute;
   width: 20px;
   height: 20px;
-  border-color: #e8873a;
+  border-color: #b8892f;
 }
 .overview-img .corner.tl {
   top: -1px;
@@ -253,9 +253,9 @@ a {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(10, 22, 40, 0.9);
+  background: rgba(14, 34, 54, 0.9);
   padding: 18px 20px;
-  border-top: 2px solid #e8873a;
+  border-top: 2px solid #b8892f;
 }
 .ceo-photo .ceo-tag strong {
   display: block;
@@ -267,7 +267,7 @@ a {
 .ceo-photo .ceo-tag span {
   font-family: "IBM Plex Mono", monospace;
   font-size: 11px;
-  color: #e8873a;
+  color: #b8892f;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -280,7 +280,7 @@ a {
   font-style: italic;
   margin-bottom: 20px;
   padding-left: 24px;
-  border-left: 3px solid #e8873a;
+  border-left: 3px solid #b8892f;
 }
 
 /* VALUES */
@@ -292,13 +292,13 @@ a {
   border: 1px solid rgba(247, 245, 240, 0.1);
 }
 .value-card {
-  background: #0a1628;
+  background: #0e2236;
   padding: 40px 32px;
 }
 .value-card .v-num {
   font-family: "IBM Plex Mono", monospace;
   font-size: 12px;
-  color: #e8873a;
+  color: #b8892f;
   letter-spacing: 0.1em;
   margin-bottom: 16px;
 }
@@ -322,7 +322,7 @@ a {
   gap: 24px;
 }
 .team-card {
-  border: 1px solid rgba(10, 22, 40, 0.1);
+  border: 1px solid rgba(14, 34, 54, 0.1);
   overflow: hidden;
   background: #fff;
 }
@@ -335,13 +335,13 @@ a {
 }
 .team-card .team-info {
   padding: 18px 20px 22px;
-  border-top: 2px solid #e8873a;
+  border-top: 2px solid #b8892f;
 }
 .team-card .team-info strong {
   display: block;
   font-family: "Space Grotesk", sans-serif;
   font-size: 15px;
-  color: #0a1628;
+  color: #0e2236;
   margin-bottom: 4px;
 }
 .team-card .team-info span {
@@ -363,29 +363,29 @@ a {
   grid-template-columns: 100px 1fr;
   gap: 24px;
   padding: 28px 0;
-  border-bottom: 1px solid rgba(10, 22, 40, 0.1);
+  border-bottom: 1px solid rgba(14, 34, 54, 0.1);
   align-items: start;
 }
 .milestone-row:first-child {
-  border-top: 1px solid rgba(10, 22, 40, 0.1);
+  border-top: 1px solid rgba(14, 34, 54, 0.1);
 }
 .milestone-year {
   font-family: "IBM Plex Mono", monospace;
   font-size: 26px;
-  color: #e8873a;
+  color: #b8892f;
   font-weight: 500;
   padding-top: 2px;
 }
 .milestone-body h4 {
   font-family: "Space Grotesk", sans-serif;
   font-size: 17px;
-  color: #0a1628;
+  color: #0e2236;
   margin-bottom: 6px;
 }
 .milestone-body p {
   font-family: "Inter", sans-serif;
   font-size: 14px;
-  color: #4a5568;
+  color: #4e5b67;
   line-height: 1.6;
 }
 .milestones-outer {
@@ -399,7 +399,7 @@ a {
   aspect-ratio: 16/9;
   object-fit: cover;
   display: block;
-  border-top: 2px solid #e8873a;
+  border-top: 2px solid #b8892f;
   margin-top: 32px;
 }
 
@@ -448,7 +448,7 @@ a {
 
 /* CTA BAND */
 .cta-band {
-  background: linear-gradient(120deg, #0a1628, #16283f);
+  background: linear-gradient(120deg, #0e2236, #16283f);
   padding: 80px 0;
   position: relative;
   overflow: hidden;
@@ -532,9 +532,9 @@ a {
   background:
     linear-gradient(
       180deg,
-      rgba(10, 22, 40, 0.82) 0%,
-      rgba(10, 22, 40, 0.94) 60%,
-      #0a1628 100%
+      rgba(14, 34, 54, 0.82) 0%,
+      rgba(14, 34, 54, 0.94) 60%,
+      #0e2236 100%
     ),
     repeating-linear-gradient(
       90deg,
@@ -542,7 +542,7 @@ a {
       transparent 79px,
       rgba(232, 135, 58, 0.05) 80px
     ),
-    linear-gradient(135deg, #0a1628 0%, #10203a 55%, #16283f 100%);
+    linear-gradient(135deg, #0e2236 0%, #10203a 55%, #16283f 100%);
   position: relative;
   overflow: hidden;
   padding-top: 120px;
@@ -819,7 +819,7 @@ a {
 }
 .about-visual {
   aspect-ratio: 4/5;
-  background: linear-gradient(155deg, #16283f, #0a1628);
+  background: linear-gradient(155deg, #16283f, #0e2236);
   position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -973,7 +973,7 @@ a {
   aspect-ratio: 3/3.6;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(200deg, #16283f, #0a1628);
+  background: linear-gradient(200deg, #16283f, #0e2236);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -1022,12 +1022,12 @@ a {
     transform 0.3s ease;
 }
 .proj-card:hover {
-  box-shadow: 0 24px 48px -20px rgba(10, 22, 40, 0.25);
+  box-shadow: 0 24px 48px -20px rgba(14, 34, 54, 0.25);
   transform: translateY(-4px);
 }
 .proj-thumb {
   aspect-ratio: 16/10;
-  background: linear-gradient(155deg, #16283f, #0a1628);
+  background: linear-gradient(155deg, #16283f, #0e2236);
   position: relative;
   overflow: hidden;
 }
@@ -1266,7 +1266,7 @@ a {
   color: var(--navy);
 }
 .careers-panel {
-  background: linear-gradient(120deg, #0a1628, #16283f);
+  background: linear-gradient(120deg, #0e2236, #16283f);
   border: 1px solid rgba(247, 245, 240, 0.14);
   padding: 64px;
   display: grid;
@@ -1384,8 +1384,8 @@ a {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(10, 22, 40, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(10, 22, 40, 0.06) 1px, transparent 1px);
+    linear-gradient(rgba(14, 34, 54, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 34, 54, 0.06) 1px, transparent 1px);
   background-size: 34px 34px;
 }
 .map-box span {
@@ -1505,7 +1505,7 @@ form.contact-form {
 }
 
 .site-footer {
-  background: #0a1628;
+  background: #0e2236;
   padding: 60px 0 0;
 }
 .footer-inner {
@@ -1555,8 +1555,8 @@ form.contact-form {
 }
 .footer-newsletter button {
   padding: 11px 16px;
-  background: #e8873a;
-  color: #0a1628;
+  background: #b8892f;
+  color: #0e2236;
   font-size: 13px;
   font-weight: 600;
   border: none;
@@ -1576,7 +1576,7 @@ form.contact-form {
 .footer-col h5 {
   font-family: "IBM Plex Mono", monospace;
   font-size: 11px;
-  color: #e8873a;
+  color: #b8892f;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 16px;
@@ -1626,8 +1626,8 @@ form.contact-form {
   transition: all 0.2s;
 }
 .footer-socials a:hover {
-  border-color: #e8873a;
-  color: #e8873a;
+  border-color: #b8892f;
+  color: #b8892f;
 }
 
 /* Mobile */

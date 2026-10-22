@@ -93,7 +93,7 @@ export default function VideoHero() {
         <div className="flex flex-1 flex-col justify-end pb-12 lg:pb-20">
           <div className="gap-10 lg:grid lg:grid-cols-2 lg:items-end">
             <div>
-              <AnimatedHeading text={tejere.hero.subheading} />
+              <AnimatedHeading text={tejere.hero.headline} />
               <FadeIn delay={800}>
                 <p className="mb-5 text-base text-gray-300 md:text-lg">
                   {tejere.company.description}

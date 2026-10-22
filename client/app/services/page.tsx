@@ -14,7 +14,7 @@ export default function ServicesPage() {
       <PageHero
         label="Services"
         title="Protecting operations and the people alongside them."
-        text="Pipeline security, oilfield support and community risk management across the Niger Delta."
+        text="Upstream operations, exploration support and community programmes across the Niger Delta."
       />
       <ServicesSection />
       <StatsStrip />

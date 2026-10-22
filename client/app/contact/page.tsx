@@ -6,8 +6,8 @@ export default function ContactPage() {
     <TejereLayout path="/contact">
       <PageHero
         label="Contact"
-        title="Talk to us about your corridor."
-        text="Discuss pipeline security, oilfield support or community engagement with Tejere Anderson Services."
+        title="Talk to us about your upstream project."
+        text="Discuss upstream operations, exploration support or community programmes with Tejere Anderson Services."
       />
       <ContactSection />
     </TejereLayout>
