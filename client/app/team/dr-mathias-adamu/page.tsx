@@ -2,49 +2,43 @@ import TejereLayout from "../../../components/TejereLayout";
 import { PageHero, CtaBand } from "../../../components/TejereSections";
 import { tejere } from "../../../src/data/tejere";
 
-const member = tejere.team[1];
+const m = tejere.team[1];
 
 export default function DrMathiasAdamuPage() {
     return (
         <TejereLayout path="/about">
-            <PageHero
-                label="Our People"
-                title={member.name}
-                text={member.role}
-            />
+            <PageHero label="Our People" title={m.name} text={m.role} />
             <section className="section-pad">
                 <div className="container profile-grid">
                     <aside className="profile-aside reveal">
+                        <div className="profile-photo-wrap">
+                            <img src={m.photo} alt={m.name} className="profile-photo" />
+                        </div>
                         <div className="profile-meta">
                             <div className="eyebrow">Role</div>
-                            <p>{member.role}</p>
+                            <p>{m.role}</p>
                         </div>
                         <div className="profile-meta">
                             <div className="eyebrow">Location</div>
-                            <p>{member.location}</p>
+                            <p>{m.location}</p>
                         </div>
                         <div className="profile-meta">
                             <div className="eyebrow">Qualifications</div>
                             <ul className="profile-list">
-                                {member.qualifications.map((q) => (
-                                    <li key={q}>{q}</li>
-                                ))}
+                                {m.qualifications.map((q) => <li key={q}>{q}</li>)}
                             </ul>
                         </div>
                         <a href="/about#team" className="btn btn-dark" style={{ marginTop: 32 }}>
                             ← Back to team
                         </a>
                     </aside>
-
                     <div className="profile-body reveal">
                         <div className="eyebrow">Profile</div>
-                        <h2>{member.name}{member.suffix ? `, ${member.suffix}` : ""}</h2>
-                        <p className="profile-lead">{member.bio}</p>
+                        <h2>{m.name}{m.suffix ? `, ${m.suffix}` : ""}</h2>
+                        <p className="profile-lead">{m.bio}</p>
                         <h3 className="profile-section-title">Areas of expertise</h3>
                         <ul className="profile-expertise">
-                            {member.expertise.map((e) => (
-                                <li key={e}>{e}</li>
-                            ))}
+                            {m.expertise.map((e) => <li key={e}>{e}</li>)}
                         </ul>
                     </div>
                 </div>

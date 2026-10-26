@@ -8,6 +8,7 @@ import {
   TrackRecord,
   ApproachSection,
   GovernanceSection,
+  TeamPreview,
   ContactSection,
 } from "../components/TejereSections";
 
@@ -22,6 +23,7 @@ export default function Home() {
       <GovernanceSection />
       <LeadershipSection />
       <CommunitySection />
+      <TeamPreview />
       <ContactSection />
     </TejereLayout>
   );

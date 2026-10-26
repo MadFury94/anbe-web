@@ -193,6 +193,8 @@ export const tejere = {
     {
       "name": "Tejere Ibidun Ighoyota",
       "suffix": "ESQ",
+      "slug": "tejere-ibidun-ighoyota",
+      "photo": "/images/woman.jpeg",
       "role": "Legal Counsel",
       "location": "Whitby, Ontario, Canada",
       "bio": "Tejere Ibidun Ighoyota is a legal professional with five years of experience in corporate advisory, commercial law, regulatory compliance, contract management, and organisational governance. As Legal Counsel at Tejere Anderson Services Ltd, she brings a multidisciplinary perspective to supporting corporate operations, managing legal risks, and aligning legal considerations with strategic business objectives.",
@@ -212,6 +214,8 @@ export const tejere = {
     {
       "name": "Dr. Mathias Adamu",
       "suffix": "MIET, FCCFI",
+      "slug": "dr-mathias-adamu",
+      "photo": "/images/Dr. Mathias Adamu.jpeg",
       "role": "Strategic Adviser — Economic Development & Energy",
       "location": "Abuja, Nigeria",
       "bio": "Dr. Mathias Adamu is an accomplished executive and strategic adviser with over a decade of experience spanning economic development, energy strategy, infrastructure investment, public-private partnerships (PPPs), regulatory reform, and institutional transformation. He has played significant roles in advancing national energy policies and investment programmes involving assets valued at over US$1 billion.",
@@ -231,6 +235,8 @@ export const tejere = {
     {
       "name": "Ebikabowei Charles Dorgu",
       "suffix": "",
+      "slug": "ebikabowei-charles-dorgu",
+      "photo": "/images/Dorgu.jpeg",
       "role": "Executive Adviser — Upstream Operations",
       "location": "Abuja, Nigeria",
       "bio": "Ebikabowei Charles Dorgu is an oil and gas executive with over 20 years of upstream and downstream experience in the swamps and shallow-water offshore Niger Delta. He has served as Managing Director of two oil-producing companies, with hands-on experience managing crude oil production, evacuation and sales, joint venture relations, and commercial partnerships.",

@@ -541,37 +541,63 @@ export function ContactSection() {
   );
 }
 
+export function TeamPreview() {
+  return (
+    <section className="section-pad team-preview-section" id="team-preview">
+      <div className="container">
+        <SectionHeading eyebrow="Our People" title="Leadership & advisers.">
+          The professionals who guide and support Tejere Anderson Services.
+        </SectionHeading>
+        <div className="team-cards-grid reveal">
+          {t.team.map((m) => (
+            <a
+              key={m.slug}
+              href={`/team/${m.slug}`}
+              className="team-profile-card"
+            >
+              <div className="team-profile-photo">
+                <img src={m.photo} alt={m.name} loading="lazy" />
+              </div>
+              <div className="team-profile-body">
+                <div className="team-profile-role">{m.role}</div>
+                <h3 className="team-profile-name">
+                  {m.name}
+                  {m.suffix && <span className="team-profile-suffix">, {m.suffix}</span>}
+                </h3>
+                <p className="team-profile-location">{m.location}</p>
+                <span className="team-profile-link">View profile →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function TeamSection() {
-  const links = [
-    { slug: "tejere-ibidun-ighoyota", index: 0 },
-    { slug: "dr-mathias-adamu", index: 1 },
-    { slug: "ebikabowei-charles-dorgu", index: 2 },
-  ];
   return (
     <section className="section-pad on-dark" id="team">
       <div className="container">
         <SectionHeading eyebrow="Our People" title="Leadership & advisers." />
         <div className="team-directory reveal">
-          {links.map(({ slug, index }) => {
-            const m = t.team[index];
-            return (
-              <a
-                key={slug}
-                href={`/team/${slug}`}
-                className="team-dir-row"
-              >
-                <div className="team-dir-main">
-                  <span className="team-dir-name">
-                    {m.name}
-                    {m.suffix && <span className="team-dir-suffix">, {m.suffix}</span>}
-                  </span>
-                  <span className="team-dir-role">{m.role}</span>
-                </div>
-                <span className="team-dir-location">{m.location}</span>
-                <span className="team-dir-arrow">→</span>
-              </a>
-            );
-          })}
+          {t.team.map((m) => (
+            <a
+              key={m.slug}
+              href={`/team/${m.slug}`}
+              className="team-dir-row"
+            >
+              <div className="team-dir-main">
+                <span className="team-dir-name">
+                  {m.name}
+                  {m.suffix && <span className="team-dir-suffix">, {m.suffix}</span>}
+                </span>
+                <span className="team-dir-role">{m.role}</span>
+              </div>
+              <span className="team-dir-location">{m.location}</span>
+              <span className="team-dir-arrow">→</span>
+            </a>
+          ))}
         </div>
       </div>
     </section>
