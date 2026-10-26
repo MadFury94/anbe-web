@@ -1,3 +1,4 @@
+import { Linkedin, Twitter, Instagram, Facebook } from "lucide-react";
 import { tejere as t } from "../src/data/tejere";
 
 export default function SiteFooter() {
@@ -51,7 +52,18 @@ export default function SiteFooter() {
               reserved.
             </p>
             <div className="footer-socials">
-              Social links: {t.contact.social}
+              <a href={t.contact.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <Linkedin size={18} />
+              </a>
+              <a href={t.contact.social.x} target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                <Twitter size={18} />
+              </a>
+              <a href={t.contact.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <Instagram size={18} />
+              </a>
+              <a href={t.contact.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <Facebook size={18} />
+              </a>
             </div>
           </div>
         </div>

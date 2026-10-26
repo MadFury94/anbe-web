@@ -51,7 +51,7 @@ export function Hero() {
       <h1>Upstream, built with <em>the community.</em></h1><p className="intro-lead">{t.company.description}</p>
       <div className="hero-actions"><a className="btn btn-primary" href="/contact">Request a briefing →</a><a className="btn btn-dark" href="/services">See our services →</a></div>
       <p className="intro-footnote">ONSHORE / SWAMP / CREEK / DEEP OFFSHORE</p>
-      <div className="intro-signature"><span className="signature-line"/><span>Local knowledge.<br/><strong>From the first survey onward.</strong></span></div>
+      <div className="intro-signature"><span className="signature-line" /><span>Local knowledge.<br /><strong>From the first survey onward.</strong></span></div>
     </div>
     <UpstreamField />
   </div></section>;
@@ -59,7 +59,7 @@ export function Hero() {
 
 export function CommunitySection() {
   return <section className="section-pad community-section" id="community"><div className="container community-grid">
-    <figure><img src="/images/concept-1.jpg" alt="Tejere Jolomi Thomas with Government Oweizide Ekpemupolo" width="664" height="886" loading="lazy"/><figcaption>Tejere Jolomi Thomas with Government Oweizide Ekpemupolo, popularly known as Tompolo.</figcaption></figure>
+    <figure><img src="/images/concept-1.jpg" alt="Tejere Jolomi Thomas with Government Oweizide Ekpemupolo" width="664" height="886" loading="lazy" /><figcaption>Tejere Jolomi Thomas with Government Oweizide Ekpemupolo, popularly known as Tompolo.</figcaption></figure>
     <div><div className="eyebrow">Community relationships</div><h2>Rooted in the Niger Delta</h2><p>Upstream work in the Niger Delta succeeds when it is built on trust with the region’s leaders and communities.</p><p>Tejere is an associate of Government Oweizide Ekpemupolo, popularly known as Tompolo, a Niger Delta leader.</p></div>
   </div></section>;
 }
@@ -241,7 +241,7 @@ export function TerrainSection() {
                 document.getElementById(`terrain-${next}`)?.focus();
               }}
             >
-              {item.image ? <img className="terrain-image" src={item.image} alt="" loading="lazy" width={1536} height={1024} /> : <div className="offshore-art" aria-hidden="true"><svg viewBox="0 0 300 200"><path d="M0 160 Q40 145 80 160 T160 160 T240 160 T320 160 M0 180 Q40 165 80 180 T160 180 T240 180 T320 180 M100 150 V100 H220 V150 M90 100 H230 M120 100 L150 35 L180 100 M133 72 H167 M195 100 V65" fill="none" stroke="currentColor" strokeWidth="3"/></svg></div>}
+              {item.image ? <img className="terrain-image" src={item.image} alt="" loading="lazy" width={1536} height={1024} /> : <div className="offshore-art" aria-hidden="true"><svg viewBox="0 0 300 200"><path d="M0 160 Q40 145 80 160 T160 160 T240 160 T320 160 M0 180 Q40 165 80 180 T160 180 T240 180 T320 180 M100 150 V100 H220 V150 M90 100 H230 M120 100 L150 35 L180 100 M133 72 H167 M195 100 V65" fill="none" stroke="currentColor" strokeWidth="3" /></svg></div>}
               <span className="tag">Niger Delta</span>
               <span className="terrain-title">{item.title}</span>
             </button>
@@ -468,8 +468,16 @@ export function ContactSection() {
               </div>
             ))}
             <div className="map-box">
-              <div className="grid-overlay" />
-              <span>Office location: {t.contact.address}</span>
+              <iframe
+                title="Tejere Anderson Services office location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.8!2d5.7811!3d5.5408!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNcKwMzInMjYuOSJOIDXCsDQ2JzUyLjAiRQ!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng&q=DDPA+Housing+Estate+Airport+Road+Effurun+Warri+Delta+State+Nigeria"
+                width="100%"
+                height="100%"
+                style={{ border: 0, display: "block" }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
           <form
@@ -527,6 +535,53 @@ export function ContactSection() {
               sent or saved.
             </p>
           </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function TeamSection() {
+  return (
+    <section className="section-pad" id="team">
+      <div className="container">
+        <SectionHeading eyebrow="Our People" title="Leadership & advisers.">
+          The professionals who guide and support Tejere Anderson Services.
+        </SectionHeading>
+        <div className="team-grid reveal">
+          {t.team.map((member) => (
+            <article className="team-card" key={member.name}>
+              <div className="team-card-header">
+                <h3>
+                  {member.name}
+                  {member.suffix && (
+                    <span className="team-suffix">, {member.suffix}</span>
+                  )}
+                </h3>
+                <div className="team-role">{member.role}</div>
+                <div className="team-location">{member.location}</div>
+              </div>
+              <p className="team-bio">{member.bio}</p>
+              <div className="team-details">
+                <div className="team-col">
+                  <h4>Areas of expertise</h4>
+                  <ul>
+                    {member.expertise.map((e) => (
+                      <li key={e}>{e}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="team-col">
+                  <h4>Qualifications</h4>
+                  <ul>
+                    {member.qualifications.map((q) => (
+                      <li key={q}>{q}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>

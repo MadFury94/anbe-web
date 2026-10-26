@@ -6,6 +6,7 @@ import {
   CommunitySection,
   GovernanceSection,
   TrackRecord,
+  TeamSection,
   CtaBand,
 } from "../../components/TejereSections";
 import { tejere } from "../../src/data/tejere";
@@ -20,6 +21,7 @@ export default function AboutPage() {
       />
       <AboutSection />
       <LeadershipSection />
+      <TeamSection />
       <CommunitySection />
       <GovernanceSection />
       <TrackRecord />

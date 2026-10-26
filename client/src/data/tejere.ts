@@ -9,11 +9,16 @@ export const tejere = {
     "description": "Tejere Anderson Services supports upstream operations and exploration in the Niger Delta, with community programmes that bring host communities in from the first survey."
   },
   "contact": {
-    "address": "***",
-    "phone": "***",
-    "email": "***",
-    "hours": "***",
-    "social": "***"
+    "address": "Plot 10, 38th Street, DDPA Housing Estate, Airport Road, Effurun, Warri, Delta State, Nigeria",
+    "phone": "+234 806 339 6183",
+    "email": "info@tejereanderson.com",
+    "hours": "Monday – Friday, 8 am – 5 pm WAT",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/tejereanderson",
+      "x": "https://x.com/tejereanderson",
+      "instagram": "https://www.instagram.com/Tejere.Anderson",
+      "facebook": "https://www.facebook.com/TejereThomas"
+    }
   },
   "hero": {
     "headline": "Upstream, built with the community.",
@@ -183,6 +188,65 @@ export const tejere = {
     "***",
     "***",
     "***"
+  ],
+  "team": [
+    {
+      "name": "Tejere Ibidun Ighoyota",
+      "suffix": "ESQ",
+      "role": "Legal Counsel",
+      "location": "Whitby, Ontario, Canada",
+      "bio": "Tejere Ibidun Ighoyota is a legal professional with five years of experience in corporate advisory, commercial law, regulatory compliance, contract management, and organisational governance. As Legal Counsel at Tejere Anderson Services Ltd, she brings a multidisciplinary perspective to supporting corporate operations, managing legal risks, and aligning legal considerations with strategic business objectives.",
+      "expertise": [
+        "Corporate and commercial legal advisory",
+        "Contract drafting and negotiation",
+        "Regulatory compliance",
+        "Corporate governance",
+        "Legal risk management"
+      ],
+      "qualifications": [
+        "Bachelor of Laws (LL.B.)",
+        "Product Management certification, 2025",
+        "Human Resources, Entrepreneurship and Marketing studies"
+      ]
+    },
+    {
+      "name": "Dr. Mathias Adamu",
+      "suffix": "MIET, FCCFI",
+      "role": "Strategic Adviser — Economic Development & Energy",
+      "location": "Abuja, Nigeria",
+      "bio": "Dr. Mathias Adamu is an accomplished executive and strategic adviser with over a decade of experience spanning economic development, energy strategy, infrastructure investment, public-private partnerships (PPPs), regulatory reform, and institutional transformation. He has played significant roles in advancing national energy policies and investment programmes involving assets valued at over US$1 billion.",
+      "expertise": [
+        "Economic development and infrastructure finance",
+        "Energy strategy and regulatory reform",
+        "Public-private partnerships (PPP)",
+        "Investment advisory",
+        "Applied Agentic AI for organisational transformation"
+      ],
+      "qualifications": [
+        "Doctor of Business Administration",
+        "Harvard — executive education in economic growth and infrastructure finance",
+        "MIT — Applied Agentic AI for Organisational Transformation"
+      ]
+    },
+    {
+      "name": "Ebikabowei Charles Dorgu",
+      "suffix": "",
+      "role": "Executive Adviser — Upstream Operations",
+      "location": "Abuja, Nigeria",
+      "bio": "Ebikabowei Charles Dorgu is an oil and gas executive with over 20 years of upstream and downstream experience in the swamps and shallow-water offshore Niger Delta. He has served as Managing Director of two oil-producing companies, with hands-on experience managing crude oil production, evacuation and sales, joint venture relations, and commercial partnerships.",
+      "expertise": [
+        "Executive leadership of oil-producing companies",
+        "Upstream strategy and asset development",
+        "Production and evacuation management",
+        "Joint venture relations",
+        "Government engagement and commercial partnerships"
+      ],
+      "qualifications": [
+        "MSc Information Systems, University of Sheffield",
+        "BSc Computer Science, University of Nigeria, Nsukka",
+        "Fundamentals of Offshore Field Development, IBC Academy"
+      ]
+    }
   ],
   "news": [
     {
