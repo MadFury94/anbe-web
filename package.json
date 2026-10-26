@@ -6,6 +6,7 @@
     "client": "npm run dev --prefix client",
     "dev": "npm run client",
     "build": "npm run build --prefix client",
+    "postinstall": "npm ci --prefix client",
     "typecheck": "node client/node_modules/typescript/bin/tsc -p client/tsconfig.app.json --noEmit",
     "deploy": "npm run build && wrangler pages deploy client/dist --project-name tejere-anderson-services --branch tejere",
     "install:all": "npm ci --prefix client",
