@@ -542,46 +542,36 @@ export function ContactSection() {
 }
 
 export function TeamSection() {
+  const links = [
+    { slug: "tejere-ibidun-ighoyota", index: 0 },
+    { slug: "dr-mathias-adamu", index: 1 },
+    { slug: "ebikabowei-charles-dorgu", index: 2 },
+  ];
   return (
-    <section className="section-pad" id="team">
+    <section className="section-pad on-dark" id="team">
       <div className="container">
-        <SectionHeading eyebrow="Our People" title="Leadership & advisers.">
-          The professionals who guide and support Tejere Anderson Services.
-        </SectionHeading>
-        <div className="team-grid reveal">
-          {t.team.map((member) => (
-            <article className="team-card" key={member.name}>
-              <div className="team-card-header">
-                <h3>
-                  {member.name}
-                  {member.suffix && (
-                    <span className="team-suffix">, {member.suffix}</span>
-                  )}
-                </h3>
-                <div className="team-role">{member.role}</div>
-                <div className="team-location">{member.location}</div>
-              </div>
-              <p className="team-bio">{member.bio}</p>
-              <div className="team-details">
-                <div className="team-col">
-                  <h4>Areas of expertise</h4>
-                  <ul>
-                    {member.expertise.map((e) => (
-                      <li key={e}>{e}</li>
-                    ))}
-                  </ul>
+        <SectionHeading eyebrow="Our People" title="Leadership & advisers." />
+        <div className="team-directory reveal">
+          {links.map(({ slug, index }) => {
+            const m = t.team[index];
+            return (
+              <a
+                key={slug}
+                href={`/team/${slug}`}
+                className="team-dir-row"
+              >
+                <div className="team-dir-main">
+                  <span className="team-dir-name">
+                    {m.name}
+                    {m.suffix && <span className="team-dir-suffix">, {m.suffix}</span>}
+                  </span>
+                  <span className="team-dir-role">{m.role}</span>
                 </div>
-                <div className="team-col">
-                  <h4>Qualifications</h4>
-                  <ul>
-                    {member.qualifications.map((q) => (
-                      <li key={q}>{q}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </article>
-          ))}
+                <span className="team-dir-location">{m.location}</span>
+                <span className="team-dir-arrow">→</span>
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>
